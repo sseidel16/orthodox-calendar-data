@@ -1,4 +1,4 @@
-# Orthodox Calendar Generator
+# Orthodox Calendar Data
 
 Generates structured calendar JSON from Orthodox liturgical CSV data.
 

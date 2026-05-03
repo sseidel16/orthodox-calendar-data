@@ -1,5 +1,5 @@
 {
-  "name": "orthodox-calendar-generator",
+  "name": "orthodox-calendar-data",
   "version": "1.0.0",
   "description": "Generates Orthodox calendar JSON data from CSV source files",
   "main": "dist/index.js",
