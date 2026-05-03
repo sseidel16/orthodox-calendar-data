@@ -1,0 +1,20 @@
+{
+  "name": "orthodox-calendar-generator",
+  "version": "1.0.0",
+  "description": "Generates Orthodox calendar JSON data from CSV source files",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "generate": "tsc && node dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["orthodox", "calendar", "saints", "feasts"],
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "typescript": "5.7.3"
+  },
+  "dependencies": {
+    "csv-parse": "5.6.0"
+  }
+}
