@@ -5,14 +5,28 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "generate": "tsc && node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cli": "tsc && node dist/cli.js",
+    "cli:date": "tsc && node dist/cli.js date",
+    "cli:range": "tsc && node dist/cli.js range",
+    "cli:month": "tsc && node dist/cli.js month",
+    "cli:year": "tsc && node dist/cli.js year",
+    "generate": "tsc && node dist/cli.js year",
     "clean": "rm -rf dist"
   },
-  "keywords": ["orthodox", "calendar", "saints", "feasts"],
+  "keywords": [
+    "orthodox",
+    "calendar",
+    "saints",
+    "feasts"
+  ],
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
-    "typescript": "5.7.3"
+    "@types/node": "^25.6.0",
+    "typescript": "5.7.3",
+    "vitest": "^4.1.5"
   },
   "dependencies": {
     "csv-parse": "5.6.0"
