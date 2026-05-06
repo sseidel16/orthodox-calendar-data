@@ -142,7 +142,7 @@ function transformToUI(enrichedDates: EnrichedDate[], noteIndicators: string[], 
  * Build a 5x7 grid from DateBoxes and NoteBoxes.
  * Handles:
  * - Day-of-week alignment (Sunday=0 start)
- * - SplitBox for overflow into 6th row
+ * - SplitBox for overflow into 6th row (placed at the same column in row 5)
  * - NoteBox placement (prefer next to 1st, fallback near end)
  * - EmptyBox for unused cells
  */
@@ -151,40 +151,47 @@ function buildGrid(dateBoxes: DateBox[], noteBoxes: NoteBox[], year: number, mon
     const startDow = firstDay.getUTCDay(); // 0=Sunday
     const daysInMonth = dateBoxes.length;
 
-    // Calculate how many cells the dates occupy without splits
-    const totalDateCells = startDow + daysInMonth;
-    const overflow = Math.max(0, totalDateCells - 35);
+    // Each date naturally sits at position (startDow + dateIndex).
+    // Positions >= 35 overflow into a hypothetical 6th row.
+    // Overflow dates wrap to Sunday (col 0) of row 6, then Monday, etc.
+    // SplitBox pairs each overflow date with the date 7 positions earlier
+    // (same column, row 5) — because that's where the overflow wraps to.
+    const totalPositions = startDow + daysInMonth;
+    const overflow = Math.max(0, totalPositions - 35);
 
-    // Each SplitBox saves 1 cell (2 dates -> 1 cell).
-    // overflow=1: 1 SplitBox with last 2 dates
-    // overflow=2: 2 SplitBoxes with last 4 dates (paired)
-    const splitCount = overflow; // each split saves exactly 1 cell
-    const splitPairs: [DateBox, DateBox][] = [];
+    // Map position -> SplitBox for positions in row 5 that get paired with overflow
+    const splitAtPosition = new Map<number, SplitBox>();
+    const datesConsumedBySplit = new Set<number>(); // date indices consumed
 
-    if (splitCount > 0) {
-        // Take dates from the end, pair them into SplitBoxes
-        for (let i = 0; i < splitCount; i++) {
-            const idx = daysInMonth - (splitCount - i) * 2;
-            splitPairs.push([dateBoxes[idx], dateBoxes[idx + 1]]);
-        }
+    for (let i = 0; i < overflow; i++) {
+        const overflowPos = 35 + i;
+        const overflowDateIdx = overflowPos - startDow;
+        const row5Pos = overflowPos - 7; // same column, one row up
+        const row5DateIdx = row5Pos - startDow;
+
+        splitAtPosition.set(row5Pos, {
+            type: 'SPLIT',
+            top: dateBoxes[row5DateIdx],
+            bottom: dateBoxes[overflowDateIdx],
+        });
+        datesConsumedBySplit.add(row5DateIdx);
+        datesConsumedBySplit.add(overflowDateIdx);
     }
 
-    const regularDateCount = daysInMonth - splitCount * 2;
-    const contentCells = regularDateCount + splitCount; // just dates and splits
+    // Content cells = regular dates + split boxes
+    const contentCells = (daysInMonth - overflow * 2) + overflow;
 
-    // NoteBoxes replace empty cells — available space is everything not used by content
+    // NoteBoxes fill empty cells (not used by content)
     const noteCount = noteBoxes.length;
     const availableForNotes = 35 - contentCells;
     const notesToPlace = Math.min(noteCount, Math.max(0, availableForNotes));
-
-    // Build linear cell array, then reshape to 5x7
-    const cells: BoxData[] = [];
-
-    // Place NoteBoxes next to the 1st of the month (in empty cells before it)
     const notesBefore = Math.min(notesToPlace, startDow);
     const notesAfter = notesToPlace - notesBefore;
 
-    // Fill cells before the 1st
+    // Build the 35-cell linear array
+    const cells: BoxData[] = [];
+
+    // Leading empties/notes before the 1st
     let notesPlacedBefore = 0;
     for (let i = 0; i < startDow; i++) {
         if (i >= startDow - notesBefore) {
@@ -195,26 +202,32 @@ function buildGrid(dateBoxes: DateBox[], noteBoxes: NoteBox[], year: number, mon
         }
     }
 
-    // Place regular date cells
-    for (let i = 0; i < regularDateCount; i++) {
-        cells.push(dateBoxes[i]);
+    // Date cells and SplitBoxes in their natural positions
+    let dateIdx = 0;
+    for (let pos = startDow; pos < 35; pos++) {
+        if (splitAtPosition.has(pos)) {
+            cells.push(splitAtPosition.get(pos)!);
+            dateIdx++; // skip the date at this position (consumed by split)
+        } else {
+            // Skip dates consumed by splits
+            while (datesConsumedBySplit.has(dateIdx) && dateIdx < daysInMonth) {
+                dateIdx++;
+            }
+            if (dateIdx < daysInMonth) {
+                cells.push(dateBoxes[dateIdx]);
+                dateIdx++;
+            } else {
+                break; // no more dates, rest will be notes/empties
+            }
+        }
     }
 
-    // Place SplitBoxes
-    for (const [top, bottom] of splitPairs) {
-        cells.push({
-            type: 'SPLIT',
-            top,
-            bottom,
-        } as SplitBox);
-    }
-
-    // Place remaining notes at the end (near last day of month)
+    // Trailing notes
     for (let i = 0; i < notesAfter; i++) {
         cells.push(noteBoxes[notesBefore + i]);
     }
 
-    // Fill remaining cells with EmptyBox
+    // Fill remaining with EmptyBox
     while (cells.length < 35) {
         cells.push({ type: 'EMPTY' } as EmptyBox);
     }

@@ -62,26 +62,34 @@ describe('Month grid generation - structure', () => {
 describe('Month grid generation - SplitBox', () => {
     it('creates 1 SplitBox when overflow is 1 (May 2026, starts Friday)', () => {
         // May 2026 starts Friday (dow=5), 31 days: 5+31=36, overflow=1
+        // Day 31 overflows to Sunday of row 6 → pairs with day 24 (Sunday of row 5)
         const result = getMonthGrid(4, 2026);
         const splits = result.grid.flat().filter(c => c.type === 'SPLIT');
         expect(splits.length).toBe(1);
         if (splits[0].type === 'SPLIT') {
-            expect(splits[0].top.newDate).toBe(30);
+            expect(splits[0].top.newDate).toBe(24);
             expect(splits[0].bottom.newDate).toBe(31);
         }
+        // SplitBox should be at Sunday column (first cell of last row)
+        expect(result.grid[4][0].type).toBe('SPLIT');
     });
 
     it('creates 2 SplitBoxes when overflow is 2 (August 2026, starts Saturday)', () => {
         // August 2026 starts Saturday (dow=6), 31 days: 6+31=37, overflow=2
+        // Day 30 overflows to Sunday of row 6 → pairs with day 23 (Sunday of row 5)
+        // Day 31 overflows to Monday of row 6 → pairs with day 24 (Monday of row 5)
         const result = getMonthGrid(7, 2026);
         const splits = result.grid.flat().filter(c => c.type === 'SPLIT');
         expect(splits.length).toBe(2);
         if (splits[0].type === 'SPLIT' && splits[1].type === 'SPLIT') {
-            expect(splits[0].top.newDate).toBe(28);
-            expect(splits[0].bottom.newDate).toBe(29);
-            expect(splits[1].top.newDate).toBe(30);
+            expect(splits[0].top.newDate).toBe(23);
+            expect(splits[0].bottom.newDate).toBe(30);
+            expect(splits[1].top.newDate).toBe(24);
             expect(splits[1].bottom.newDate).toBe(31);
         }
+        // SplitBoxes at Sunday and Monday columns of last row
+        expect(result.grid[4][0].type).toBe('SPLIT');
+        expect(result.grid[4][1].type).toBe('SPLIT');
     });
 
     it('does not create SplitBox when month fits in 5 rows', () => {
