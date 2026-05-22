@@ -53,6 +53,8 @@ export type DateBox = {
     moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST'; // the moon phase
     fasting: 'NONE' | 'DAIRY' | 'FISH' | 'OIL' | 'STRICT';
     note?: string; // note indicator like *, links to a NoteBox in the same month
+    newFeast: boolean; // indicates if it's a new calendar feast and newDate should be in red
+    oldFeast: boolean; // indicates if it's a new calendar feast and oldDate should be in red
     mainText: {
         feast?: string[]; // [english, greek]
         saint?: string[]; // [english, greek]

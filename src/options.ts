@@ -11,7 +11,7 @@ export type CalendarOptions = {
 
 export const DEFAULT_OPTIONS: Required<CalendarOptions> = {
     timezone: 'America/Phoenix',
-    noteIndicators: ['*', '**', '†', '‡'],
+    noteIndicators: ['*', '†', '‡'],
 };
 
 export function resolveOptions(options?: CalendarOptions): Required<CalendarOptions> {

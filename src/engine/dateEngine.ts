@@ -1,31 +1,12 @@
-import { YearContext, buildYearContext, getPaschaOffsetFromCtx } from './yearContext.js';
-import { dayOfYear, formatMMDD, applyMainTextRules } from './rules/index.js';
-
-/**
- * Enriched date data returned by the range API.
- * This is the raw calendar data type — not a UI type.
- */
-export type EnrichedDate = {
-    date: Date;
-    paschaOffset: number;
-    newDate: number;
-    oldDate: number;
-    fasting: 'NONE' | 'DAIRY' | 'FISH' | 'OIL' | 'STRICT';
-    moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
-    notes: string[];
-    mainText: {
-        feast?: string[];   // [english, greek]
-        saint?: string[];   // [english, greek]
-        note?: string[];    // [english, greek]
-    };
-    lowerText: {
-        tone?: string;
-        readings: string[];
-    };
-};
+import { EnrichedDate, EnrichedDateData } from './enrichedTypes.js';
+import { YearContext, CalendarContext, buildYearContext } from './yearContext.js';
+import { dayOfYear } from './rules/dateUtils.js';
+import { applyTextRules } from './rules/textRules.js';
 
 /**
  * Generate enriched calendar data for a date range within a single year.
+ * Builds a YearContext internally — use generateDateRangeWithCtx for efficiency
+ * when generating multiple ranges within the same year.
  */
 export function generateDateRange(start: Date, end: Date, year: number, timezone?: string): EnrichedDate[] {
     const ctx = buildYearContext(year, timezone);
@@ -49,63 +30,61 @@ export function generateDateRangeWithCtx(start: Date, end: Date, ctx: YearContex
 }
 
 /**
- * Generate enriched data for a single date using a prebuilt YearContext.
+ * Generate enriched data for a single physical date.
+ * Both calendar systems are enriched from the same physical date —
+ * the CalendarSystem handles translating to calendar-specific date numbers and MM-DD keys.
  */
 function generateSingleDate(date: Date, ctx: YearContext): EnrichedDate {
-    const paschaOffset = getPaschaOffsetFromCtx(date, ctx);
-    const newDate = date.getUTCDate();
-    const oldDate = getOldCalendarDate(date);
     const doy = dayOfYear(date);
-    const mmdd = formatMMDD(date);
 
-    // MainText
-    const mainText = applyMainTextRules(
-        mmdd,
-        paschaOffset,
-        ctx.drsAssignments,
-        ctx.specialAssignments,
-        ctx.movablesByOffset,
-    );
+    const newData = enrichForCalendar(date, ctx.newCalendar);
+    const oldData = enrichForCalendar(date, ctx.oldCalendar);
 
-    // Fasting
-    const fasting = ctx.fastingMap.get(doy) ?? 'NONE';
-
-    // Tone
-    const tone = ctx.toneMap.get(doy);
-
-    // Moon
+    // Moon phase is physical — keyed by the actual date's day-of-year
     const moon = ctx.moonMap.get(doy) ?? 'NONE';
 
-    // Notes
-    const noteAssignment = ctx.noteAssignments.get(doy);
-    const notes: string[] = noteAssignment ? [noteAssignment[0], noteAssignment[1]] : [];
-
-    // Build lowerText
-    const lowerText: { tone?: string; readings: string[] } = { readings: [] };
-    if (tone) lowerText.tone = tone;
-
-    return {
-        date,
-        paschaOffset,
-        newDate,
-        oldDate,
-        fasting,
-        moon,
-        notes,
-        mainText,
-        lowerText,
-    };
+    return { date, moon, oldData, newData };
 }
 
 /**
- * Get the Julian (Old Calendar) date number for a Gregorian date.
- * The Julian calendar is 13 days behind in the 21st century.
+ * Enrich a single physical date for one calendar system.
+ * The CalendarSystem provides the date number and MM-DD for lookups.
+ * Fasting/tone/note maps are keyed by physical day-of-year (already correct day-of-week).
  */
-function getOldCalendarDate(date: Date): number {
-    const julianDate = new Date(date);
-    julianDate.setUTCDate(julianDate.getUTCDate() - 13);
-    return julianDate.getUTCDate();
+function enrichForCalendar(physicalDate: Date, calCtx: CalendarContext): EnrichedDateData {
+    const dateNum = calCtx.calendar.getDateNumber(physicalDate);
+    const doy = dayOfYear(physicalDate);
+    const mmdd = calCtx.calendar.getMMDD(physicalDate);
+
+    // Fasting: precomputed per physical day-of-year
+    const fasting = calCtx.fastingMap.get(doy) ?? 'NONE';
+
+    // Tone: precomputed per physical day-of-year (only Sundays have entries)
+    const tone = calCtx.toneMap.get(doy);
+
+    // Lengthy notes: precomputed per physical day-of-year
+    const noteAssignment = calCtx.noteMap.get(doy);
+    const lengthyNotes: string[] = noteAssignment ? [noteAssignment[0], noteAssignment[1]] : [];
+
+    // Feast/Saint/Note text: uses calendar-specific MM-DD for lookups
+    const textResult = applyTextRules(mmdd, calCtx.movableTextMap, calCtx.specialTextMap, calCtx.ecum4Mmdd);
+
+    const result: EnrichedDateData = {
+        date: dateNum,
+        fasting,
+        lengthyNotes,
+        readings: [],
+    };
+
+    if (tone) result.tone = tone;
+    if (textResult.feast) result.feast = textResult.feast;
+    if (textResult.saint) result.saint = textResult.saint;
+    if (textResult.note) result.note = textResult.note;
+
+    return result;
 }
 
-// Re-export for convenience
-export { buildYearContext, type YearContext } from './yearContext.js';
+// Re-exports for public API
+export { buildYearContext } from './yearContext.js';
+export type { YearContext } from './yearContext.js';
+export type { EnrichedDate, EnrichedDateData } from './enrichedTypes.js';

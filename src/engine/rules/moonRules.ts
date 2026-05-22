@@ -6,8 +6,7 @@
  */
 
 import { daysInYear, utcDate, dayOfYear } from './dateUtils.js';
-
-export type MoonPhase = 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
+import { MoonPhase } from '../enrichedTypes.js';
 
 /** Default timezone for determining which date a phase falls on */
 const DEFAULT_TIMEZONE = 'America/Phoenix';

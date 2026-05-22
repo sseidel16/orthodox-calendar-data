@@ -1,11 +1,18 @@
 /**
- * NoteRules — lengthy bilingual notes triggered by PaschaOffset or date conditions.
- * Each date gets at most one note (as [english, greek]).
+ * NoteRules — lengthy bilingual notes per CalendarRules.md § LengthyNotesRules.
+ *
+ * These are extended notes (too long for the DateBox) that get displayed in
+ * NoteBoxes at the UI layer. At the data layer, they're stored as [english, greek].
+ *
+ * Four trigger conditions:
+ * 1. PASCHA-53 and PASCHA-51: "Some traditions allow for no fasting"
+ * 2. Wed/Fri in Pentecostarion (PASCHA+8 through PASCHA+48): monastery fasting note
+ * 3. Palm Sunday (PASCHA-7): "Some traditions allow for fish"
+ * 4. Wed/Fri in 01/02-01/04 and 12/26-12/31: "Some traditions allow for no fasting"
  */
 
-import { dayOfYear, daysInYear, utcDate, getDow, formatMMDD, addDays, daysBetween } from './dateUtils.js';
+import { dayOfYear, daysInYear, utcDate, getDow, formatMMDD, daysBetween } from './dateUtils.js';
 
-// Note texts
 const NOTE_NO_FASTING: [string, string] = [
     'Some traditions allow for no fasting on this day.',
     'Κατ\' ἄλλη ἐκδοχὴ δὲν ἔχει νηστεία αὐτὴ τὴν ἡμέρα.',
@@ -21,10 +28,14 @@ const NOTE_PALM_SUNDAY_FISH: [string, string] = [
     'Κατ\' ἄλλη ἐκδοχὴ ἐπιτρέπεται κατάλυσις ἰχθύος τὴν Κυριακὴ τῶν Βαΐων.',
 ];
 
-// Dates that exclude the monastery note
+/** Dates where the monastery note does NOT apply (even if Wed/Fri in Pentecostarion) */
 const MONASTERY_EXCLUDED_DATES = new Set(['04-23', '05-08', '05-21', '06-24']);
 
-export function buildNoteAssignments(year: number, pascha: Date): Map<number, [string, string]> {
+/**
+ * Build a note map for the entire year. Returns a Map keyed by day-of-year (0-based).
+ * Only days with a lengthy note will have entries.
+ */
+export function buildNoteMap(year: number, pascha: Date): Map<number, [string, string]> {
     const map = new Map<number, [string, string]>();
     const totalDays = daysInYear(year);
 
@@ -34,29 +45,27 @@ export function buildNoteAssignments(year: number, pascha: Date): Map<number, [s
         const mmdd = formatMMDD(date);
         const offset = daysBetween(pascha, date);
 
-        // Rule 1: PaschaOffset -53 and -51
+        // Rule 1: PASCHA-53 and PASCHA-51 (Cheese Fare week no-liturgy days)
         if (offset === -53 || offset === -51) {
             map.set(doy, NOTE_NO_FASTING);
             continue;
         }
 
-        // Rule 2: Wed/Fri when 7 < PaschaOffset < 49
+        // Rule 2: Wed/Fri during Pentecostarion (strictly between Thomas Sunday and Pentecost)
         if ((dow === 3 || dow === 5) && offset > 7 && offset < 49) {
-            // Exceptions by date
-            if (MONASTERY_EXCLUDED_DATES.has(mmdd)) continue;
-            // Exceptions by offset
-            if (offset === 24 || offset === 38) continue;
+            if (MONASTERY_EXCLUDED_DATES.has(mmdd)) continue;  // excluded fixed dates
+            if (offset === 24 || offset === 38) continue;       // Mid-Pentecost and Apodosis
             map.set(doy, NOTE_MONASTERY);
             continue;
         }
 
-        // Rule 3: Palm Sunday (PaschaOffset -7)
+        // Rule 3: Palm Sunday
         if (offset === -7) {
             map.set(doy, NOTE_PALM_SUNDAY_FISH);
             continue;
         }
 
-        // Rule 4: Wed/Fri between 01/02-01/04 and 12/26-12/31
+        // Rule 4: Wed/Fri in the Nativity/Theophany afterfeast periods
         if (dow === 3 || dow === 5) {
             const month = date.getUTCMonth() + 1;
             const day = date.getUTCDate();

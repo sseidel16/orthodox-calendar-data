@@ -36,13 +36,28 @@ export function isLeapYear(year: number): boolean {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
 
-/** Find the Sunday that falls within a date range (inclusive). Returns null if none. */
-export function findSundayInRange(year: number, startMonth: number, startDay: number, endMonth: number, endDay: number): Date | null {
-    const start = utcDate(year, startMonth - 1, startDay);
-    const end = utcDate(year, endMonth - 1, endDay);
+/**
+ * Find the Sunday that falls within a date range (inclusive). Returns null if none.
+ * If crossYear is true, handles ranges that span Dec→Jan (uses year for start, year+1 or year for end).
+ */
+export function findSundayInRange(year: number, startMonth: number, startDay: number, endMonth: number, endDay: number, crossYear?: boolean): Date | null {
+    return findDayInRange(year, startMonth, startDay, endMonth, endDay, 0, crossYear);
+}
+
+/** Find the Saturday that falls within a date range (inclusive). Returns null if none. */
+export function findSaturdayInRange(year: number, startMonth: number, startDay: number, endMonth: number, endDay: number, crossYear?: boolean): Date | null {
+    return findDayInRange(year, startMonth, startDay, endMonth, endDay, 6, crossYear);
+}
+
+/** Find a specific day-of-week (0=Sun, 6=Sat) within a date range. */
+function findDayInRange(year: number, startMonth: number, startDay: number, endMonth: number, endDay: number, dow: number, crossYear?: boolean): Date | null {
+    const startYear = year;
+    const endYear = crossYear && endMonth < startMonth ? year + 1 : year;
+    const start = utcDate(startYear, startMonth - 1, startDay);
+    const end = utcDate(endYear, endMonth - 1, endDay);
     const current = new Date(start);
     while (current.getTime() <= end.getTime()) {
-        if (current.getUTCDay() === 0) return new Date(current);
+        if (current.getUTCDay() === dow) return new Date(current);
         current.setUTCDate(current.getUTCDate() + 1);
     }
     return null;
