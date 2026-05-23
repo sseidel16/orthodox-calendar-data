@@ -55,7 +55,7 @@ All movable references are found in *data/MovableReferences.csv*. The instructio
 * SATaN \- the Saturday between 12/26-12/29, if it exists  
 * SUNaN \- the Sunday between 12/26-12/29, if it exists
 
-Between SUNaT and PASCHA-70 (non-inclusive), there may be up to 6 Sundays, termed “gap Sundays”. The gap Sundays should be assigned the following movable references depending on how many Sundays are available:
+Between SUNaT and PASCHA-70 (non-inclusive), there may be up to 6 Sundays, termed “*gap Sundays*”. The gap Sundays should be assigned the following movable references depending on how many Sundays are available:
 
 * 1: L15  
 * 2: L12, L15  
@@ -141,10 +141,7 @@ The following dates are NONE fasting if they fall on a Monday, Tuesday, Thursday
 
 The following dates are NONE fasting if they fall on Monday, Tuesday, Thursday, Saturday or Sunday, and they are FISH if they fall on Wednesday or Friday:
 
-* 02/02?  
-* 06/29  
-* 08/15  
-* 09/08
+* 02/02, 06/29, 08/15, 09/08
 
 The following dates are OIL if they fall on Monday, Tuesday, Wednesday, Thursday or Friday, and they are FISH if they fall on Saturday or Sunday:
 
@@ -261,43 +258,34 @@ Tones only show on Sundays, and are missing otherwise. Some Sundays are missing 
 
 ***Required: EnrichedDateData.readings (array/list of free-form text strings)***
 
-Write rules for readings here
+First, apply the movable readings from *data/ReadingsMovable.csv* as follows:
 
-First apply the GOSPEL readings for the whole year based on the rules below:
+* Readings that share the same symbol, offset, and type are adjacent rows in the table and bundled together  
+* These bundles should be applied in the order that they appear in the data table.  
+* If a bundle is being applied to a date that already contains a bundle of the same type, it will clear out and overwrite the existing bundle
 
-* Begin by applying the movable readings from *data/ReadingsMovable.csv* as follows:  
-  * All readings with PASCHA symbol from PASCHA-70 through SUNaE  
-  * Next, apply the readings for the period from the Monday after the Sunday after the elevation of the cross until the Saturday before the publican and the Pharisee.
+Next, for *gap Sundays*, epistle bundles are taken from other days with specific PASCHA offsets. The offsets are determined depending on how many Sundays are available, and are listed below:
 
-Then apply immovable readings from *data/ReadingsImmovable.csv* in the following way:
-
-There are two levels of precedence for special readings.   
-Lower level readings or “LLR” replace the readings which are found there for all days except Sundays, all days between PASCHA+1 through PASCHA+6 inclusive /\*Bright Week\*/, PASCHA+24 /\*Mid-Pentecost\*/, and PASCHA+39 /\*Ascension\*/   
-Higher level readings or “HLR” will replace the readings which are there no matter what
-
-LLR days are:
-
-* 01/05, 01/07, 01/08, 01/09, 01/10, 01/11, 01/12, 01/13, 12/24, unless it falls on a Saturday  
-* 01/17, 01/18, 01/20, 01/25, 01/28, 01/30, 02/10, 02/24, 03/09, 04/25, 05/08, 05/21, 05/25, 06/24, 06/29, 06/30, 07/05, 07/20, 07/25, 07/27, 08/01, 08/07, 08/24, 08/29, 08/31, 09/01, 09/10, 09/11, 09/12, 09/13, 09/23, 09/26, 10/01, 10/18, 10/20, 10/26, 11/08, 11/09, 11/13, 11/16, 11/25, 11/30, 12/05, 12/06, 12/09, 12/12, 12/17, 12/26, 12/27  
-* 04/23 unless it falls before PASCHA+2 /\*Bright Tuesday\*/
-
-HLR days are:
-
-* 01/01, 01/06, 02/02, 03/25, 08/06, 08/15, 09/08, 09/14, 11/21, 12/25  
-* ECUM4, L4
-
-If 01/06 is a Monday, eliminate the readings on 01/03  
-If 01/06 is a Sunday, eliminate the readings on 01/04
-
-If 12/25 is a Monday, eliminate the readings on 12/22  
-If 12/25 is a Sunday, eliminate the readings on 12/23
-
-For gap Sundays, epistles are taken from other days with specific PASCHA offsets. The offsets are determined depending on how many Sundays are available:
-
-* 1: 273 (PASCHA+273)  
+* 1: 273 (symbol PASCHA, offset 273, type EPISTLE)  
 * 2: 252, 273  
 * 3: 252, 273, 168  
 * 4: 252, 266, 273, 168  
 * 5: 252, 259, 266, 273, 168  
 * 6: 245, 252, 259, 266, 273, 168
+
+Next, apply immovable readings from *data/ReadingsImmovable.csv* in the following way:
+
+* Lower level reading dates are immovable readings that replace the readings which are found on that day except: Sundays, all days between PASCHA+1 through PASCHA+6 inclusive /\*Bright Week\*/, PASCHA+24 /\*Mid-Pentecost\*/, and PASCHA+39 /\*Ascension\*/   
+  * 01/05, 01/07, 01/08, 01/09, 01/10, 01/11, 01/12, 01/13, 09/10, 09/11, 09/12, 09/13, 12/24, unless it falls on a Saturday  
+  * 01/17, 01/18, 01/20, 01/25, 01/28, 01/30, 02/10, 02/24, 03/09, 04/25, 05/08, 05/21, 05/25, 06/24, 06/29, 06/30, 07/05, 07/20, 07/25, 07/27, 08/01, 08/07, 08/24, 08/29, 08/31, 09/01, 09/23, 09/26, 10/01, 10/18, 10/20, 10/26, 11/08, 11/09, 11/13, 11/16, 11/25, 11/30, 12/05, 12/06, 12/09, 12/12, 12/17, 12/26, 12/27  
+  * 04/23 unless it falls before PASCHA+2 /\*Bright Tuesday\*/  
+* Higher level reading dates are immovable readings that replace the readings which are found on that day no matter what:  
+  * 01/01, 01/06, 02/02, 03/25, 08/06, 08/15, 09/08, 09/14, 11/21, 12/25
+
+Additional rules:
+
+* If 01/06 is a Monday, eliminate the readings on 01/03 \- there will be no readings at all  
+* If 01/06 is a Sunday, eliminate the readings on 01/04 \- there will be no readings at all  
+* If 12/25 is a Monday, eliminate the readings on 12/22 \- there will be no readings at all  
+* If 12/25 is a Sunday, eliminate the readings on 12/23 \- there will be no readings at all
 

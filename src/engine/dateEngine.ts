@@ -69,11 +69,14 @@ function enrichForCalendar(physicalDate: Date, calCtx: CalendarContext): Enriche
     // Feast/Saint/Note text: uses calendar-specific MM-DD for lookups
     const textResult = applyTextRules(mmdd, calCtx.movableTextMap, calCtx.specialTextMap, calCtx.ecum4Mmdd);
 
+    // Readings: precomputed per calendar MM-DD
+    const readings = calCtx.readingsMap.get(mmdd) ?? [];
+
     const result: EnrichedDateData = {
         date: dateNum,
         fasting,
         lengthyNotes,
-        readings: [],
+        readings,
     };
 
     if (tone) result.tone = tone;

@@ -109,6 +109,46 @@ export function getPaschaOffset(date: Date, refs: ResolvedReferences, prevPascha
     return daysBetween(pascha, date);
 }
 
+/**
+ * Resolve a movable entry (reference+offset) to a date within the target year,
+ * respecting the liturgical year boundary at SUNaT.
+ *
+ * The rule: dates from 01/01 through SUNaT (inclusive) belong to the previous
+ * year's Pascha cycle. Dates after SUNaT belong to the current year's cycle.
+ *
+ * - From currentRefs: only valid if resolved date is in-year AND after SUNaT
+ * - From prevRefs: only valid if resolved date is in-year AND on or before SUNaT
+ *
+ * Returns null if the entry doesn't resolve to a valid date in the target year.
+ */
+export function resolveDateForYear(
+    reference: string,
+    offset: number,
+    year: number,
+    currentRefs: ResolvedReferences,
+    prevRefs: ResolvedReferences,
+): Date | null {
+    const sunaT = currentRefs.get('SUNaT');
+
+    // Try current year's references — only accept if date is after SUNaT
+    const fromCurrent = resolveDate(currentRefs, reference, offset);
+    if (fromCurrent && fromCurrent.getUTCFullYear() === year) {
+        if (!sunaT || fromCurrent.getTime() > sunaT.getTime()) {
+            return fromCurrent;
+        }
+    }
+
+    // Try previous year's references — only accept if date is on or before SUNaT
+    const fromPrev = resolveDate(prevRefs, reference, offset);
+    if (fromPrev && fromPrev.getUTCFullYear() === year) {
+        if (sunaT && fromPrev.getTime() <= sunaT.getTime()) {
+            return fromPrev;
+        }
+    }
+
+    return null;
+}
+
 // ============================================================
 // Internal helpers
 // ============================================================

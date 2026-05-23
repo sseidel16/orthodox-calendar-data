@@ -8,6 +8,7 @@ import { buildToneMap } from './rules/toneRules.js';
 import { buildNoteMap } from './rules/noteRules.js';
 import { buildMoonMap } from './rules/moonRules.js';
 import { buildMovableTextMap, buildSpecialTextMap } from './rules/textRules.js';
+import { buildReadingsMap } from './rules/readingsRules.js';
 import { formatMMDD } from './rules/dateUtils.js';
 
 /**
@@ -24,6 +25,7 @@ export type CalendarContext = {
     noteMap: Map<number, [string, string]>;            // physical day-of-year -> [english, greek] lengthy note
     movableTextMap: Map<string, TextMovableEntry[]>;   // calendar "MM-DD" -> movable text entries
     specialTextMap: Map<string, TextSpecialEntry[]>;   // calendar "MM-DD" -> special text entries
+    readingsMap: Map<string, string[]>;                // calendar "MM-DD" -> formatted reading strings
     ecum4Mmdd: string | null;                          // calendar MM-DD of ECUM4 (for feast override logic)
 };
 
@@ -82,6 +84,17 @@ function buildCalendarContext(
     const references = resolveMovableReferences(year, calendarPascha);
     const ecum4 = references.get('ECUM4');
 
+    // Determine which gap Sunday symbols were assigned (for readings epistle copying)
+    const gapPatterns: Record<number, string[]> = {
+        1: ['L15'], 2: ['L12', 'L15'], 3: ['L12', 'L15', 'M17'],
+        4: ['L12', 'L14', 'L15', 'M17'], 5: ['L12', 'L14', 'M16', 'L15', 'M17'],
+        6: ['L12', 'L14', 'M15', 'M16', 'L15', 'M17'],
+    };
+    const gapSymbols = ['L12', 'L14', 'L15', 'M15', 'M16', 'M17'];
+    const resolvedGaps = gapSymbols.filter(s => references.has(s));
+    const gapCount = resolvedGaps.length;
+    const gapSundaySymbols = gapPatterns[gapCount] ?? [];
+
     return {
         calendar: calSystem,
         pascha: calendarPascha,
@@ -92,6 +105,7 @@ function buildCalendarContext(
         noteMap: buildNoteMap(year, physicalPascha),
         movableTextMap: buildMovableTextMap(year, references),
         specialTextMap: buildSpecialTextMap(year),
+        readingsMap: buildReadingsMap(year, references, prevCalRefs, physicalPascha, gapSundaySymbols),
         ecum4Mmdd: ecum4 ? formatMMDD(ecum4) : null,
     };
 }

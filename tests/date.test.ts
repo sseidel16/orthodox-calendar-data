@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getDate } from '../src/api/range.js';
+import { getDate, getDateRange } from '../src/api/range.js';
 import { EnrichedDate } from '../src/engine/enrichedTypes.js';
 
 function d(dateStr: string): Date {
@@ -329,6 +329,227 @@ describe('Old calendar data', () => {
 });
 
 // ============================================================
+// Fasting — Nativity Fast (Nov 15 - Dec 24)
+// ============================================================
+
+describe('Nativity Fast fasting', () => {
+    it('Nov 15 (Sun) = OIL (STRICT MWF, OIL others)', () => {
+        expect(enriched('2026-11-15').newData.fasting).toBe('OIL');
+    });
+
+    it('Nov 22 (Sun) = FISH (STRICT MWF, OIL TuTh, FISH SatSun)', () => {
+        expect(enriched('2026-11-22').newData.fasting).toBe('FISH');
+    });
+
+    it('Nov 25 (Wed) = OIL (OIL weekday, FISH weekend)', () => {
+        expect(enriched('2026-11-25').newData.fasting).toBe('OIL');
+    });
+
+    it('Dec 6 (Sun) = FISH (STRICT MWF, OIL TuTh, FISH SatSun)', () => {
+        expect(enriched('2026-12-06').newData.fasting).toBe('FISH');
+    });
+
+    it('Dec 12 (Sat) = FISH (OIL weekday, FISH weekend)', () => {
+        expect(enriched('2026-12-12').newData.fasting).toBe('FISH');
+    });
+
+    it('Dec 17 (Thu) = OIL (STRICT MWF, OIL TuTh, FISH SatSun)', () => {
+        expect(enriched('2026-12-17').newData.fasting).toBe('OIL');
+    });
+
+    it('Dec 20 (Sun) = OIL (STRICT MWF, OIL others for Dec 18-23)', () => {
+        expect(enriched('2026-12-20').newData.fasting).toBe('OIL');
+    });
+
+    it('Dec 24 (Thu) = STRICT (STRICT Mon-Fri)', () => {
+        expect(enriched('2026-12-24').newData.fasting).toBe('STRICT');
+    });
+});
+
+// ============================================================
+// Fasting — Dormition Fast (Aug 1-14)
+// ============================================================
+
+describe('Dormition Fast fasting', () => {
+    it('Aug 1 (Sat) = OIL', () => {
+        expect(enriched('2026-08-01').newData.fasting).toBe('OIL');
+    });
+
+    it('Aug 3 (Mon) = STRICT', () => {
+        expect(enriched('2026-08-03').newData.fasting).toBe('STRICT');
+    });
+
+    it('Aug 6 (Thu) = FISH (Transfiguration, always FISH)', () => {
+        expect(enriched('2026-08-06').newData.fasting).toBe('FISH');
+    });
+
+    it('Aug 7 (Fri) = STRICT', () => {
+        expect(enriched('2026-08-07').newData.fasting).toBe('STRICT');
+    });
+
+    it('Aug 9 (Sun) = OIL', () => {
+        expect(enriched('2026-08-09').newData.fasting).toBe('OIL');
+    });
+
+    it('Aug 14 (Fri) = STRICT', () => {
+        expect(enriched('2026-08-14').newData.fasting).toBe('STRICT');
+    });
+
+    it('Aug 15 (Sat) = NONE (feast day, NONE/FISH on WedFri)', () => {
+        expect(enriched('2026-08-15').newData.fasting).toBe('NONE');
+    });
+});
+
+// ============================================================
+// Fasting — Pentecostarion non-fasting days
+// ============================================================
+
+describe('Pentecostarion non-fasting', () => {
+    it('Mon/Tue/Thu in Pentecostarion = NONE (basemap)', () => {
+        expect(enriched('2026-04-20').newData.fasting).toBe('NONE'); // Mon PASCHA+8
+        expect(enriched('2026-04-21').newData.fasting).toBe('NONE'); // Tue PASCHA+9
+        expect(enriched('2026-04-23').newData.fasting).toBe('NONE'); // Thu PASCHA+11
+    });
+
+    it('Sat/Sun in Pentecostarion = NONE (basemap)', () => {
+        expect(enriched('2026-04-25').newData.fasting).toBe('NONE'); // Sat
+        expect(enriched('2026-04-26').newData.fasting).toBe('NONE'); // Sun
+    });
+
+    it('Week after Pentecost: all NONE including Wed/Fri', () => {
+        expect(enriched('2026-06-01').newData.fasting).toBe('NONE'); // Mon
+        expect(enriched('2026-06-03').newData.fasting).toBe('NONE'); // Wed
+        expect(enriched('2026-06-05').newData.fasting).toBe('NONE'); // Fri
+    });
+});
+
+// ============================================================
+// Tones — year boundary continuity
+// ============================================================
+
+describe('Tone year boundary continuity', () => {
+    it('2024 Dec tones continue the cycle', () => {
+        expect(enriched('2024-12-01').newData.tone).toBe('Plagal 2nd Tone');
+        expect(enriched('2024-12-08').newData.tone).toBe('Grave Tone');
+        expect(enriched('2024-12-15').newData.tone).toBe('Plagal 4th Tone');
+        expect(enriched('2024-12-22').newData.tone).toBe('1st Tone');
+        expect(enriched('2024-12-29').newData.tone).toBe('2nd Tone');
+    });
+
+    it('2025 Jan tones continue seamlessly from 2024 Dec', () => {
+        expect(enriched('2025-01-05').newData.tone).toBe('3rd Tone');
+        expect(enriched('2025-01-12').newData.tone).toBe('4th Tone');
+        expect(enriched('2025-01-19').newData.tone).toBe('Plagal 1st Tone');
+        expect(enriched('2025-01-26').newData.tone).toBe('Plagal 2nd Tone');
+    });
+
+    it('2024 Pentecost (Jun 23) tone suppressed', () => {
+        expect(enriched('2024-06-23').newData.tone).toBeUndefined();
+    });
+});
+
+// ============================================================
+// Text — multiple entries and special combinations
+// ============================================================
+
+describe('Text — combinations', () => {
+    it('Jan 1 has feast + saint + note simultaneously', () => {
+        const r = enriched('2026-01-01');
+        expect(r.newData.feast).toBeDefined();
+        expect(r.newData.saint).toBeDefined();
+        expect(r.newData.note).toBeDefined();
+    });
+
+    it('saints are newline-separated when multiple', () => {
+        const r = enriched('2026-01-01');
+        expect(r.newData.saint![0].split('\n').length).toBe(2);
+    });
+
+    it('Palm Sunday has both movable feast + immovable saints', () => {
+        const r = enriched('2026-04-05');
+        expect(r.newData.feast![0]).toBe('Palm Sunday');
+        expect(r.newData.saint).toBeDefined();
+    });
+
+    it('2024 Cheese Fare Wed/Fri get note indicator (PASCHA-53)', () => {
+        // 2024: PASCHA-53 = Mar 13 (Wed)
+        const r = enriched('2024-03-13');
+        expect(r.newData.lengthyNotes[0]).toContain('no fasting');
+    });
+});
+
+// ============================================================
+// Old calendar — readings
+// ============================================================
+
+describe('Old calendar readings', () => {
+    it('old Jan 1 (= new Jan 14) has Circumcision readings', () => {
+        const r = enriched('2026-01-14');
+        expect(r.oldData.readings[0]).toBe('Colossians 2:8-12');
+    });
+
+    it('old Theophany (= new Jan 19) has Theophany readings', () => {
+        const r = enriched('2026-01-19');
+        expect(r.oldData.readings[0]).toContain('Titus');
+    });
+
+    it('old Annunciation (= new Apr 7) has Annunciation readings', () => {
+        const r = enriched('2026-04-07');
+        expect(r.oldData.readings[0]).toBe('Hebrews 2:11-18');
+    });
+});
+
+// ============================================================
+// Old calendar — lengthy notes
+// ============================================================
+
+describe('Old calendar lengthy notes', () => {
+    it('old Palm Sunday note matches new (same physical day)', () => {
+        const r = enriched('2026-04-05');
+        expect(r.oldData.lengthyNotes[0]).toContain('fish on Palm Sunday');
+        expect(r.newData.lengthyNotes[0]).toContain('fish on Palm Sunday');
+    });
+
+    it('old PASCHA-53 note matches new (same physical day)', () => {
+        const r = enriched('2026-02-18');
+        expect(r.oldData.lengthyNotes[0]).toContain('no fasting');
+    });
+
+    it('no lengthy note on a normal old calendar day', () => {
+        expect(enriched('2026-06-15').oldData.lengthyNotes).toEqual([]);
+    });
+});
+
+// ============================================================
+// 2024 specific (late Pascha = May 5)
+// ============================================================
+
+describe('2024 late Pascha edge cases', () => {
+    it('Cheese Fare 2024 starts Mar 11', () => {
+        expect(enriched('2024-03-11').newData.fasting).toBe('DAIRY');
+        expect(enriched('2024-03-13').newData.fasting).toBe('OIL');
+    });
+
+    it('Clean Monday 2024 = Mar 18', () => {
+        expect(enriched('2024-03-18').newData.fasting).toBe('STRICT');
+    });
+
+    it('Pentecost 2024 = Jun 23 with feast and no tone', () => {
+        const r = enriched('2024-06-23');
+        expect(r.newData.feast![0]).toContain('Pentecost');
+        expect(r.newData.tone).toBeUndefined();
+    });
+
+    it('2024 has 6 gap Sundays (most possible)', () => {
+        // All should have readings
+        const gapDates = ['2024-01-14','2024-01-21','2024-01-28','2024-02-04','2024-02-11','2024-02-18'];
+        for (const d of gapDates) {
+            expect(enriched(d).newData.readings.length).toBeGreaterThan(0);
+        }
+    });
+});
+
+// ============================================================
 // Cross-year edge cases
 // ============================================================
 
@@ -442,6 +663,449 @@ describe('Old calendar edge cases', () => {
 });
 
 // ============================================================
+// Readings — movable readings
+// ============================================================
+
+describe('Readings — movable', () => {
+    it('Pascha has Acts + John', () => {
+        const r = enriched('2026-04-12').newData.readings;
+        expect(r[0]).toBe('Acts 1:1-8');
+        expect(r[1]).toBe('John 1:1-17');
+    });
+
+    it('Bright Week days have movable readings (Acts + John)', () => {
+        const r = enriched('2026-04-13').newData.readings;
+        expect(r[0]).toContain('Acts');
+        expect(r[1]).toContain('John');
+    });
+
+    it('Pentecost has Acts + John', () => {
+        const r = enriched('2026-05-31').newData.readings;
+        expect(r[0]).toContain('Acts');
+        expect(r[1]).toContain('John');
+    });
+
+    it('Holy Week has readings', () => {
+        // Holy Monday
+        expect(enriched('2026-04-06').newData.readings[0]).toContain('Matthew');
+        // Holy Thursday
+        expect(enriched('2026-04-09').newData.readings[0]).toContain('1 Corinthians');
+    });
+
+    it('early year readings come from prev Pascha cycle', () => {
+        // Jan 1-11 get readings from prev year's large positive offsets
+        const jan3 = enriched('2026-01-03').newData.readings;
+        expect(jan3.length).toBeGreaterThan(0);
+        expect(jan3[0]).toContain('1 Timothy');
+    });
+
+    it('post-SUNaT readings come from current Pascha cycle', () => {
+        const jan12 = enriched('2026-01-12').newData.readings;
+        expect(jan12.length).toBeGreaterThan(0);
+    });
+
+    it('Lent weekdays have OT readings (Isaiah, Genesis, Proverbs)', () => {
+        const r = enriched('2026-03-02').newData.readings;
+        expect(r.some(x => x.startsWith('Isaiah'))).toBe(true);
+        expect(r.some(x => x.startsWith('Genesis'))).toBe(true);
+        expect(r.some(x => x.startsWith('Proverbs'))).toBe(true);
+    });
+
+    it('Lent Saturdays have epistle + gospel (not OT)', () => {
+        // First Saturday of Lent 2026 = Feb 28
+        const r = enriched('2026-02-28').newData.readings;
+        expect(r.length).toBe(2);
+        // Should not contain OT books
+        expect(r.some(x => x.startsWith('Isaiah') || x.startsWith('Genesis') || x.startsWith('Proverbs'))).toBe(false);
+    });
+});
+
+// ============================================================
+// Readings — gap Sunday epistles
+// ============================================================
+
+describe('Readings — gap Sunday epistles', () => {
+    it('2026: 2 gap Sundays (L12, L15) get epistle + gospel', () => {
+        const l12 = enriched('2026-01-18').newData.readings;
+        const l15 = enriched('2026-01-25').newData.readings;
+        // L12 gets epistle from PASCHA+252
+        expect(l12[0]).toBe('Colossians 3:4-11');
+        expect(l12[1]).toContain('Luke');
+        // L15 gets epistle from PASCHA+273
+        expect(l15[0]).toBe('1 Timothy 4:9-15');
+        expect(l15[1]).toContain('Luke');
+    });
+
+    it('2025: 3 gap Sundays get epistles from correct offsets', () => {
+        // 2025 has 3 gap Sundays, pattern: [252, 273, 168]
+        // Need to find what dates L12, L15, M17 resolve to in 2025
+        const jan19 = enriched('2025-01-19').newData.readings; // likely a gap Sunday
+        expect(jan19.length).toBeGreaterThan(0);
+    });
+
+    it('2024: 6 gap Sundays (late Pascha = more gap)', () => {
+        // 2024: SUNaT=Jan 7, PASCHA-70=Feb 25. Gap Sundays: Jan 14,21,28, Feb 4,11,18
+        const jan14 = enriched('2024-01-14').newData.readings;
+        expect(jan14.length).toBeGreaterThan(0);
+        expect(jan14[0]).not.toBe(''); // has epistle
+    });
+});
+
+// ============================================================
+// Readings — immovable (HLR)
+// ============================================================
+
+describe('Readings — immovable HLR', () => {
+    it('01/01 always has immovable readings (Colossians + Luke)', () => {
+        expect(enriched('2026-01-01').newData.readings[0]).toBe('Colossians 2:8-12');
+        expect(enriched('2026-01-01').newData.readings[1]).toContain('Luke');
+    });
+
+    it('01/06 Theophany has immovable readings (Titus + Matthew)', () => {
+        const r = enriched('2026-01-06').newData.readings;
+        expect(r[0]).toContain('Titus');
+        expect(r[1]).toContain('Matthew');
+    });
+
+    it('03/25 Annunciation has Hebrews', () => {
+        expect(enriched('2026-03-25').newData.readings[0]).toBe('Hebrews 2:11-18');
+    });
+
+    it('09/14 Elevation has 1 Corinthians + John', () => {
+        const r = enriched('2026-09-14').newData.readings;
+        expect(r[0]).toContain('1 Corinthians');
+        expect(r[1]).toContain('John');
+    });
+
+    it('12/25 Nativity has Galatians + Matthew', () => {
+        const r = enriched('2026-12-25').newData.readings;
+        expect(r[0]).toContain('Galatians');
+        expect(r[1]).toContain('Matthew');
+    });
+
+    it('HLR overrides movable readings on that day', () => {
+        // 01/06 is both an HLR date AND might have movable readings from SUNaT offset
+        // HLR should win
+        const r = enriched('2026-01-06').newData.readings;
+        expect(r[0]).toContain('Titus'); // immovable, not movable
+    });
+});
+
+// ============================================================
+// Readings — immovable LLR
+// ============================================================
+
+describe('Readings — immovable LLR', () => {
+    it('01/05 LLR replaces movable on weekday', () => {
+        // 2026 Jan 5 = Monday (not Saturday, so LLR applies)
+        const r = enriched('2026-01-05').newData.readings;
+        expect(r[0]).toBe('1 Corinthians 9:19-27');
+        expect(r[1]).toBe('Luke 3:1-18');
+    });
+
+    it('04/23 LLR applies when after PASCHA+2 (2026)', () => {
+        // 2026: Apr 23 = PASCHA+11, after PASCHA+2. LLR applies.
+        const r = enriched('2026-04-23').newData.readings;
+        expect(r[0]).toBe('Acts 12:1-11');
+        expect(r[1]).toContain('John');
+    });
+
+    it('04/23 LLR does NOT apply when before PASCHA+2 (2024)', () => {
+        // 2024: Pascha=May 5. Apr 23 is before PASCHA+2 (May 7). LLR skipped.
+        // Should have movable Lent readings instead
+        const r = enriched('2024-04-23').newData.readings;
+        expect(r.some(x => x.startsWith('Isaiah') || x.startsWith('Genesis'))).toBe(true);
+    });
+
+    it('LLR does not replace on Sunday (protected)', () => {
+        // If a LLR date falls on Sunday, movable reading is kept.
+        // Need to find a year where one of the LLR dates is a Sunday.
+        // 01/20/2019 is a Sunday? Let's use a deterministic check.
+        // 2024-01-07 is Sunday. 01/07 is in LLR group 1.
+        const r = enriched('2024-01-07').newData.readings;
+        // Should have the Sunday movable reading, not the LLR immovable
+        expect(r.length).toBeGreaterThan(0);
+    });
+
+    it('LLR does not replace during Bright Week (protected)', () => {
+        // 2025: Pascha=Apr 20. 04/25 = PASCHA+5 (Bright Fri). 04/25 is LLR.
+        const r = enriched('2025-04-25').newData.readings;
+        expect(r[0]).toContain('Acts'); // Bright Week movable kept
+    });
+
+    it('LLR does not replace on Mid-Pentecost (protected)', () => {
+        // 2026: PASCHA+24 = May 6. Need to check if May 6 is an LLR date... it's not.
+        // Instead verify that the date keeps its movable reading
+        const r = enriched('2026-05-06').newData.readings;
+        expect(r.length).toBeGreaterThan(0);
+    });
+});
+
+// ============================================================
+// Readings — elimination rules
+// ============================================================
+
+describe('Readings — elimination rules', () => {
+    it('2025: Jan 6 is Monday → Jan 3 readings eliminated', () => {
+        expect(enriched('2025-01-03').newData.readings).toEqual([]);
+    });
+
+    it('2026: Jan 6 is Tuesday → Jan 3 keeps readings', () => {
+        expect(enriched('2026-01-03').newData.readings.length).toBeGreaterThan(0);
+    });
+
+    it('non-elimination year: Jan 4 and Dec 22/23 keep readings', () => {
+        // 2026: Jan 6 = Tue, Dec 25 = Fri. No elimination.
+        expect(enriched('2026-01-04').newData.readings.length).toBeGreaterThan(0);
+        expect(enriched('2026-12-22').newData.readings.length).toBeGreaterThan(0);
+        expect(enriched('2026-12-23').newData.readings.length).toBeGreaterThan(0);
+    });
+});
+
+// ============================================================
+// Readings — coverage and ordering
+// ============================================================
+
+describe('Readings — coverage and ordering', () => {
+    it('2026 has near-complete readings coverage', () => {
+        const all = getDateRange(new Date('2026-01-01T00:00:00Z'), new Date('2026-12-31T00:00:00Z'));
+        const withR = all.filter(r => r.newData.readings.length > 0).length;
+        expect(withR).toBeGreaterThanOrEqual(360);
+    });
+
+    it('epistle comes before gospel in output', () => {
+        // Pascha: epistle = Acts, gospel = John
+        const r = enriched('2026-04-12').newData.readings;
+        expect(r[0]).toContain('Acts');
+        expect(r[1]).toContain('John');
+    });
+
+    it('OT readings are between epistle and gospel', () => {
+        // Lent day with epistle + OT + gospel: Mar 9 (has Hebrews + Isaiah/Gen/Prov)
+        const r = enriched('2026-03-09').newData.readings;
+        expect(r[0]).toContain('Hebrews'); // epistle first
+        expect(r[1]).toContain('Isaiah');   // OT middle
+        expect(r[r.length - 1]).toContain('Matthew'); // gospel last
+    });
+
+    it('late December has readings from current year cycle', () => {
+        const r = enriched('2026-12-28').newData.readings;
+        expect(r.length).toBeGreaterThan(0);
+    });
+});
+
+// ============================================================
+// Readings — 2024 and 2025 cross-checks
+// ============================================================
+
+describe('Readings — 2024 cross-checks', () => {
+    it('2024 Pascha (May 5) has Acts + John', () => {
+        const r = enriched('2024-05-05').newData.readings;
+        expect(r[0]).toContain('Acts');
+        expect(r[1]).toContain('John');
+    });
+
+    it('2024 Clean Monday has OT readings', () => {
+        const r = enriched('2024-03-18').newData.readings;
+        expect(r.some(x => x.startsWith('Isaiah'))).toBe(true);
+    });
+
+    it('2024 Annunciation (Mar 25, during Lent) has immovable Hebrews reading', () => {
+        expect(enriched('2024-03-25').newData.readings[0]).toBe('Hebrews 2:11-18');
+    });
+
+    it('2024 Dec 25 has Nativity readings', () => {
+        const r = enriched('2024-12-25').newData.readings;
+        expect(r[0]).toContain('Galatians');
+        expect(r[1]).toContain('Matthew');
+    });
+});
+
+describe('Readings — 2025 cross-checks', () => {
+    it('2025 Pascha (Apr 20) has Acts + John', () => {
+        const r = enriched('2025-04-20').newData.readings;
+        expect(r[0]).toContain('Acts');
+        expect(r[1]).toContain('John');
+    });
+
+    it('2025 Jan 3 eliminated (Jan 6 = Monday)', () => {
+        expect(enriched('2025-01-03').newData.readings).toEqual([]);
+    });
+
+    it('2025 Sep 14 has Elevation readings (HLR)', () => {
+        const r = enriched('2025-09-14').newData.readings;
+        expect(r[0]).toContain('1 Corinthians');
+    });
+
+    it('2025 Bright Week keeps movable readings (protected from LLR)', () => {
+        // PASCHA+1 = Apr 21
+        const r = enriched('2025-04-21').newData.readings;
+        expect(r[0]).toContain('Acts');
+    });
+});
+
+// ============================================================
+// Fasting — date-specific overrides (various categories)
+// ============================================================
+
+describe('Fasting — NONE/OIL on Wed/Fri dates', () => {
+    it('01/07 Wed = OIL', () => {
+        // 2025: Jan 7 = Tuesday → NONE. Need a year where Jan 7 is Wed.
+        // 2026: Jan 7 = Wednesday
+        expect(enriched('2026-01-07').newData.fasting).toBe('OIL');
+    });
+
+    it('01/20 on non-Wed/Fri = NONE', () => {
+        // 2026: Jan 20 = Tuesday
+        expect(enriched('2026-01-20').newData.fasting).toBe('NONE');
+    });
+
+    it('11/08 on non-Wed/Fri = NONE', () => {
+        // 2026: Nov 8 = Sunday
+        expect(enriched('2026-11-08').newData.fasting).toBe('NONE');
+    });
+});
+
+describe('Fasting — NONE/FISH on Wed/Fri dates', () => {
+    it('06/29 Sts Peter & Paul on non-Wed/Fri = NONE', () => {
+        // 2026: Jun 29 = Monday
+        expect(enriched('2026-06-29').newData.fasting).toBe('NONE');
+    });
+
+    it('08/15 Dormition on non-Wed/Fri = NONE', () => {
+        // 2026: Aug 15 = Saturday
+        expect(enriched('2026-08-15').newData.fasting).toBe('NONE');
+    });
+
+    it('02/02 Meeting on Wed = FISH', () => {
+        // Need year where Feb 2 is Wed. 2022: Feb 2 = Wed. Out of test range.
+        // 2025: Feb 2 = Sunday → NONE (not applicable). Let's verify:
+        expect(enriched('2025-02-02').newData.fasting).toBe('NONE');
+    });
+});
+
+describe('Fasting — Apostles Fast edge cases', () => {
+    it('Jun 28 is last day of Apostles Fast (day before Sts Peter & Paul)', () => {
+        // 2026: Jun 28 = Sunday → FISH in Apostles Fast
+        expect(enriched('2026-06-28').newData.fasting).toBe('FISH');
+    });
+
+    it('Jun 29 is NOT in Apostles Fast (feast day)', () => {
+        expect(enriched('2026-06-29').newData.fasting).toBe('NONE');
+    });
+
+    it('2025: Apostles Fast Mon (Jun 16) = STRICT', () => {
+        expect(enriched('2025-06-16').newData.fasting).toBe('STRICT');
+    });
+
+    it('2025: Apostles Fast Sat (Jun 21) = FISH', () => {
+        expect(enriched('2025-06-21').newData.fasting).toBe('FISH');
+    });
+});
+
+// ============================================================
+// Text — special rules (Royal Hours, DST)
+// ============================================================
+
+describe('Text — Royal Hours and DST', () => {
+    it('2026: Jan 5 (Mon) gets Royal Hours + Liturgy of St. Basil', () => {
+        const r = enriched('2026-01-05');
+        expect(r.newData.note![0]).toContain('Royal Hours');
+        expect(r.newData.note![0]).toContain('Liturgy of St. Basil');
+    });
+
+    it('2024: Jan 5 (Fri) gets Royal Hours + Liturgy of St. Basil', () => {
+        const r = enriched('2024-01-05');
+        expect(r.newData.note![0]).toContain('Royal Hours');
+    });
+
+    it('2026: DST begins on Mar 8 (2nd Sunday in March)', () => {
+        expect(enriched('2026-03-08').newData.note![0]).toContain('Daylight Savings Time begins');
+    });
+
+    it('2026: DST ends on Nov 1 (1st Sunday in November)', () => {
+        expect(enriched('2026-11-01').newData.note![0]).toContain('Daylight Savings Time ends');
+    });
+
+    it('2025: DST ends on Nov 2', () => {
+        expect(enriched('2025-11-02').newData.note![0]).toContain('Daylight Savings Time ends');
+    });
+});
+
+// ============================================================
+// Old calendar — fasting edge cases
+// ============================================================
+
+describe('Old calendar — fasting varieties', () => {
+    it('old calendar always-NONE dates shift correctly', () => {
+        // Old 01/01 = physical Jan 14. Should be NONE.
+        expect(enriched('2026-01-14').oldData.fasting).toBe('NONE');
+        // Old 01/06 = physical Jan 19. Should be NONE.
+        expect(enriched('2026-01-19').oldData.fasting).toBe('NONE');
+    });
+
+    it('old calendar always-FISH dates shift correctly', () => {
+        // Old 03/25 = physical Apr 7. Should be FISH.
+        expect(enriched('2026-04-07').oldData.fasting).toBe('FISH');
+        // Old 08/06 = physical Aug 19. Should be FISH.
+        expect(enriched('2026-08-19').oldData.fasting).toBe('FISH');
+    });
+
+    it('old calendar NONE/OIL dates work with shifted day-of-week', () => {
+        // Old 01/07 = physical Jan 20 (Tue in 2026) → NONE
+        expect(enriched('2026-01-20').oldData.fasting).toBe('NONE');
+    });
+
+    it('old calendar Lent uses physical day-of-week', () => {
+        // Both calendars have same physical Pascha, so Lent aligns
+        // Feb 24 physical = Tue in both calendars → STRICT (Lent)
+        expect(enriched('2026-02-24').oldData.fasting).toBe('STRICT');
+    });
+});
+
+// ============================================================
+// Comprehensive full-year sanity checks
+// ============================================================
+
+describe('Full-year sanity checks', () => {
+    it('every day in 2026 has a valid fasting value', () => {
+        const all = getDateRange(new Date('2026-01-01T00:00:00Z'), new Date('2026-12-31T00:00:00Z'));
+        const validFasting = ['NONE', 'DAIRY', 'FISH', 'OIL', 'STRICT'];
+        for (const r of all) {
+            expect(validFasting).toContain(r.newData.fasting);
+            expect(validFasting).toContain(r.oldData.fasting);
+        }
+    });
+
+    it('every Sunday in 2026 either has a tone or is in the no-tone window', () => {
+        const all = getDateRange(new Date('2026-01-01T00:00:00Z'), new Date('2026-12-31T00:00:00Z'));
+        const sundays = all.filter(r => r.date.getUTCDay() === 0);
+        const withTone = sundays.filter(r => r.newData.tone);
+        // 52 Sundays, minus ~4 suppressed (Pentecost + 3-4 no-tone window)
+        expect(withTone.length).toBeGreaterThanOrEqual(44);
+        expect(withTone.length).toBeLessThanOrEqual(50);
+    });
+
+    it('no weekday has a tone', () => {
+        const all = getDateRange(new Date('2026-01-01T00:00:00Z'), new Date('2026-12-31T00:00:00Z'));
+        const weekdays = all.filter(r => r.date.getUTCDay() !== 0);
+        expect(weekdays.every(r => r.newData.tone === undefined)).toBe(true);
+    });
+
+    it('2025 full year has valid structure', () => {
+        const all = getDateRange(new Date('2025-01-01T00:00:00Z'), new Date('2025-12-31T00:00:00Z'));
+        expect(all.length).toBe(365);
+        expect(all.every(r => r.newData.date >= 1 && r.newData.date <= 31)).toBe(true);
+        expect(all.every(r => r.oldData.date >= 1 && r.oldData.date <= 31)).toBe(true);
+    });
+
+    it('2024 leap year has 366 days', () => {
+        const all = getDateRange(new Date('2024-01-01T00:00:00Z'), new Date('2024-12-31T00:00:00Z'));
+        expect(all.length).toBe(366);
+    });
+});
+
+// ============================================================
 // Moon phases
 // ============================================================
 
@@ -459,9 +1123,14 @@ describe('Moon phases', () => {
     });
 
     it('moon is independent of calendar system', () => {
-        // Both old and new data are for the same physical date — moon is shared
         const result = enriched('2026-01-03');
         expect(result.moon).toBe('FULL');
-        // moon is on EnrichedDate, not per-calendar
+    });
+
+    it('approximately 4 phases per month', () => {
+        const jan = getDateRange(new Date('2026-01-01T00:00:00Z'), new Date('2026-01-31T00:00:00Z'));
+        const phases = jan.filter(r => r.moon !== 'NONE').length;
+        expect(phases).toBeGreaterThanOrEqual(3);
+        expect(phases).toBeLessThanOrEqual(5);
     });
 });

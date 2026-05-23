@@ -37,7 +37,7 @@ export type MovableReferenceEntry = {
 export type ReadingsMovableEntry = {
     reference: string;
     offset: number;
-    type: 'GOSPEL' | 'EPISTLE';
+    type: string;
     book: string;
     verse: string;
     note: string;
@@ -45,7 +45,7 @@ export type ReadingsMovableEntry = {
 
 export type ReadingsImmovableEntry = {
     date: string; // MM/DD format
-    type: 'GOSPEL' | 'EPISTLE';
+    type: string;
     book: string;
     verse: string;
     note: string;
