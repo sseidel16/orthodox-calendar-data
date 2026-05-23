@@ -16,7 +16,6 @@ import { parseReadingsMovable, parseReadingsImmovable, ReadingsMovableEntry, Rea
 import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
 import { CalendarSystem } from '../calendarSystem.js';
 import { PhysicalDay } from '../physicalDay.js';
-import { getDow, utcDate, addDays, daysBetween } from './dateUtils.js';
 
 // Cached parsed data
 let movableReadingsCache: ReadingsMovableEntry[] | null = null;
@@ -284,7 +283,7 @@ function getImmovableLevel(mmdd: string, year: number, pascha: PhysicalDay, toPh
     if (LLR_GROUP1.has(mmdd)) {
         // Unless it falls on Saturday
         const [m, d] = mmdd.split('-').map(Number);
-        const dow = getDow(toPhysical(m, d));
+        const dow = toPhysical(m, d).dayOfWeek();
         return dow === 6 ? 'NONE' : 'LLR';
     }
 
@@ -293,7 +292,7 @@ function getImmovableLevel(mmdd: string, year: number, pascha: PhysicalDay, toPh
     // 04/23 unless before PASCHA+2
     if (mmdd === '04-23') {
         const apr23 = toPhysical(4, 23);
-        const brightTues = addDays(pascha, 2);
+        const brightTues = pascha.addDays(2);
         return apr23.isBefore(brightTues) ? 'NONE' : 'LLR';
     }
 
@@ -309,10 +308,10 @@ function isProtectedDay(mmdd: string, year: number, pascha: PhysicalDay, toPhysi
     const date = toPhysical(m, d);
 
     // Sunday
-    if (getDow(date) === 0) return true;
+    if (date.dayOfWeek() === 0) return true;
 
     // Check Pascha offset
-    const offset = daysBetween(pascha, date);
+    const offset = date.daysSince(pascha);
     if (offset >= 1 && offset <= 6) return true;   // Bright Week
     if (offset === 24) return true;                  // Mid-Pentecost
     if (offset === 39) return true;                  // Ascension
@@ -326,11 +325,11 @@ function isProtectedDay(mmdd: string, year: number, pascha: PhysicalDay, toPhysi
  * On 03/25, OLD readings are eliminated.
  */
 function applyEliminationRules(dateReadings: Map<string, DateReadings>, year: number, toPhysical: (m: number, d: number) => PhysicalDay): void {
-    const jan6dow = getDow(toPhysical(1, 6));
+    const jan6dow = toPhysical(1, 6).dayOfWeek();
     if (jan6dow === 1) dateReadings.delete('01-03'); // 01/06 Monday → eliminate 01/03
     if (jan6dow === 0) dateReadings.delete('01-04'); // 01/06 Sunday → eliminate 01/04
 
-    const dec25dow = getDow(toPhysical(12, 25));
+    const dec25dow = toPhysical(12, 25).dayOfWeek();
     if (dec25dow === 1) dateReadings.delete('12-22'); // 12/25 Monday → eliminate 12/22
     if (dec25dow === 0) dateReadings.delete('12-23'); // 12/25 Sunday → eliminate 12/23
 

@@ -18,7 +18,7 @@ import { parseTextImmovable, parseTextMovable, parseTextSpecial, TextImmovableEn
 import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
 import { CalendarSystem } from '../calendarSystem.js';
 import { PhysicalDay } from '../physicalDay.js';
-import { getDow, getNthSundayOfMonth } from './dateUtils.js';
+import { getNthSundayOfMonth } from './dateUtils.js';
 
 /** Dates where only immovable text survives (movables/specials suppressed) */
 const ELIMINATOR_DATES = new Set(['01-06', '08-06', '09-14', '12-25']);
@@ -148,7 +148,7 @@ export function buildSpecialTextMap(year: number, cal: CalendarSystem): Map<stri
     };
 
     // Royal Hours / Liturgy rules for 01/05 (Eve of Theophany)
-    const jan5dow = getDow(cal.toPhysicalDate(year, 1, 5));
+    const jan5dow = cal.toPhysicalDate(year, 1, 5).dayOfWeek();
     if (jan5dow >= 1 && jan5dow <= 5) {
         addEntry('01-05', 'Royal Hours');
         addEntry('01-05', 'Liturgy of St. Basil');
@@ -161,7 +161,7 @@ export function buildSpecialTextMap(year: number, cal: CalendarSystem): Map<stri
     }
 
     // Royal Hours / Liturgy rules for 12/24 (Eve of Nativity)
-    const dec24dow = getDow(cal.toPhysicalDate(year, 12, 24));
+    const dec24dow = cal.toPhysicalDate(year, 12, 24).dayOfWeek();
     if (dec24dow >= 1 && dec24dow <= 5) {
         addEntry('12-24', 'Royal Hours');
         addEntry('12-24', 'Liturgy of St. Basil');

@@ -11,7 +11,7 @@
  */
 
 import { PhysicalDay } from '../physicalDay.js';
-import { dayOfYear, utcDate, getDow, addDays, daysBetween } from './dateUtils.js';
+import { dayOfYear, utcDate, formatPhysicalMMDD } from './dateUtils.js';
 
 const TONES = [
     '1st Tone', '2nd Tone', '3rd Tone', '4th Tone',
@@ -20,14 +20,6 @@ const TONES = [
 
 /** Fixed dates where tone is not displayed even if it's a Sunday */
 const SUPPRESSED_DATES = new Set(['01-06', '08-06', '09-14', '12-25']);
-
-/** Format a PhysicalDay as "MM-DD" for suppression checks */
-function formatMMDD(day: PhysicalDay): string {
-    const d = new Date(day._epochMs());
-    const m = String(d.getUTCMonth() + 1).padStart(2, '0');
-    const dd = String(d.getUTCDate()).padStart(2, '0');
-    return `${m}-${dd}`;
-}
 
 /**
  * Build a tone map for the entire year. Returns a Map keyed by day-of-year (0-based).
@@ -50,18 +42,18 @@ export function buildToneMap(year: number, pascha: PhysicalDay, prevPascha: Phys
  * tracking the tone cycle. Only assign tones for Sundays that fall in the current year.
  */
 function assignTonesFromPrevYear(map: Map<number, string>, year: number, pascha: PhysicalDay, prevPascha: PhysicalDay): void {
-    const startDate = addDays(prevPascha, 14);
-    const lastToneDate = addDays(pascha, -14); // last Sunday with a tone before reset
+    const startDate = prevPascha.addDays(14);
+    const lastToneDate = pascha.addDays(-14); // last Sunday with a tone before reset
     let toneIdx = 1; // cycle starts at "2nd Tone" (index 1)
 
     let current = startDate;
     while (current.isOnOrBefore(lastToneDate)) {
-        if (getDow(current) === 0) { // Sunday
-            const offset = daysBetween(prevPascha, current);
+        if (current.dayOfWeek() === 0) { // Sunday
+            const offset = current.daysSince(prevPascha);
 
             // Only assign if this Sunday is in the current year
             if (current.year() === year) {
-                const mmdd = formatMMDD(current);
+                const mmdd = formatPhysicalMMDD(current);
                 const isPrevPentecost = offset === 49;
                 const isSuppressed = isPrevPentecost || SUPPRESSED_DATES.has(mmdd);
 
@@ -83,14 +75,14 @@ function assignTonesFromPrevYear(map: Map<number, string>, year: number, pascha:
  */
 function assignTonesFromCurrentPascha(map: Map<number, string>, year: number, pascha: PhysicalDay): void {
     let toneIdx = 1; // "2nd Tone" at PASCHA+14
-    const startDate = addDays(pascha, 14);
+    const startDate = pascha.addDays(14);
     const yearEnd = utcDate(year, 11, 31);
 
     let current = startDate;
     while (current.isOnOrBefore(yearEnd)) {
-        if (getDow(current) === 0) { // Sunday
-            const offset = daysBetween(pascha, current);
-            const mmdd = formatMMDD(current);
+        if (current.dayOfWeek() === 0) { // Sunday
+            const offset = current.daysSince(pascha);
+            const mmdd = formatPhysicalMMDD(current);
             const isPentecost = offset === 49;
             const isSuppressed = isPentecost || SUPPRESSED_DATES.has(mmdd);
 
