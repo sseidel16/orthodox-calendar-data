@@ -44,7 +44,7 @@ await esbuild.build({
     bundle: true,
     outfile: 'dist/orthodox-calendar-data.js',
     format: 'iife',
-    globalName: 'OrthodoxCalendar',
+    globalName: 'OrthodoxCalendarData',
     platform: 'browser',
     target: 'es2020',
     plugins: [replaceParserPlugin, csvLoaderPlugin],
