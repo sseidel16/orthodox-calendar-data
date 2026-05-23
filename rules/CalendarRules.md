@@ -64,7 +64,7 @@ Between SUNaT and PASCHA-70 (non-inclusive), there may be up to 6 Sundays, terme
 * 5: L12, L14, M16, L15, M17  
 * 6: L12, L14, M15, M16, L15, M17
 
-Once all movable references have been determined (as well as the previous year’s PASCHA, see below), any movable reference symbol combined with an offset can be converted to a specific date in the year (as long as it exists; some movable references may not exist every year). Additionally, a reference symbol may exist, but the symbol combined with a particular offset may not exist every year, particularly with PASCHA, see below for when offsets reset.
+Once all movable references have been determined (as well as the previous year’s PASCHA, see below), any movable reference symbol combined with an offset can be converted to 0, 1, or 2 specific dates in the year. Some movable references may not exist every year (e.g., SUNaN). A symbol+offset combination may resolve to two dates when both the previous and current year’s cycles overlap within the calendar year.
 
 For example, the symbol for Pascha is “PASCHA”
 
@@ -73,7 +73,7 @@ For example, the symbol for Pascha is “PASCHA”
 * The day before is PASCHA-1  
 * 10 days before is PASCHA-10
 
-PASCHA offsets reset with SUNaT /\*Sunday after Theophany\*/, which is in January. Thus, early dates in the year, from 01/01 through SUNaT inclusive, correspond with positive PASCHA offsets from the previous year’s PASCHA. Starting with SUNaT+1, the PASCHA offset resets and becomes negative, calculated off the current year’s PASCHA.
+PASCHA offsets from the previous year (positive offsets) are valid from 01/01 through PASCHA-70 (non-inclusive) of the current year. PASCHA offsets from the current year (negative offsets going forward) are valid from SUNaT (non-inclusive) onward. There is an overlap between SUNaT (non-inclusive) and PASCHA-70 (non-inclusive) where both cycles produce valid dates — a single symbol+offset can resolve to two different dates in the same year, one from each cycle. This is expected and both placements are correct.
 
 # FastingRules
 

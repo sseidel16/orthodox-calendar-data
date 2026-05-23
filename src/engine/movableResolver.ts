@@ -96,16 +96,12 @@ export function resolveDate(refs: ResolvedReferences, reference: string, offset:
 
 
 /**
- * Resolve a movable entry (reference+offset) to ALL valid dates within the target year,
- * respecting the liturgical year boundary at SUNaT.
+ * Resolve a movable entry (reference+offset) to ALL valid dates within the target year.
  *
- * A single reference+offset can resolve to multiple dates in a year when the liturgical
- * cycle wraps (e.g., PASCHA+257 lands on both Jan 2 from prev Pascha and Dec 25 from
- * current Pascha — both are valid, serving different portions of the calendar year).
- *
- * The SUNaT boundary determines which cycle owns which portion:
- * - From currentRefs: valid if resolved date is in-year AND after SUNaT
- * - From prevRefs: valid if resolved date is in-year AND on or before SUNaT
+ * For PASCHA references, two boundary rules apply:
+ * - Previous year's PASCHA (positive offsets): valid from 01/01 through PASCHA-70 (non-inclusive)
+ * - Current year's PASCHA (negative offsets going forward): valid from SUNaT (non-inclusive) onward
+ * There is an overlap between SUNaT and PASCHA-70 where both cycles are valid.
  *
  * For non-PASCHA references (SUNbT, L1, etc.), boundary is not applied — they resolve
  * from whichever set has them in-year.
@@ -119,23 +115,42 @@ export function resolveDatesForYear(
     currentRefs: ResolvedReferences,
     prevRefs: ResolvedReferences,
 ): Date[] {
-    const sunaT = currentRefs.get('SUNaT');
     const applyBoundary = reference === 'PASCHA';
     const results: Date[] = [];
 
-    // Try current year's references
-    const fromCurrent = resolveDate(currentRefs, reference, offset);
-    if (fromCurrent && fromCurrent.getUTCFullYear() === year) {
-        if (!applyBoundary || !sunaT || fromCurrent.getTime() > sunaT.getTime()) {
+    if (applyBoundary) {
+        const sunaT = currentRefs.get('SUNaT');
+        const pascha = currentRefs.get('PASCHA');
+        const pascha70 = pascha ? addDays(pascha, -70) : null;
+
+        // Current year's PASCHA: valid if date is after SUNaT (non-inclusive)
+        const fromCurrent = resolveDate(currentRefs, reference, offset);
+        if (fromCurrent && fromCurrent.getUTCFullYear() === year) {
+            if (!sunaT || fromCurrent.getTime() > sunaT.getTime()) {
+                results.push(fromCurrent);
+            }
+        }
+
+        // Previous year's PASCHA: valid if date is before PASCHA-70 (non-inclusive)
+        const fromPrev = resolveDate(prevRefs, reference, offset);
+        if (fromPrev && fromPrev.getUTCFullYear() === year) {
+            if (!pascha70 || fromPrev.getTime() < pascha70.getTime()) {
+                results.push(fromPrev);
+            }
+        }
+    } else {
+        // Non-PASCHA references: resolve from whichever set has them in-year
+        const fromCurrent = resolveDate(currentRefs, reference, offset);
+        if (fromCurrent && fromCurrent.getUTCFullYear() === year) {
             results.push(fromCurrent);
         }
-    }
 
-    // Try previous year's references
-    const fromPrev = resolveDate(prevRefs, reference, offset);
-    if (fromPrev && fromPrev.getUTCFullYear() === year) {
-        if (!applyBoundary || (sunaT && fromPrev.getTime() <= sunaT.getTime())) {
-            results.push(fromPrev);
+        const fromPrev = resolveDate(prevRefs, reference, offset);
+        if (fromPrev && fromPrev.getUTCFullYear() === year) {
+            // Avoid duplicates if both resolve to the same date
+            if (!results.some(d => d.getTime() === fromPrev.getTime())) {
+                results.push(fromPrev);
+            }
         }
     }
 
