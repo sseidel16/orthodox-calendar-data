@@ -137,7 +137,7 @@ The following dates are always NONE fasting
 
 The following dates are NONE fasting if they fall on a Monday, Tuesday, Thursday, Saturday or Sunday, and they are OIL if they fall on Wednesday or Friday:
 
-* 01/02, 01/03, 01/04, 01/07, 01/17, 01/20, 01/28, 01/30, 02/10, 05/08, 05/21, 06/30, 07/20, 07/27, 08/16, 08/24, 09/26, 10/20, 10/26, 11/08, 11/09
+* 01/02, 01/03, 01/04, 01/07, 01/17, 01/20, 01/28, 01/30, 02/10, 05/08, 05/21, 06/30, 07/20, 07/27, 08/16, 08/24, 09/26, 10/20, 10/26, 11/08, 11/09, 11/13
 
 The following dates are NONE fasting if they fall on Monday, Tuesday, Thursday, Saturday or Sunday, and they are FISH if they fall on Wednesday or Friday:
 
