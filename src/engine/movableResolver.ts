@@ -29,10 +29,10 @@ export function resolveMovableReferences(year: number, pascha: Date): ResolvedRe
     // ECUM4: Holy Fathers of 4th Ecumenical Council — Sunday between 7/13-7/19
     refs.set('ECUM4', findSundayInRange(year, 7, 13, 7, 19)!);
 
-    // Theophany-related (cross-year: Dec 30 → Jan 5)
-    const satbT = findSaturdayInRange(year, 12, 30, 1, 5, true);
+    // Theophany-related (cross-year: Dec 30 of prev year → Jan 5 of current year)
+    const satbT = findSaturdayInRange(year - 1, 12, 30, 1, 5, true);
     if (satbT) refs.set('SATbT', satbT);
-    const sunbT = findSundayInRange(year, 12, 30, 1, 5, true);
+    const sunbT = findSundayInRange(year - 1, 12, 30, 1, 5, true);
     if (sunbT) refs.set('SUNbT', sunbT);
 
     // After Theophany (Jan 7-13)
@@ -94,59 +94,52 @@ export function resolveDate(refs: ResolvedReferences, reference: string, offset:
     return addDays(baseDate, offset);
 }
 
-/**
- * Get the PASCHA offset for a date, accounting for the reset at SUNaT.
- * Dates on or before SUNaT use the previous year's PASCHA.
- * Dates after SUNaT use the current year's PASCHA.
- */
-export function getPaschaOffset(date: Date, refs: ResolvedReferences, prevPascha: Date): number {
-    const sunaT = refs.get('SUNaT');
-    const pascha = refs.get('PASCHA')!;
-
-    if (sunaT && date.getTime() <= sunaT.getTime()) {
-        return daysBetween(prevPascha, date);
-    }
-    return daysBetween(pascha, date);
-}
 
 /**
- * Resolve a movable entry (reference+offset) to a date within the target year,
+ * Resolve a movable entry (reference+offset) to ALL valid dates within the target year,
  * respecting the liturgical year boundary at SUNaT.
  *
- * The rule: dates from 01/01 through SUNaT (inclusive) belong to the previous
- * year's Pascha cycle. Dates after SUNaT belong to the current year's cycle.
+ * A single reference+offset can resolve to multiple dates in a year when the liturgical
+ * cycle wraps (e.g., PASCHA+257 lands on both Jan 2 from prev Pascha and Dec 25 from
+ * current Pascha — both are valid, serving different portions of the calendar year).
  *
- * - From currentRefs: only valid if resolved date is in-year AND after SUNaT
- * - From prevRefs: only valid if resolved date is in-year AND on or before SUNaT
+ * The SUNaT boundary determines which cycle owns which portion:
+ * - From currentRefs: valid if resolved date is in-year AND after SUNaT
+ * - From prevRefs: valid if resolved date is in-year AND on or before SUNaT
  *
- * Returns null if the entry doesn't resolve to a valid date in the target year.
+ * For non-PASCHA references (SUNbT, L1, etc.), boundary is not applied — they resolve
+ * from whichever set has them in-year.
+ *
+ * Returns an array of 0, 1, or 2 dates.
  */
-export function resolveDateForYear(
+export function resolveDatesForYear(
     reference: string,
     offset: number,
     year: number,
     currentRefs: ResolvedReferences,
     prevRefs: ResolvedReferences,
-): Date | null {
+): Date[] {
     const sunaT = currentRefs.get('SUNaT');
+    const applyBoundary = reference === 'PASCHA';
+    const results: Date[] = [];
 
-    // Try current year's references — only accept if date is after SUNaT
+    // Try current year's references
     const fromCurrent = resolveDate(currentRefs, reference, offset);
     if (fromCurrent && fromCurrent.getUTCFullYear() === year) {
-        if (!sunaT || fromCurrent.getTime() > sunaT.getTime()) {
-            return fromCurrent;
+        if (!applyBoundary || !sunaT || fromCurrent.getTime() > sunaT.getTime()) {
+            results.push(fromCurrent);
         }
     }
 
-    // Try previous year's references — only accept if date is on or before SUNaT
+    // Try previous year's references
     const fromPrev = resolveDate(prevRefs, reference, offset);
     if (fromPrev && fromPrev.getUTCFullYear() === year) {
-        if (sunaT && fromPrev.getTime() <= sunaT.getTime()) {
-            return fromPrev;
+        if (!applyBoundary || (sunaT && fromPrev.getTime() <= sunaT.getTime())) {
+            results.push(fromPrev);
         }
     }
 
-    return null;
+    return results;
 }
 
 // ============================================================

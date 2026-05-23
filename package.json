@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Generates Orthodox calendar JSON data from CSV source files",
   "main": "dist/index.js",
+  "browser": "dist/orthodox-calendar-data.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build:browser": "node build-browser.mjs",
+    "build:all": "tsc && node build-browser.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "cli": "tsc && node dist/cli.js",
@@ -25,6 +29,7 @@
   "private": true,
   "devDependencies": {
     "@types/node": "^25.6.0",
+    "esbuild": "^0.28.0",
     "typescript": "5.7.3",
     "vitest": "^4.1.5"
   },

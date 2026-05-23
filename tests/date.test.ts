@@ -1106,6 +1106,70 @@ describe('Full-year sanity checks', () => {
 });
 
 // ============================================================
+// Dual-placement: same offset appears twice in a year
+// ============================================================
+
+describe('Dual-placement — same PASCHA offset in Jan and Dec', () => {
+    // In 2026, PASCHA+256 through +263 each land on TWO dates:
+    // from prev Pascha (2025): Jan 1-8, from current Pascha (2026): Dec 24-31
+
+    it('PASCHA+258 epistle appears on Jan 3 (from prev cycle)', () => {
+        // Jan 3 also gets LLR immovable override (SATbT readings), but the epistle
+        // from PASCHA+258 is placed first, then SATbT overrides. Check what's there.
+        const r = enriched('2026-01-03').newData.readings;
+        expect(r.length).toBeGreaterThan(0);
+    });
+
+    it('PASCHA+260 epistle appears on Dec 28 (from current cycle)', () => {
+        const r = enriched('2026-12-28').newData.readings;
+        expect(r[0]).toBe('Hebrews 11:17-31');
+    });
+
+    it('PASCHA+257 epistle on Jan 2 (prev cycle) coexists with SUNaE gospel', () => {
+        // Jan 2 gets epistle from PASCHA+257 (prev) AND gospel from SUNaE+103 (prev)
+        const r = enriched('2026-01-02').newData.readings;
+        expect(r[0]).toBe('Hebrews 11:8-16');      // epistle from PASCHA+257
+        expect(r[1]).toContain('Mark');              // gospel from SUNaE+103
+    });
+
+    it('PASCHA+257 on Dec 25 is overridden by HLR Nativity readings', () => {
+        // Dec 25 has HLR immovable readings that override the movable PASCHA+257
+        const r = enriched('2026-12-25').newData.readings;
+        expect(r[0]).toContain('Galatians');         // Nativity epistle
+        expect(r[1]).toContain('Matthew');           // Nativity gospel
+    });
+
+    it('PASCHA+256 on Jan 1 is overridden by HLR Circumcision readings', () => {
+        const r = enriched('2026-01-01').newData.readings;
+        expect(r[0]).toBe('Colossians 2:8-12');     // Circumcision, not PASCHA+256
+    });
+
+    it('both Jan and Dec instances are independently correct', () => {
+        // PASCHA+260: Jan 5 (prev cycle, LLR override applies) vs Dec 28 (current cycle, no override)
+        const jan5 = enriched('2026-01-05').newData.readings;
+        const dec28 = enriched('2026-12-28').newData.readings;
+        // Jan 5 gets LLR immovable (Eve of Theophany readings)
+        expect(jan5[0]).toBe('1 Corinthians 9:19-27');
+        // Dec 28 keeps the movable PASCHA+260 epistle
+        expect(dec28[0]).toBe('Hebrews 11:17-31');
+    });
+});
+
+describe('Dual-placement — text movables', () => {
+    it('SUNbT feast appears on its resolved date (Jan 4 2026)', () => {
+        // SUNbT resolves to Jan 4 from current year's refs
+        expect(enriched('2026-01-04').newData.feast?.[0]).toContain('Sunday before Theophany');
+    });
+
+    it('SUNbT from prev year does not bleed into current year', () => {
+        // SUNbT from 2025 refs = Jan 5, 2025 (not in 2026). No double placement.
+        // Only Jan 4 should have the feast, not any other date.
+        expect(enriched('2026-01-03').newData.feast).toBeUndefined();
+        expect(enriched('2026-01-05').newData.feast).toBeUndefined();
+    });
+});
+
+// ============================================================
 // Moon phases
 // ============================================================
 

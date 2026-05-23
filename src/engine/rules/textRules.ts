@@ -15,7 +15,7 @@
  */
 
 import { parseTextImmovable, parseTextMovable, parseTextSpecial, TextImmovableEntry, TextMovableEntry, TextSpecialEntry } from '../../data/parser.js';
-import { ResolvedReferences, resolveDate } from '../movableResolver.js';
+import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
 import { utcDate, getDow, formatMMDD, getNthSundayOfMonth } from './dateUtils.js';
 
 /** Dates where only immovable text survives (movables/specials suppressed) */
@@ -60,22 +60,27 @@ function getSpecials(): TextSpecialEntry[] {
 
 /**
  * Precompute movable text assignments: iterate the TextMovable CSV once,
- * resolve each reference+offset to a concrete date, and group by MM-DD.
+ * resolve each reference+offset to all valid dates in the year, and group by MM-DD.
  * This allows O(1) lookup per date during generation.
+ *
+ * Uses resolveDatesForYear to handle potential year-boundary wrapping
+ * (same entry may land on multiple dates from different liturgical cycles).
  *
  * Also handles the St. George rule: if 04/23 falls before PASCHA+2 (Bright Tuesday),
  * the saint text from 04/23 is duplicated onto PASCHA+2.
  */
-export function buildMovableTextMap(year: number, refs: ResolvedReferences): Map<string, TextMovableEntry[]> {
+export function buildMovableTextMap(year: number, refs: ResolvedReferences, prevRefs?: ResolvedReferences): Map<string, TextMovableEntry[]> {
     const map = new Map<string, TextMovableEntry[]>();
+    const prev = prevRefs ?? new Map<string, Date>();
 
     for (const entry of getMovables()) {
-        const date = resolveDate(refs, entry.reference, entry.offset);
-        if (!date || date.getUTCFullYear() !== year) continue;  // skip if outside this year
-        const mmdd = formatMMDD(date);
-        const list = map.get(mmdd) ?? [];
-        list.push(entry);
-        map.set(mmdd, list);
+        const dates = resolveDatesForYear(entry.reference, entry.offset, year, refs, prev);
+        for (const date of dates) {
+            const mmdd = formatMMDD(date);
+            const list = map.get(mmdd) ?? [];
+            list.push(entry);
+            map.set(mmdd, list);
+        }
     }
 
     // St. George rule: if 04/23 falls before PASCHA+2, duplicate its saint text onto PASCHA+2

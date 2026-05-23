@@ -13,7 +13,7 @@
  */
 
 import { parseReadingsMovable, parseReadingsImmovable, ReadingsMovableEntry, ReadingsImmovableEntry } from '../../data/parser.js';
-import { ResolvedReferences, resolveDate, resolveDateForYear } from '../movableResolver.js';
+import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
 import { formatMMDD, getDow, utcDate, addDays, daysBetween } from './dateUtils.js';
 
 // Cached parsed data
@@ -106,8 +106,9 @@ function getDateReadings(map: Map<string, DateReadings>, mmdd: string): DateRead
  * Adjacent rows with same reference+offset+type form a bundle.
  * If a bundle targets a date that already has a bundle of the same type, it overwrites.
  *
- * Uses resolveDateForYear to handle the liturgical year boundary transparently —
- * entries resolve from current refs (primary) or prev refs (fallback for early-year dates).
+ * A single entry may resolve to multiple valid dates in the same year (e.g., PASCHA+257
+ * lands on both Jan 2 from prev cycle and Dec 25 from current cycle). All valid
+ * placements are applied.
  */
 function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: number, refs: ResolvedReferences, prevRefs: ResolvedReferences): void {
     const entries = getMovableReadings();
@@ -129,15 +130,15 @@ function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: num
             i++;
         }
 
-        // Resolve to a date in the target year (tries current refs, then prev refs)
-        const date = resolveDateForYear(bundleRef, bundleOffset, year, refs, prevRefs);
-        if (!date) continue;
+        // Resolve to all valid dates in the target year
+        const targets = resolveDatesForYear(bundleRef, bundleOffset, year, refs, prevRefs);
 
-        const mmdd = formatMMDD(date);
-        const dr = getDateReadings(dateReadings, mmdd);
-
-        // Overwrite existing bundle of the same type
-        dr.set(bundleType, bundleReadings);
+        // Place the bundle on all valid target dates
+        for (const date of targets) {
+            const mmdd = formatMMDD(date);
+            const dr = getDateReadings(dateReadings, mmdd);
+            dr.set(bundleType, bundleReadings);
+        }
     }
 }
 

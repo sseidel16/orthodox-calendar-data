@@ -103,7 +103,7 @@ function buildCalendarContext(
         fastingMap: buildFastingMap(year, physicalPascha, calSystem.fixedDateShift),
         toneMap: buildToneMap(year, physicalPascha, prevPhysicalPascha),
         noteMap: buildNoteMap(year, physicalPascha),
-        movableTextMap: buildMovableTextMap(year, references),
+        movableTextMap: buildMovableTextMap(year, references, prevCalRefs),
         specialTextMap: buildSpecialTextMap(year),
         readingsMap: buildReadingsMap(year, references, prevCalRefs, physicalPascha, gapSundaySymbols),
         ecum4Mmdd: ecum4 ? formatMMDD(ecum4) : null,
