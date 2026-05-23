@@ -198,6 +198,20 @@ describe('New calendar lengthy notes', () => {
     it('no lengthy note on normal day', () => {
         expect(enriched('2026-03-15').newData.lengthyNotes).toEqual([]);
     });
+
+    it('PASCHA-67 (Feb 4, Wed) has no-fasting note', () => {
+        const result = enriched('2026-02-04');
+        expect(result.newData.lengthyNotes[0]).toBe('Some traditions allow for no fasting on this day.');
+    });
+
+    it('PASCHA-65 (Feb 6, Fri) has no-fasting note', () => {
+        const result = enriched('2026-02-06');
+        expect(result.newData.lengthyNotes[0]).toBe('Some traditions allow for no fasting on this day.');
+    });
+
+    it('PASCHA-66 (Feb 5, Thu) does NOT have no-fasting note', () => {
+        expect(enriched('2026-02-05').newData.lengthyNotes).toEqual([]);
+    });
 });
 
 // ============================================================
@@ -475,6 +489,20 @@ describe('Text — combinations', () => {
         // 2024: PASCHA-53 = Mar 13 (Wed)
         const r = enriched('2024-03-13');
         expect(r.newData.lengthyNotes[0]).toContain('no fasting');
+    });
+
+    it('text ordering: movable note appears before immovable saints on Clean Monday', () => {
+        // Feb 23 = PASCHA-48 (Clean Monday): movable note + immovable saints
+        const r = enriched('2026-02-23');
+        expect(r.newData.note![0]).toContain('Beginning of Lent');
+        expect(r.newData.saint![0]).toContain('Polycarp');
+    });
+
+    it('text ordering: movable feast comes before immovable saint on Palm Sunday', () => {
+        // Apr 5: movable feast "Palm Sunday" + immovable saints (Claudios, Theodora)
+        const r = enriched('2026-04-05');
+        expect(r.newData.feast![0]).toBe('Palm Sunday');
+        expect(r.newData.saint![0]).toContain('Claudios');
     });
 });
 
@@ -860,6 +888,19 @@ describe('Readings — elimination rules', () => {
         expect(enriched('2026-12-22').newData.readings.length).toBeGreaterThan(0);
         expect(enriched('2026-12-23').newData.readings.length).toBeGreaterThan(0);
     });
+
+    it('03/25 Annunciation has no OLD readings', () => {
+        const r = enriched('2026-03-25').newData.readings;
+        // Should have EPISTLE (Hebrews) and GOSPEL (Luke) but no OLD (Isaiah/Genesis/Proverbs)
+        expect(r.length).toBe(2);
+        expect(r[0]).toContain('Hebrews');
+        expect(r[1]).toContain('Luke');
+        for (const reading of r) {
+            expect(reading).not.toContain('Isaiah');
+            expect(reading).not.toContain('Genesis');
+            expect(reading).not.toContain('Proverbs');
+        }
+    });
 });
 
 // ============================================================
@@ -880,12 +921,23 @@ describe('Readings — coverage and ordering', () => {
         expect(r[1]).toContain('John');
     });
 
-    it('OT readings are between epistle and gospel', () => {
-        // Lent day with epistle + OT + gospel: Mar 9 (has Hebrews + Isaiah/Gen/Prov)
+    it('OT readings come before epistle and gospel', () => {
+        // Lent day with OT + epistle + gospel: Mar 9 (has Isaiah/Gen/Prov + Hebrews + Matthew)
         const r = enriched('2026-03-09').newData.readings;
-        expect(r[0]).toContain('Hebrews'); // epistle first
-        expect(r[1]).toContain('Isaiah');   // OT middle
+        expect(r[0]).toContain('Isaiah');   // OT first
+        expect(r[r.length - 2]).toContain('Hebrews'); // epistle second-to-last
         expect(r[r.length - 1]).toContain('Matthew'); // gospel last
+    });
+
+    it('LLR date with no OLD bundle preserves movable OT (Feb 24)', () => {
+        // Feb 24 = PASCHA-47: movable OLD (Isaiah/Gen/Prov) + immovable EPISTLE + GOSPEL
+        // Immovable has no OLD bundle, so movable OLD survives. Order: OLD, EPISTLE, GOSPEL
+        const r = enriched('2026-02-24').newData.readings;
+        expect(r[0]).toContain('Isaiah');
+        expect(r[1]).toContain('Genesis');
+        expect(r[2]).toContain('Proverbs');
+        expect(r[3]).toContain('2 Corinthians');
+        expect(r[4]).toContain('Matthew');
     });
 
     it('late December has readings from current year cycle', () => {

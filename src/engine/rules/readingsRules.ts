@@ -64,14 +64,14 @@ export function buildReadingsMap(
     applyEliminationRules(dateReadings, year);
 
     // Convert to final format: flatten all type bundles in a consistent order
-    // Order: EPISTLE first, then other types alphabetically, GOSPEL last
+    // Order: OLD first, then EPISTLE, then GOSPEL last
     const result = new Map<string, string[]>();
     for (const [mmdd, dr] of dateReadings) {
         const types = [...dr.keys()].sort((a, b) => {
+            if (a === 'OLD') return -1;
+            if (b === 'OLD') return 1;
             if (a === 'EPISTLE') return -1;
             if (b === 'EPISTLE') return 1;
-            if (a === 'GOSPEL') return 1;
-            if (b === 'GOSPEL') return -1;
             return a.localeCompare(b);
         });
         const combined: string[] = [];
@@ -319,6 +319,7 @@ function isProtectedDay(mmdd: string, year: number, pascha: Date): boolean {
 /**
  * Step 4: Elimination rules.
  * Certain dates lose ALL readings based on when feasts fall.
+ * On 03/25, OLD readings are eliminated.
  */
 function applyEliminationRules(dateReadings: Map<string, DateReadings>, year: number): void {
     const jan6dow = getDow(utcDate(year, 0, 6));
@@ -328,4 +329,10 @@ function applyEliminationRules(dateReadings: Map<string, DateReadings>, year: nu
     const dec25dow = getDow(utcDate(year, 11, 25));
     if (dec25dow === 1) dateReadings.delete('12-22'); // 12/25 Monday → eliminate 12/22
     if (dec25dow === 0) dateReadings.delete('12-23'); // 12/25 Sunday → eliminate 12/23
+
+    // On 03/25, eliminate any OLD readings
+    const dr = dateReadings.get('03-25');
+    if (dr) {
+        dr.delete('OLD');
+    }
 }

@@ -181,7 +181,7 @@ The dates after PASCHA+56 /\*All Saints\*/ and before 6/29 (if any) receive spec
 
 Lengthy notes in English and Greek can be determined as follows
 
-PASCHA-53 and PASCHA-51 receive the following lengthy note:
+PASCHA-67, PASCHA-65, PASCHA-53, PASCHA-51 receive the following lengthy note:
 
 * Lengthy note text: “Some traditions allow for no fasting on this day.” / “Κατ’ ἄλλη ἐκδοχὴ δὲν ἔχει νηστεία αὐτὴ τὴν ἡμέρα.”
 
@@ -212,11 +212,9 @@ The following rules will surface feasts, saints, and notes. The final value that
 * If the date is missing a feast, saint, or note, then the subsequent optional key is missing entirely. It will never be present as an empty array, or an array of size 2 with two empty strings. In the rare occurrence that an English string is available without a Greek one, or vice-versa, then the field should be there and the missing language will be an empty string.  
 * Rules below may trigger/add multiple of the same date, field, and language. For every date-field-language combo, these can be brought into a list, and then concatenated with a newline separator. The result should be a single string for each date-field-language, which are then brought into the array of size 2 for each date-field.
 
-Entries in *data/TextImmovable.csv* are added based on dates, termed “immovables”. These should be added to every date.
-
 Entries in *data/TextMovable.csv*, termed “movables”, are added based on movable references, very often the PASCHA offset value.
 
-Exception: feast text from ECUM4 overrides any other feast text that may be on that day
+Entries in *data/TextImmovable.csv* are added based on dates, termed “immovables”. These should be added to every date.
 
 Entries in *data/TextSpecial.csv*, termed “specials”, are added based on unique rules. The rules for specials are:
 
@@ -231,7 +229,9 @@ Entries in *data/TextSpecial.csv*, termed “specials”, are added based on uni
 
 If 4/23 falls before PASCHA+2 /\* Bright Tuesday \*/, the main text Type=Saint from 04/23 is shown again on PASCHA+2, at the beginning of, and in addition to, any main text saint data for that date.
 
-When immovables coincide with movables or specials, both are celebrated together (combined), with limited exceptions. The immovables on 01/06, 08/06, 09/14 and 12/25 eliminate all other movables or specials that may coincide with them.
+When immovables coincide with movables or specials, both are celebrated together (combined), with limited exceptions. The immovables on 01/06, 08/06, 09/14 and 12/25 eliminate all other movables or specials that may coincide with them. Ordering within lists should be in the order they appear in the data sheet, with overall ordering of movables, immovables, specials.
+
+Exception: feast text from ECUM4 overrides any other feast text that may be on that day
 
 # ToneRules
 
@@ -282,10 +282,13 @@ Next, apply immovable readings from *data/ReadingsImmovable.csv* in the followin
 * Higher level reading dates are immovable readings that replace the readings which are found on that day no matter what:  
   * 01/01, 01/06, 02/02, 03/25, 08/06, 08/15, 09/08, 09/14, 11/21, 12/25
 
+Ordering within readings should be in the order they appear in the bundle from the data sheet, with overall ordering of OLD, EPISTLE, GOSPEL. 
+
 Additional rules:
 
 * If 01/06 is a Monday, eliminate the readings on 01/03 \- there will be no readings at all  
 * If 01/06 is a Sunday, eliminate the readings on 01/04 \- there will be no readings at all  
 * If 12/25 is a Monday, eliminate the readings on 12/22 \- there will be no readings at all  
-* If 12/25 is a Sunday, eliminate the readings on 12/23 \- there will be no readings at all
+* If 12/25 is a Sunday, eliminate the readings on 12/23 \- there will be no readings at all  
+* On 03/25, eliminate any OLD readings on that date
 

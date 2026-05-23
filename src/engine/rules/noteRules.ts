@@ -5,7 +5,7 @@
  * NoteBoxes at the UI layer. At the data layer, they're stored as [english, greek].
  *
  * Four trigger conditions:
- * 1. PASCHA-53 and PASCHA-51: "Some traditions allow for no fasting"
+ * 1. PASCHA-67, PASCHA-65, PASCHA-53, PASCHA-51: "Some traditions allow for no fasting"
  * 2. Wed/Fri in Pentecostarion (PASCHA+8 through PASCHA+48): monastery fasting note
  * 3. Palm Sunday (PASCHA-7): "Some traditions allow for fish"
  * 4. Wed/Fri in 01/02-01/04 and 12/26-12/31: "Some traditions allow for no fasting"
@@ -45,8 +45,8 @@ export function buildNoteMap(year: number, pascha: Date): Map<number, [string, s
         const mmdd = formatMMDD(date);
         const offset = daysBetween(pascha, date);
 
-        // Rule 1: PASCHA-53 and PASCHA-51 (Cheese Fare week no-liturgy days)
-        if (offset === -53 || offset === -51) {
+        // Rule 1: PASCHA-67, PASCHA-65, PASCHA-53, PASCHA-51 (no-fasting tradition days)
+        if (offset === -67 || offset === -65 || offset === -53 || offset === -51) {
             map.set(doy, NOTE_NO_FASTING);
             continue;
         }

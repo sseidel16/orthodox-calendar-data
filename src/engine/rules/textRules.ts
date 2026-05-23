@@ -214,6 +214,18 @@ export function applyTextRules(
         else if (type === 'Note') notes.push({ en: english, gr: greek });
     };
 
+    // Order: movables, immovables, specials.
+    // Movables and Specials are suppressed on eliminator dates.
+
+    if (!isEliminator) {
+        const movables = movableTextMap.get(mmdd);
+        if (movables) {
+            for (const entry of movables) {
+                addEntry(entry.type, entry.english, entry.greek);
+            }
+        }
+    }
+
     // Immovables always apply (never suppressed)
     const immovables = getImmovablesIndex().get(mmdd);
     if (immovables) {
@@ -222,32 +234,25 @@ export function applyTextRules(
         }
     }
 
-    // Movables and Specials are suppressed on eliminator dates
     if (!isEliminator) {
-        const movables = movableTextMap.get(mmdd);
-        if (movables) {
-            if (ecum4Mmdd && mmdd === ecum4Mmdd) {
-                // ECUM4 feast overrides all other feast text for this day —
-                // only feast entries from the ECUM4 reference are kept
-                feasts.length = 0;  // clear immovable feasts
-                for (const entry of movables.filter(e => e.type === 'Feast' && e.reference === 'ECUM4')) {
-                    addEntry(entry.type, entry.english, entry.greek);
-                }
-                // Non-feast movables still apply normally (from all references)
-                for (const entry of movables.filter(e => e.type !== 'Feast')) {
-                    addEntry(entry.type, entry.english, entry.greek);
-                }
-            } else {
-                for (const entry of movables) {
-                    addEntry(entry.type, entry.english, entry.greek);
-                }
-            }
-        }
-
         const specials = specialTextMap.get(mmdd);
         if (specials) {
             for (const entry of specials) {
                 addEntry(entry.type, entry.english, entry.greek);
+            }
+        }
+    }
+
+    // ECUM4 feast overrides all other feast text for that day
+    if (!isEliminator && ecum4Mmdd && mmdd === ecum4Mmdd) {
+        const movables = movableTextMap.get(mmdd);
+        if (movables) {
+            const ecum4Feasts = movables.filter(e => e.type === 'Feast' && e.reference === 'ECUM4');
+            if (ecum4Feasts.length > 0) {
+                feasts.length = 0;
+                for (const entry of ecum4Feasts) {
+                    addEntry(entry.type, entry.english, entry.greek);
+                }
             }
         }
     }
