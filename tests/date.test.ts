@@ -1131,7 +1131,7 @@ describe('Full-year sanity checks', () => {
 
     it('every Sunday in 2026 either has a tone or is in the no-tone window', () => {
         const all = getDateRange(new Date('2026-01-01T00:00:00Z'), new Date('2026-12-31T00:00:00Z'));
-        const sundays = all.filter(r => r.date.getUTCDay() === 0);
+        const sundays = all.filter(r => r.date.dayOfWeek() === 0);
         const withTone = sundays.filter(r => r.newData.tone);
         // 52 Sundays, minus ~4 suppressed (Pentecost + 3-4 no-tone window)
         expect(withTone.length).toBeGreaterThanOrEqual(44);
@@ -1140,7 +1140,7 @@ describe('Full-year sanity checks', () => {
 
     it('no weekday has a tone', () => {
         const all = getDateRange(new Date('2026-01-01T00:00:00Z'), new Date('2026-12-31T00:00:00Z'));
-        const weekdays = all.filter(r => r.date.getUTCDay() !== 0);
+        const weekdays = all.filter(r => r.date.dayOfWeek() !== 0);
         expect(weekdays.every(r => r.newData.tone === undefined)).toBe(true);
     });
 

@@ -11,7 +11,8 @@
  * 4. Wed/Fri in 01/02-01/04 and 12/26-12/31: "Some traditions allow for no fasting"
  */
 
-import { dayOfYear, daysInYear, utcDate, getDow, formatMMDD, daysBetween } from './dateUtils.js';
+import { PhysicalDay } from '../physicalDay.js';
+import { dayOfYear, daysInYear, utcDate, getDow, daysBetween } from './dateUtils.js';
 
 const NOTE_NO_FASTING: [string, string] = [
     'Some traditions allow for no fasting on this day.',
@@ -31,11 +32,19 @@ const NOTE_PALM_SUNDAY_FISH: [string, string] = [
 /** Dates where the monastery note does NOT apply (even if Wed/Fri in Pentecostarion) */
 const MONASTERY_EXCLUDED_DATES = new Set(['04-23', '05-08', '05-21', '06-24']);
 
+/** Format a PhysicalDay as "MM-DD" for exclusion checks */
+function formatMMDD(day: PhysicalDay): string {
+    const d = new Date(day._epochMs());
+    const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(d.getUTCDate()).padStart(2, '0');
+    return `${m}-${dd}`;
+}
+
 /**
  * Build a note map for the entire year. Returns a Map keyed by day-of-year (0-based).
  * Only days with a lengthy note will have entries.
  */
-export function buildNoteMap(year: number, pascha: Date): Map<number, [string, string]> {
+export function buildNoteMap(year: number, pascha: PhysicalDay): Map<number, [string, string]> {
     const map = new Map<number, [string, string]>();
     const totalDays = daysInYear(year);
 
@@ -67,8 +76,9 @@ export function buildNoteMap(year: number, pascha: Date): Map<number, [string, s
 
         // Rule 4: Wed/Fri in the Nativity/Theophany afterfeast periods
         if (dow === 3 || dow === 5) {
-            const month = date.getUTCMonth() + 1;
-            const day = date.getUTCDate();
+            const d = new Date(date._epochMs());
+            const month = d.getUTCMonth() + 1;
+            const day = d.getUTCDate();
             const inJanRange = month === 1 && day >= 2 && day <= 4;
             const inDecRange = month === 12 && day >= 26 && day <= 31;
             if (inJanRange || inDecRange) {

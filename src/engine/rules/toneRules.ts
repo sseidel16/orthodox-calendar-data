@@ -10,7 +10,8 @@
  * (which started at prev PASCHA+14) until the current year's PASCHA-14.
  */
 
-import { dayOfYear, utcDate, getDow, addDays, formatMMDD, daysBetween } from './dateUtils.js';
+import { PhysicalDay } from '../physicalDay.js';
+import { dayOfYear, utcDate, getDow, addDays, daysBetween } from './dateUtils.js';
 
 const TONES = [
     '1st Tone', '2nd Tone', '3rd Tone', '4th Tone',
@@ -20,11 +21,19 @@ const TONES = [
 /** Fixed dates where tone is not displayed even if it's a Sunday */
 const SUPPRESSED_DATES = new Set(['01-06', '08-06', '09-14', '12-25']);
 
+/** Format a PhysicalDay as "MM-DD" for suppression checks */
+function formatMMDD(day: PhysicalDay): string {
+    const d = new Date(day._epochMs());
+    const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(d.getUTCDate()).padStart(2, '0');
+    return `${m}-${dd}`;
+}
+
 /**
  * Build a tone map for the entire year. Returns a Map keyed by day-of-year (0-based).
  * Only Sundays that display a tone will have entries.
  */
-export function buildToneMap(year: number, pascha: Date, prevPascha: Date): Map<number, string> {
+export function buildToneMap(year: number, pascha: PhysicalDay, prevPascha: PhysicalDay): Map<number, string> {
     const map = new Map<number, string>();
 
     // Part 1: Jan 1 through PASCHA-14 — continuing from previous year's cycle
@@ -40,18 +49,18 @@ export function buildToneMap(year: number, pascha: Date, prevPascha: Date): Map<
  * Walk Sundays from previous year's PASCHA+14 through current year's PASCHA-14,
  * tracking the tone cycle. Only assign tones for Sundays that fall in the current year.
  */
-function assignTonesFromPrevYear(map: Map<number, string>, year: number, pascha: Date, prevPascha: Date): void {
+function assignTonesFromPrevYear(map: Map<number, string>, year: number, pascha: PhysicalDay, prevPascha: PhysicalDay): void {
     const startDate = addDays(prevPascha, 14);
     const lastToneDate = addDays(pascha, -14); // last Sunday with a tone before reset
     let toneIdx = 1; // cycle starts at "2nd Tone" (index 1)
 
-    const current = new Date(startDate);
-    while (current.getTime() <= lastToneDate.getTime()) {
+    let current = startDate;
+    while (current.isOnOrBefore(lastToneDate)) {
         if (getDow(current) === 0) { // Sunday
             const offset = daysBetween(prevPascha, current);
 
             // Only assign if this Sunday is in the current year
-            if (current.getUTCFullYear() === year) {
+            if (current.year() === year) {
                 const mmdd = formatMMDD(current);
                 const isPrevPentecost = offset === 49;
                 const isSuppressed = isPrevPentecost || SUPPRESSED_DATES.has(mmdd);
@@ -64,7 +73,7 @@ function assignTonesFromPrevYear(map: Map<number, string>, year: number, pascha:
             // Always advance cycle (even for suppressed or previous-year Sundays)
             toneIdx = (toneIdx + 1) % 8;
         }
-        current.setUTCDate(current.getUTCDate() + 1);
+        current = current.addDays(1);
     }
 }
 
@@ -72,13 +81,13 @@ function assignTonesFromPrevYear(map: Map<number, string>, year: number, pascha:
  * Walk Sundays from PASCHA+14 through end of year.
  * Fresh cycle starting at tone index 1 ("2nd Tone").
  */
-function assignTonesFromCurrentPascha(map: Map<number, string>, year: number, pascha: Date): void {
+function assignTonesFromCurrentPascha(map: Map<number, string>, year: number, pascha: PhysicalDay): void {
     let toneIdx = 1; // "2nd Tone" at PASCHA+14
     const startDate = addDays(pascha, 14);
     const yearEnd = utcDate(year, 11, 31);
 
-    const current = new Date(startDate);
-    while (current.getTime() <= yearEnd.getTime()) {
+    let current = startDate;
+    while (current.isOnOrBefore(yearEnd)) {
         if (getDow(current) === 0) { // Sunday
             const offset = daysBetween(pascha, current);
             const mmdd = formatMMDD(current);
@@ -92,6 +101,6 @@ function assignTonesFromCurrentPascha(map: Map<number, string>, year: number, pa
             // Always advance cycle regardless of suppression
             toneIdx = (toneIdx + 1) % 8;
         }
-        current.setUTCDate(current.getUTCDate() + 1);
+        current = current.addDays(1);
     }
 }

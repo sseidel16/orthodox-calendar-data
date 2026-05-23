@@ -3,8 +3,10 @@
  * These are separate from the UI types in types.ts.
  */
 
+import { PhysicalDay } from './physicalDay.js';
+
 export type EnrichedDate = {
-    date: Date;
+    date: PhysicalDay;
     moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
     oldData: EnrichedDateData;
     newData: EnrichedDateData;

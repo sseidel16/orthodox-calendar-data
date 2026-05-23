@@ -16,7 +16,9 @@
 
 import { parseTextImmovable, parseTextMovable, parseTextSpecial, TextImmovableEntry, TextMovableEntry, TextSpecialEntry } from '../../data/parser.js';
 import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
-import { utcDate, getDow, formatMMDD, getNthSundayOfMonth } from './dateUtils.js';
+import { CalendarSystem } from '../calendarSystem.js';
+import { PhysicalDay } from '../physicalDay.js';
+import { getDow, getNthSundayOfMonth } from './dateUtils.js';
 
 /** Dates where only immovable text survives (movables/specials suppressed) */
 const ELIMINATOR_DATES = new Set(['01-06', '08-06', '09-14', '12-25']);
@@ -69,14 +71,14 @@ function getSpecials(): TextSpecialEntry[] {
  * Also handles the St. George rule: if 04/23 falls before PASCHA+2 (Bright Tuesday),
  * the saint text from 04/23 is duplicated onto PASCHA+2.
  */
-export function buildMovableTextMap(year: number, refs: ResolvedReferences, prevRefs?: ResolvedReferences): Map<string, TextMovableEntry[]> {
+export function buildMovableTextMap(year: number, refs: ResolvedReferences, prevRefs: ResolvedReferences | undefined, cal: CalendarSystem): Map<string, TextMovableEntry[]> {
     const map = new Map<string, TextMovableEntry[]>();
-    const prev = prevRefs ?? new Map<string, Date>();
+    const prev = prevRefs ?? new Map<string, PhysicalDay>();
 
     for (const entry of getMovables()) {
         const dates = resolveDatesForYear(entry.reference, entry.offset, year, refs, prev);
         for (const date of dates) {
-            const mmdd = formatMMDD(date);
+            const mmdd = cal.getMMDD(date);
             const list = map.get(mmdd) ?? [];
             list.push(entry);
             map.set(mmdd, list);
@@ -84,7 +86,7 @@ export function buildMovableTextMap(year: number, refs: ResolvedReferences, prev
     }
 
     // St. George rule: if 04/23 falls before PASCHA+2, duplicate its saint text onto PASCHA+2
-    applyStGeorgeRule(map, year, refs);
+    applyStGeorgeRule(map, year, refs, cal);
 
     return map;
 }
@@ -93,16 +95,16 @@ export function buildMovableTextMap(year: number, refs: ResolvedReferences, prev
  * If April 23 falls before Bright Tuesday (PASCHA+2), the saint text from 04/23
  * is shown again on PASCHA+2, prepended to any existing saint data for that date.
  */
-function applyStGeorgeRule(map: Map<string, TextMovableEntry[]>, year: number, refs: ResolvedReferences): void {
+function applyStGeorgeRule(map: Map<string, TextMovableEntry[]>, year: number, refs: ResolvedReferences, cal: CalendarSystem): void {
     const pascha = refs.get('PASCHA');
     if (!pascha) return;
 
-    const apr23 = utcDate(year, 3, 23);
+    const apr23 = cal.toPhysicalDate(year, 4, 23);
     const brightTuesday = resolveDate(refs, 'PASCHA', 2);
     if (!brightTuesday) return;
 
     // Check if 04/23 falls before PASCHA+2
-    if (apr23.getTime() >= brightTuesday.getTime()) return;
+    if (!apr23.isBefore(brightTuesday)) return;
 
     // Get saint entries from the immovables for 04/23
     const apr23Immovables = getImmovablesIndex().get('04-23');
@@ -112,7 +114,7 @@ function applyStGeorgeRule(map: Map<string, TextMovableEntry[]>, year: number, r
     if (saintEntries.length === 0) return;
 
     // Add them to PASCHA+2's movable text map (as synthetic movable entries at the beginning)
-    const brightTuesMmdd = formatMMDD(brightTuesday);
+    const brightTuesMmdd = cal.getMMDD(brightTuesday);
     const existing = map.get(brightTuesMmdd) ?? [];
 
     // Prepend saint entries (they go "at the beginning of" saint data)
@@ -130,8 +132,9 @@ function applyStGeorgeRule(map: Map<string, TextMovableEntry[]>, year: number, r
 /**
  * Precompute special text assignments for a year.
  * Handles Royal Hours / Liturgy of St. Basil placement and DST notes.
+ * Calendar system determines what physical dates calendar dates correspond to.
  */
-export function buildSpecialTextMap(year: number): Map<string, TextSpecialEntry[]> {
+export function buildSpecialTextMap(year: number, cal: CalendarSystem): Map<string, TextSpecialEntry[]> {
     const map = new Map<string, TextSpecialEntry[]>();
     const specials = getSpecials();
 
@@ -145,23 +148,20 @@ export function buildSpecialTextMap(year: number): Map<string, TextSpecialEntry[
     };
 
     // Royal Hours / Liturgy rules for 01/05 (Eve of Theophany)
-    const jan5dow = getDow(utcDate(year, 0, 5));
+    const jan5dow = getDow(cal.toPhysicalDate(year, 1, 5));
     if (jan5dow >= 1 && jan5dow <= 5) {
-        // Mon-Fri: Royal Hours + Liturgy on 01/05 itself
         addEntry('01-05', 'Royal Hours');
         addEntry('01-05', 'Liturgy of St. Basil');
     } else if (jan5dow === 6) {
-        // Saturday: shift to 01/04 with No Liturgy
         addEntry('01-04', 'Royal Hours');
         addEntry('01-04', 'No Liturgy');
     } else {
-        // Sunday: shift to 01/03 with No Liturgy
         addEntry('01-03', 'Royal Hours');
         addEntry('01-03', 'No Liturgy');
     }
 
     // Royal Hours / Liturgy rules for 12/24 (Eve of Nativity)
-    const dec24dow = getDow(utcDate(year, 11, 24));
+    const dec24dow = getDow(cal.toPhysicalDate(year, 12, 24));
     if (dec24dow >= 1 && dec24dow <= 5) {
         addEntry('12-24', 'Royal Hours');
         addEntry('12-24', 'Liturgy of St. Basil');
@@ -174,10 +174,11 @@ export function buildSpecialTextMap(year: number): Map<string, TextSpecialEntry[
     }
 
     // DST notes (US — 2nd Sunday in March, 1st Sunday in November)
+    // These are physical events; convert to calendar MM-DD for lookup
     const dstBegin = getNthSundayOfMonth(year, 3, 2);
-    addEntry(formatMMDD(dstBegin), 'Daylight Savings Time begins. Turn clocks forward 1 hour');
+    addEntry(cal.getMMDD(dstBegin), 'Daylight Savings Time begins. Turn clocks forward 1 hour');
     const dstEnd = getNthSundayOfMonth(year, 11, 1);
-    addEntry(formatMMDD(dstEnd), 'Daylight Savings Time ends. Turn clocks back 1 hour');
+    addEntry(cal.getMMDD(dstEnd), 'Daylight Savings Time ends. Turn clocks back 1 hour');
 
     return map;
 }

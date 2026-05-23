@@ -3,13 +3,13 @@ import { TextMovableEntry, TextSpecialEntry } from '../data/parser.js';
 import { ResolvedReferences, resolveMovableReferences } from './movableResolver.js';
 import { FastingLevel, MoonPhase } from './enrichedTypes.js';
 import { CalendarSystem, GREGORIAN, JULIAN } from './calendarSystem.js';
+import { PhysicalDay } from './physicalDay.js';
 import { buildFastingMap } from './rules/fastingRules.js';
 import { buildToneMap } from './rules/toneRules.js';
 import { buildNoteMap } from './rules/noteRules.js';
 import { buildMoonMap } from './rules/moonRules.js';
 import { buildMovableTextMap, buildSpecialTextMap } from './rules/textRules.js';
 import { buildReadingsMap } from './rules/readingsRules.js';
-import { formatMMDD } from './rules/dateUtils.js';
 
 /**
  * Precomputed context for a single calendar system (old or new) within a year.
@@ -17,7 +17,7 @@ import { formatMMDD } from './rules/dateUtils.js';
  */
 export type CalendarContext = {
     calendar: CalendarSystem;
-    pascha: Date;                                      // calendar-specific Pascha (for movable reference resolution)
+    pascha: PhysicalDay;                                  // calendar-specific Pascha (for movable reference resolution)
     references: ResolvedReferences;                    // resolved movable reference dates
     prevReferences: ResolvedReferences;                // previous year's references
     fastingMap: Map<number, FastingLevel>;             // physical day-of-year -> fasting level
@@ -41,15 +41,15 @@ export type YearContext = {
 };
 
 // Lazy-loaded Pascha date cache
-let paschaCache: Map<number, { newPascha: Date; oldPascha: Date }> | null = null;
+let paschaCache: Map<number, { newPascha: PhysicalDay; oldPascha: PhysicalDay }> | null = null;
 
-function getPaschaData(): Map<number, { newPascha: Date; oldPascha: Date }> {
+function getPaschaData(): Map<number, { newPascha: PhysicalDay; oldPascha: PhysicalDay }> {
     if (!paschaCache) {
         paschaCache = new Map();
         for (const entry of parsePaschaDates()) {
             paschaCache.set(entry.year, {
-                newPascha: entry.newPaschaDate,
-                oldPascha: entry.oldPaschaDate,
+                newPascha: PhysicalDay.fromDate(entry.newPaschaDate),
+                oldPascha: PhysicalDay.fromDate(entry.oldPaschaDate),
             });
         }
     }
@@ -57,7 +57,7 @@ function getPaschaData(): Map<number, { newPascha: Date; oldPascha: Date }> {
 }
 
 /** Get Pascha dates (old and new calendar) for a given year. */
-export function getPaschaForYear(year: number): { newPascha: Date; oldPascha: Date } {
+export function getPaschaForYear(year: number): { newPascha: PhysicalDay; oldPascha: PhysicalDay } {
     const data = getPaschaData();
     const entry = data.get(year);
     if (!entry) throw new Error(`Pascha date not available for year ${year}`);
@@ -75,13 +75,13 @@ export function getPaschaForYear(year: number): { newPascha: Date; oldPascha: Da
  */
 function buildCalendarContext(
     year: number,
-    physicalPascha: Date,
-    prevPhysicalPascha: Date,
-    calendarPascha: Date,
+    physicalPascha: PhysicalDay,
+    prevPhysicalPascha: PhysicalDay,
+    calendarPascha: PhysicalDay,
     prevCalRefs: ResolvedReferences,
     calSystem: CalendarSystem,
 ): CalendarContext {
-    const references = resolveMovableReferences(year, calendarPascha);
+    const references = resolveMovableReferences(year, calendarPascha, calSystem);
     const ecum4 = references.get('ECUM4');
 
     // Determine which gap Sunday symbols were assigned (for readings epistle copying)
@@ -103,10 +103,10 @@ function buildCalendarContext(
         fastingMap: buildFastingMap(year, physicalPascha, calSystem.fixedDateShift),
         toneMap: buildToneMap(year, physicalPascha, prevPhysicalPascha),
         noteMap: buildNoteMap(year, physicalPascha),
-        movableTextMap: buildMovableTextMap(year, references, prevCalRefs),
-        specialTextMap: buildSpecialTextMap(year),
-        readingsMap: buildReadingsMap(year, references, prevCalRefs, physicalPascha, gapSundaySymbols),
-        ecum4Mmdd: ecum4 ? formatMMDD(ecum4) : null,
+        movableTextMap: buildMovableTextMap(year, references, prevCalRefs, calSystem),
+        specialTextMap: buildSpecialTextMap(year, calSystem),
+        readingsMap: buildReadingsMap(year, references, prevCalRefs, physicalPascha, gapSundaySymbols, calSystem),
+        ecum4Mmdd: ecum4 ? calSystem.getMMDD(ecum4) : null,
     };
 }
 
@@ -118,8 +118,8 @@ export function buildYearContext(year: number, timezone?: string): YearContext {
     const { newPascha, oldPascha } = getPaschaForYear(year);
     const prevYear = getPaschaForYear(year - 1);
 
-    const prevNewRefs = resolveMovableReferences(year - 1, prevYear.newPascha);
-    const prevOldRefs = resolveMovableReferences(year - 1, prevYear.oldPascha);
+    const prevNewRefs = resolveMovableReferences(year - 1, prevYear.newPascha, GREGORIAN);
+    const prevOldRefs = resolveMovableReferences(year - 1, prevYear.oldPascha, JULIAN);
 
     // Both calendars share the same physical Pascha Sunday.
     // New calendar uses Gregorian dates; old calendar uses Julian dates (shifted -13).

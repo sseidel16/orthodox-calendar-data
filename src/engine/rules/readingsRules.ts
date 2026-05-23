@@ -14,7 +14,9 @@
 
 import { parseReadingsMovable, parseReadingsImmovable, ReadingsMovableEntry, ReadingsImmovableEntry } from '../../data/parser.js';
 import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
-import { formatMMDD, getDow, utcDate, addDays, daysBetween } from './dateUtils.js';
+import { CalendarSystem } from '../calendarSystem.js';
+import { PhysicalDay } from '../physicalDay.js';
+import { getDow, utcDate, addDays, daysBetween } from './dateUtils.js';
 
 // Cached parsed data
 let movableReadingsCache: ReadingsMovableEntry[] | null = null;
@@ -44,24 +46,25 @@ export function buildReadingsMap(
     year: number,
     refs: ResolvedReferences,
     prevRefs: ResolvedReferences,
-    pascha: Date,
+    pascha: PhysicalDay,
     gapSundaySymbols: string[],
+    cal: CalendarSystem,
 ): Map<string, string[]> {
+    const toMMDD = (d: PhysicalDay) => cal.getMMDD(d);
+    const toPhysical = (m: number, d: number) => cal.toPhysicalDate(year, m, d);
     const dateReadings = new Map<string, DateReadings>();
 
     // Step 1: Apply movable readings, resolving from both current and previous year's refs.
-    // Uses resolveDateForYear which tries current refs first, then prev refs as fallback
-    // (handles the liturgical year boundary where early-year dates use prev Pascha).
-    applyMovableReadings(dateReadings, year, refs, prevRefs);
+    applyMovableReadings(dateReadings, year, refs, prevRefs, toMMDD);
 
     // Step 2: Apply gap Sunday epistle bundles
-    applyGapSundayEpistles(dateReadings, year, refs, gapSundaySymbols);
+    applyGapSundayEpistles(dateReadings, year, refs, gapSundaySymbols, toMMDD);
 
     // Step 3: Apply immovable readings (LLR and HLR)
-    applyImmovableReadings(dateReadings, year, pascha);
+    applyImmovableReadings(dateReadings, year, pascha, toPhysical);
 
     // Step 4: Elimination rules
-    applyEliminationRules(dateReadings, year);
+    applyEliminationRules(dateReadings, year, toPhysical);
 
     // Convert to final format: flatten all type bundles in a consistent order
     // Order: OLD first, then EPISTLE, then GOSPEL last
@@ -110,7 +113,7 @@ function getDateReadings(map: Map<string, DateReadings>, mmdd: string): DateRead
  * lands on both Jan 2 from prev cycle and Dec 25 from current cycle). All valid
  * placements are applied.
  */
-function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: number, refs: ResolvedReferences, prevRefs: ResolvedReferences): void {
+function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: number, refs: ResolvedReferences, prevRefs: ResolvedReferences, toMMDD: (d: PhysicalDay) => string): void {
     const entries = getMovableReadings();
     let i = 0;
 
@@ -135,7 +138,7 @@ function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: num
 
         // Place the bundle on all valid target dates
         for (const date of targets) {
-            const mmdd = formatMMDD(date);
+            const mmdd = toMMDD(date);
             const dr = getDateReadings(dateReadings, mmdd);
             dr.set(bundleType, bundleReadings);
         }
@@ -152,6 +155,7 @@ function applyGapSundayEpistles(
     year: number,
     refs: ResolvedReferences,
     gapSundaySymbols: string[],
+    toMMDD: (d: PhysicalDay) => string,
 ): void {
     const patterns: Record<number, number[]> = {
         1: [273],
@@ -171,12 +175,12 @@ function applyGapSundayEpistles(
 
     for (let i = 0; i < count; i++) {
         const gapDate = resolveDate(refs, gapSundaySymbols[i], 0);
-        if (!gapDate || gapDate.getUTCFullYear() !== year) continue;
+        if (!gapDate || gapDate.year() !== year) continue;
 
         const bundle = epistleIndex.get(offsets[i]);
         if (!bundle || bundle.length === 0) continue;
 
-        const gapMmdd = formatMMDD(gapDate);
+        const gapMmdd = toMMDD(gapDate);
         const dr = getDateReadings(dateReadings, gapMmdd);
         dr.set('EPISTLE', [...bundle]);
     }
@@ -213,7 +217,7 @@ function buildPaschaEpistleIndex(): Map<number, string[]> {
  * Step 3: Apply immovable readings with LLR/HLR logic.
  * HLR: always replace. LLR: replace unless it's a protected day.
  */
-function applyImmovableReadings(dateReadings: Map<string, DateReadings>, year: number, pascha: Date): void {
+function applyImmovableReadings(dateReadings: Map<string, DateReadings>, year: number, pascha: PhysicalDay, toPhysical: (m: number, d: number) => PhysicalDay): void {
     const entries = getImmovableReadings();
 
     // Group immovable entries into bundles by date+type (adjacent rows)
@@ -235,7 +239,7 @@ function applyImmovableReadings(dateReadings: Map<string, DateReadings>, year: n
         const mmdd = bundleDate.replace('/', '-');
 
         // Determine if this is LLR or HLR
-        const level = getImmovableLevel(mmdd, year, pascha);
+        const level = getImmovableLevel(mmdd, year, pascha, toPhysical);
         if (level === 'NONE') continue; // not an immovable reading date
 
         if (level === 'HLR') {
@@ -244,7 +248,7 @@ function applyImmovableReadings(dateReadings: Map<string, DateReadings>, year: n
             dr.set(bundleType, bundleReadings);
         } else {
             // LLR: replace unless protected day
-            if (!isProtectedDay(mmdd, year, pascha)) {
+            if (!isProtectedDay(mmdd, year, pascha, toPhysical)) {
                 const dr = getDateReadings(dateReadings, mmdd);
                 dr.set(bundleType, bundleReadings);
             }
@@ -274,13 +278,13 @@ const LLR_GROUP2 = new Set([
 ]);
 
 /** Determine the immovable reading level for a date */
-function getImmovableLevel(mmdd: string, year: number, pascha: Date): 'HLR' | 'LLR' | 'NONE' {
+function getImmovableLevel(mmdd: string, year: number, pascha: PhysicalDay, toPhysical: (m: number, d: number) => PhysicalDay): 'HLR' | 'LLR' | 'NONE' {
     if (HLR_DATES.has(mmdd)) return 'HLR';
 
     if (LLR_GROUP1.has(mmdd)) {
         // Unless it falls on Saturday
         const [m, d] = mmdd.split('-').map(Number);
-        const dow = getDow(utcDate(year, m - 1, d));
+        const dow = getDow(toPhysical(m, d));
         return dow === 6 ? 'NONE' : 'LLR';
     }
 
@@ -288,9 +292,9 @@ function getImmovableLevel(mmdd: string, year: number, pascha: Date): 'HLR' | 'L
 
     // 04/23 unless before PASCHA+2
     if (mmdd === '04-23') {
-        const apr23 = utcDate(year, 3, 23);
+        const apr23 = toPhysical(4, 23);
         const brightTues = addDays(pascha, 2);
-        return apr23.getTime() < brightTues.getTime() ? 'NONE' : 'LLR';
+        return apr23.isBefore(brightTues) ? 'NONE' : 'LLR';
     }
 
     return 'NONE';
@@ -300,9 +304,9 @@ function getImmovableLevel(mmdd: string, year: number, pascha: Date): 'HLR' | 'L
  * Check if a date is "protected" from LLR overwrite.
  * Protected days: Sundays, Bright Week (PASCHA+1 to +6), Mid-Pentecost (PASCHA+24), Ascension (PASCHA+39)
  */
-function isProtectedDay(mmdd: string, year: number, pascha: Date): boolean {
+function isProtectedDay(mmdd: string, year: number, pascha: PhysicalDay, toPhysical: (m: number, d: number) => PhysicalDay): boolean {
     const [m, d] = mmdd.split('-').map(Number);
-    const date = utcDate(year, m - 1, d);
+    const date = toPhysical(m, d);
 
     // Sunday
     if (getDow(date) === 0) return true;
@@ -321,12 +325,12 @@ function isProtectedDay(mmdd: string, year: number, pascha: Date): boolean {
  * Certain dates lose ALL readings based on when feasts fall.
  * On 03/25, OLD readings are eliminated.
  */
-function applyEliminationRules(dateReadings: Map<string, DateReadings>, year: number): void {
-    const jan6dow = getDow(utcDate(year, 0, 6));
+function applyEliminationRules(dateReadings: Map<string, DateReadings>, year: number, toPhysical: (m: number, d: number) => PhysicalDay): void {
+    const jan6dow = getDow(toPhysical(1, 6));
     if (jan6dow === 1) dateReadings.delete('01-03'); // 01/06 Monday → eliminate 01/03
     if (jan6dow === 0) dateReadings.delete('01-04'); // 01/06 Sunday → eliminate 01/04
 
-    const dec25dow = getDow(utcDate(year, 11, 25));
+    const dec25dow = getDow(toPhysical(12, 25));
     if (dec25dow === 1) dateReadings.delete('12-22'); // 12/25 Monday → eliminate 12/22
     if (dec25dow === 0) dateReadings.delete('12-23'); // 12/25 Sunday → eliminate 12/23
 

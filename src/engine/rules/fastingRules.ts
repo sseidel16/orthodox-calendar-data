@@ -8,7 +8,8 @@
  * Each layer fully overwrites the previous for affected dates.
  */
 
-import { dayOfYear, daysInYear, utcDate, getDow, formatMMDD, addDays, daysBetween } from './dateUtils.js';
+import { PhysicalDay } from '../physicalDay.js';
+import { dayOfYear, daysInYear, utcDate, getDow, addDays, daysBetween } from './dateUtils.js';
 import { FastingLevel } from '../enrichedTypes.js';
 
 /**
@@ -19,7 +20,7 @@ import { FastingLevel } from '../enrichedTypes.js';
  *   0 for new calendar (Gregorian dates ARE physical dates).
  *   13 for old calendar (Julian dates are 13 days before their physical dates).
  */
-export function buildFastingMap(year: number, pascha: Date, calendarShift: number = 0): Map<number, FastingLevel> {
+export function buildFastingMap(year: number, pascha: PhysicalDay, calendarShift: number = 0): Map<number, FastingLevel> {
     const map = new Map<number, FastingLevel>();
     const totalDays = daysInYear(year);
 
@@ -43,10 +44,10 @@ export function buildFastingMap(year: number, pascha: Date, calendarShift: numbe
  * Layer 2: Movable fasting periods relative to Pascha.
  * Ranges: Cheese Fare, Great Lent, Bright Week, Pentecostarion, Week after Pentecost.
  */
-function applyMovableOverrides(map: Map<number, FastingLevel>, year: number, pascha: Date): void {
+function applyMovableOverrides(map: Map<number, FastingLevel>, year: number, pascha: PhysicalDay): void {
     for (let offset = -55; offset <= 55; offset++) {
         const date = addDays(pascha, offset);
-        if (date.getUTCFullYear() !== year) continue; // skip if offset lands outside this year
+        if (date.year() !== year) continue; // skip if offset lands outside this year
         const doy = dayOfYear(date);
         const dow = getDow(date);
 
@@ -81,7 +82,7 @@ function applyMovableOverrides(map: Map<number, FastingLevel>, year: number, pas
  *
  * @param calendarShift - Days to shift fixed dates to get physical dates (0=new, 13=old)
  */
-function applyDateSpecificOverrides(map: Map<number, FastingLevel>, year: number, pascha: Date, calendarShift: number): void {
+function applyDateSpecificOverrides(map: Map<number, FastingLevel>, year: number, pascha: PhysicalDay, calendarShift: number): void {
     // Helper: get physical day-of-year, day-of-week, and Pascha offset for a calendar date.
     // Shifts the calendar date to its physical equivalent before computing.
     const getInfo = (month: number, day: number) => {
@@ -179,7 +180,7 @@ function applyDateSpecificOverrides(map: Map<number, FastingLevel>, year: number
 }
 
 /** 03/09: fasting depends on whether it falls before, during, or after first week of Lent */
-function apply0309(map: Map<number, FastingLevel>, year: number, pascha: Date, shift: number): void {
+function apply0309(map: Map<number, FastingLevel>, year: number, pascha: PhysicalDay, shift: number): void {
     const date = addDays(utcDate(year, 2, 9), shift);
     const doy = dayOfYear(date);
     const dow = getDow(date);
@@ -198,7 +199,7 @@ function apply0309(map: Map<number, FastingLevel>, year: number, pascha: Date, s
 }
 
 /** 04/23 (St. George): fasting depends on proximity to Pascha and Bright Week */
-function apply0423(map: Map<number, FastingLevel>, year: number, pascha: Date, shift: number): void {
+function apply0423(map: Map<number, FastingLevel>, year: number, pascha: PhysicalDay, shift: number): void {
     const date = addDays(utcDate(year, 3, 23), shift);
     const doy = dayOfYear(date);
     const dow = getDow(date);
@@ -224,7 +225,7 @@ function apply0423(map: Map<number, FastingLevel>, year: number, pascha: Date, s
 }
 
 /** 06/24 (Nativity of St. John): depends on whether Apostles' Fast has started */
-function apply0624(map: Map<number, FastingLevel>, year: number, pascha: Date, shift: number): void {
+function apply0624(map: Map<number, FastingLevel>, year: number, pascha: PhysicalDay, shift: number): void {
     const date = addDays(utcDate(year, 5, 24), shift);
     const doy = dayOfYear(date);
     const dow = getDow(date);
@@ -240,18 +241,18 @@ function apply0624(map: Map<number, FastingLevel>, year: number, pascha: Date, s
 }
 
 /** Apostles' Fast: PASCHA+57 through Jun 28 (day before Sts. Peter & Paul) */
-function applyApostlesFast(map: Map<number, FastingLevel>, year: number, pascha: Date, shift: number): void {
+function applyApostlesFast(map: Map<number, FastingLevel>, year: number, pascha: PhysicalDay, shift: number): void {
     const startDate = addDays(pascha, 57);  // Monday after All Saints
     const endDate = addDays(utcDate(year, 5, 28), shift);  // June 28 (shifted for calendar)
 
-    if (startDate.getUTCFullYear() !== year) return;
+    if (startDate.year() !== year) return;
 
     // The shifted 06/24 physical date — skip it since it has its own rule
     const jun24Phys = addDays(utcDate(year, 5, 24), shift);
     const jun24Doy = dayOfYear(jun24Phys);
 
-    const current = new Date(startDate);
-    while (current.getTime() <= endDate.getTime() && current.getUTCFullYear() === year) {
+    let current = startDate;
+    while (current.isOnOrBefore(endDate) && current.year() === year) {
         const doy = dayOfYear(current);
         if (doy !== jun24Doy) {  // 06/24 has its own rule applied separately
             const dow = getDow(current);
@@ -259,6 +260,6 @@ function applyApostlesFast(map: Map<number, FastingLevel>, year: number, pascha:
             else if (dow === 2 || dow === 4) map.set(doy, 'OIL');
             else map.set(doy, 'FISH');  // Sat/Sun
         }
-        current.setUTCDate(current.getUTCDate() + 1);
+        current = current.addDays(1);
     }
 }
