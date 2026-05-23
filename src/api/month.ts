@@ -24,8 +24,10 @@ const MONTH_NAMES: [string, string][] = [
  *
  * @param ctxOrOptions - Either a prebuilt YearContext or CalendarOptions.
  * @param indicators - Custom note indicators (used when passing a YearContext directly).
+ * @param indicatorMap - Pre-assigned indicator map for consistent symbols across months.
+ *   If not provided, one is built from this month's data alone.
  */
-export function getMonthGrid(month: number, year: number, ctxOrOptions?: YearContext | CalendarOptions, indicators?: string[]): MonthData {
+export function getMonthGrid(month: number, year: number, ctxOrOptions?: YearContext | CalendarOptions, indicators?: string[], indicatorMap?: Map<string, string>): MonthData {
     let yearCtx: YearContext;
     let noteIndicators = indicators ?? DEFAULT_OPTIONS.noteIndicators;
 
@@ -41,8 +43,9 @@ export function getMonthGrid(month: number, year: number, ctxOrOptions?: YearCon
     const end = new Date(Date.UTC(year, month + 1, 0));
     const enrichedDates = generateDateRangeWithCtx(start, end, yearCtx);
 
-    const monthName = MONTH_NAMES[month][0];
-    const { dateBoxes, noteBoxes } = transformToUI(enrichedDates, noteIndicators, monthName);
+    // Build a local indicator map if none was provided globally
+    const map = indicatorMap ?? buildIndicatorMap(enrichedDates, noteIndicators);
+    const { dateBoxes, noteBoxes } = transformToUI(enrichedDates, map);
     const grid = buildGrid(dateBoxes, noteBoxes, year, month);
 
     return {
@@ -57,52 +60,48 @@ type TransformResult = {
 };
 
 /**
+ * Build an indicator assignment map from a set of enriched dates.
+ * Scans for unique lengthy notes and assigns symbols in encounter order.
+ * Warns on wrap-around if more unique notes exist than available indicators.
+ */
+export function buildIndicatorMap(enrichedDates: EnrichedDate[], noteIndicators: string[]): Map<string, string> {
+    const map = new Map<string, string>();
+    let idx = 0;
+    for (const ed of enrichedDates) {
+        const notes = ed.newData.lengthyNotes;
+        if (notes.length < 2) continue;
+        const key = notes[0];
+        if (map.has(key)) continue;
+        if (idx >= noteIndicators.length) {
+            console.warn(`Warning: note indicator wrap-around — "${key}" reuses symbol "${noteIndicators[idx % noteIndicators.length]}"`);
+        }
+        map.set(key, noteIndicators[idx % noteIndicators.length]);
+        idx++;
+    }
+    return map;
+}
+
+/**
  * Transform EnrichedDate[] into UI DateBoxes and NoteBoxes.
  * Merges oldData/newData into the single DateBox structure.
  */
-function transformToUI(enrichedDates: EnrichedDate[], noteIndicators: string[], monthName: string): TransformResult {
-    // Collect unique lengthy notes (from newData — the primary calendar for display)
-    const noteMap = new Map<string, { text: [string, string]; dateIndices: number[] }>();
-
-    for (let i = 0; i < enrichedDates.length; i++) {
-        const notes = enrichedDates[i].newData.lengthyNotes;
+function transformToUI(enrichedDates: EnrichedDate[], indicatorMap: Map<string, string>): TransformResult {
+    // Collect unique lengthy notes present in this month
+    const noteMap = new Map<string, [string, string]>();
+    for (const ed of enrichedDates) {
+        const notes = ed.newData.lengthyNotes;
         if (notes.length < 2) continue;
-        const key = notes[0];
-        const existing = noteMap.get(key);
-        if (existing) {
-            existing.dateIndices.push(i);
-        } else {
-            noteMap.set(key, { text: [notes[0], notes[1]], dateIndices: [i] });
+        if (!noteMap.has(notes[0])) {
+            noteMap.set(notes[0], [notes[0], notes[1]]);
         }
     }
 
-    // Assign indicators
-    const indicatorAssignments = new Map<string, string>();
-    let indicatorIdx = 0;
-    let warnedWrap = false;
-    for (const [key] of noteMap) {
-        if (indicatorIdx >= noteIndicators.length && !warnedWrap) {
-            console.warn(`Warning: not enough note indicators for ${monthName} — indicators will repeat`);
-            warnedWrap = true;
-        }
-        indicatorAssignments.set(key, noteIndicators[indicatorIdx % noteIndicators.length]);
-        indicatorIdx++;
-    }
-
+    // Build DateBoxes
     // Build DateBoxes
     const dateBoxes: DateBox[] = enrichedDates.map((ed) => {
         const nd = ed.newData;
         const od = ed.oldData;
 
-        let noteIndicator: string | undefined;
-        if (nd.lengthyNotes.length >= 2) {
-            noteIndicator = indicatorAssignments.get(nd.lengthyNotes[0]);
-        }
-
-        // Feast display logic:
-        // - Both old and new have feast → show both, mark both as feast dates
-        // - Only new has feast → show new feast only
-        // - Only old has feast → ignore old feast entirely
         const hasNewFeast = nd.feast !== undefined;
         const hasOldFeast = od.feast !== undefined;
         const showOldFeast = hasNewFeast && hasOldFeast;
@@ -128,20 +127,21 @@ function transformToUI(enrichedDates: EnrichedDate[], noteIndicators: string[], 
             },
         };
 
-        if (noteIndicator) box.note = noteIndicator;
+        if (nd.lengthyNotes.length >= 2) {
+            const indicator = indicatorMap.get(nd.lengthyNotes[0]);
+            if (indicator) box.note = indicator;
+        }
 
         return box;
     });
 
-    // Build NoteBoxes
+    // Build NoteBoxes for notes present in this month
     const noteBoxes: NoteBox[] = [];
-    for (const [key, indicator] of indicatorAssignments) {
-        const noteData = noteMap.get(key)!;
-        noteBoxes.push({
-            type: 'NOTE',
-            note: indicator,
-            text: noteData.text,
-        });
+    for (const [key, text] of noteMap) {
+        const indicator = indicatorMap.get(key);
+        if (indicator) {
+            noteBoxes.push({ type: 'NOTE', note: indicator, text });
+        }
     }
 
     return { dateBoxes, noteBoxes };
