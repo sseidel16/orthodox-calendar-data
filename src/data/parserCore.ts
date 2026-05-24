@@ -38,16 +38,14 @@ export type ReadingsMovableEntry = {
     reference: string;
     offset: number;
     type: string;
-    book: string;
-    verse: string;
+    reading: string;
     note: string;
 };
 
 export type ReadingsImmovableEntry = {
     date: string;
     type: string;
-    book: string;
-    verse: string;
+    reading: string;
     note: string;
 };
 
@@ -97,23 +95,21 @@ export function parseMovableReferencesFromString(csv: string): MovableReferenceE
 }
 
 export function parseReadingsMovableFromString(csv: string): ReadingsMovableEntry[] {
-    return parseCSV(csv, 5, parts => ({
+    return parseCSV(csv, 4, parts => ({
         reference: parts[0].trim(),
         offset: parseInt(parts[1].trim(), 10),
         type: parts[2].trim(),
-        book: parts[3].trim(),
-        verse: parts[4].trim(),
-        note: parts.length > 5 ? parts[5].trim() : '',
+        reading: parts[3].trim(),
+        note: parts.length > 4 ? parts[4].trim() : '',
     }));
 }
 
 export function parseReadingsImmovableFromString(csv: string): ReadingsImmovableEntry[] {
-    return parseCSV(csv, 4, parts => ({
+    return parseCSV(csv, 3, parts => ({
         date: parts[0].trim(),
         type: parts[1].trim(),
-        book: parts[2].trim(),
-        verse: parts[3].trim(),
-        note: parts.length > 4 ? parts[4].trim() : '',
+        reading: parts[2].trim(),
+        note: parts.length > 3 ? parts[3].trim() : '',
     }));
 }
 

@@ -1,20 +1,19 @@
 /**
- * ReadingsFormatter — packs readings into a target number of lines,
+ * ReadingsFormatter — packs reading strings into a target number of lines,
  * abbreviating book names if needed to stay within character width.
  *
+ * Input: string[] where each string is a full reading (e.g. "Matthew 26:2-20")
+ * or a multi-part reading with semicolons (e.g. "Matthew 26:2-20; John 13:3-17; Matthew 26:21-39").
+ *
  * Algorithm:
- * 1. If any reading exceeds maxCharsPerLine → abbreviate ALL book names
+ * 1. If any reading exceeds maxLineWidth → abbreviate ALL book names
  * 2. If count ≤ maxLines → done
- * 3. Same-book combine (merge verses for same book)
- * 4. If count ≤ maxLines → check widths, abbreviate all if needed, done
- * 5. Partition into maxLines balanced groups (minimax longest line)
- * 6. If any line exceeds maxCharsPerLine and not yet abbreviated → abbreviate all, redo from step 5
+ * 3. Partition into maxLines balanced groups (minimax longest line), joined with "; "
+ * 4. If any line exceeds maxLineWidth and not yet abbreviated → abbreviate all, redo from step 3
+ *
+ * Note: same-book combining is NOT performed because reading order is significant
+ * (a single reading may interleave books, e.g. Matthew; John; Matthew).
  */
-
-export type Reading = {
-    book: string;
-    verses: string;
-};
 
 export type ReadingsLayoutOptions = {
     maxLines: number;
@@ -29,32 +28,23 @@ export const MONOSPACE: CharWidthFn = () => 1;
 
 /**
  * Proportional estimate: approximates typical serif/sans-serif fonts.
- * Normalized so that an average lowercase letter ≈ 1.0.
+ * Normalized so that an average lowercase letter ~ 1.0.
  */
 export const PROPORTIONAL: CharWidthFn = (c: string) => {
-    // Wide uppercase
     if ('MWm'.includes(c)) return 1.4;
     if ('ABCDGHKNOPQRUVXY'.includes(c)) return 1.2;
     if ('EFLSTZ'.includes(c)) return 1.1;
     if ('Jw'.includes(c)) return 1.3;
     if ('I'.includes(c)) return 0.6;
-
-    // Lowercase
     if ('il'.includes(c)) return 0.45;
     if ('fjrt'.includes(c)) return 0.6;
     if ('abdeghnopqu'.includes(c)) return 1.0;
     if ('cksvxyz'.includes(c)) return 0.9;
-
-    // Digits (tabular in most fonts, slightly narrower than lowercase)
     if (c >= '0' && c <= '9') return 0.7;
-
-    // Punctuation & symbols
     if (c === ' ') return 0.5;
     if (':;,.'.includes(c)) return 0.4;
-    if (c === '-' || c === '–') return 0.6;
+    if (c === '-' || c === '\u2013') return 0.6;
     if ('()'.includes(c)) return 0.5;
-
-    // Fallback
     return 1.0;
 };
 
@@ -141,79 +131,70 @@ function measureWidth(str: string, charWidth: CharWidthFn): number {
  * Never drops readings or verse ranges.
  * Hard constraint: maxLines. Soft constraint: maxLineWidth (overflow allowed).
  */
-export function formatReadings(readings: Reading[], options: ReadingsLayoutOptions): string[] {
+export function formatReadings(readings: string[], options: ReadingsLayoutOptions): string[] {
     if (readings.length === 0) return [];
 
     const cw = options.charWidth ?? MONOSPACE;
     const maxWidth = options.maxLineWidth;
     let abbreviated = false;
-    let items = readings;
 
     // Step 1: Check if any single reading exceeds width at full names
-    if (items.some(r => measureWidth(renderReading(r, false), cw) > maxWidth)) {
+    if (readings.some(r => measureWidth(r, cw) > maxWidth)) {
         abbreviated = true;
     }
 
-    // Step 2: If count ≤ maxLines, done
+    let items = abbreviated ? readings.map(abbreviateReading) : readings;
+
+    // Step 2: If count <= maxLines, done
     if (items.length <= options.maxLines) {
-        return items.map(r => renderReading(r, abbreviated));
+        return items;
     }
 
-    // Step 3: Same-book combine
-    items = combineByBook(items);
+    // Step 3: Partition into maxLines balanced groups
+    let partition = balancedPartition(items, options.maxLines, cw);
 
-    // Step 4: If count ≤ maxLines, check widths and done
-    if (items.length <= options.maxLines) {
-        const lines = items.map(r => renderReading(r, abbreviated));
-        if (!abbreviated && lines.some(l => measureWidth(l, cw) > maxWidth)) {
-            abbreviated = true;
-            return items.map(r => renderReading(r, true));
-        }
-        return lines;
-    }
-
-    // Step 5: Partition into maxLines balanced groups
-    let partition = balancedPartition(items, options.maxLines, abbreviated, cw);
-
-    // Step 6: Check widths, abbreviate if needed and redo
+    // Step 4: Check widths, abbreviate if needed and redo
     if (!abbreviated && partition.some(line => measureWidth(line, cw) > maxWidth)) {
         abbreviated = true;
-        partition = balancedPartition(items, options.maxLines, true, cw);
+        items = readings.map(abbreviateReading);
+        partition = balancedPartition(items, options.maxLines, cw);
     }
 
     return partition;
 }
 
-/** Combine readings that share the same book, preserving order by first occurrence */
-function combineByBook(readings: Reading[]): Reading[] {
-    const seen = new Map<string, number>(); // book -> index in result
-    const result: Reading[] = [];
+/**
+ * Abbreviate all book names within a reading string.
+ * Handles semicolons (multi-part readings): splits, abbreviates each part, rejoins.
+ */
+function abbreviateReading(reading: string): string {
+    const parts = reading.split(';');
+    return parts.map(part => {
+        const trimmed = part.trim();
+        const book = extractBook(trimmed);
+        if (!book) return trimmed;
+        const abbr = ABBREVIATIONS[book];
+        if (!abbr || abbr === book) return trimmed;
+        return abbr + trimmed.slice(book.length);
+    }).join('; ');
+}
 
-    for (const r of readings) {
-        const existingIdx = seen.get(r.book);
-        if (existingIdx !== undefined) {
-            result[existingIdx] = {
-                book: r.book,
-                verses: result[existingIdx].verses + ', ' + r.verses,
-            };
-        } else {
-            seen.set(r.book, result.length);
-            result.push({ ...r });
+/**
+ * Extract the book name from the beginning of a reading segment.
+ * Handles numbered books (e.g. "1 Corinthians 11:23-32" → "1 Corinthians").
+ * Strategy: try longest prefix match against the abbreviation keys.
+ */
+function extractBook(segment: string): string | null {
+    // Try prefix match against known books (longest match wins)
+    let bestMatch: string | null = null;
+    for (const book of Object.keys(ABBREVIATIONS)) {
+        if (segment.startsWith(book) && (segment.length === book.length || segment[book.length] === ' ')) {
+            if (!bestMatch || book.length > bestMatch.length) {
+                bestMatch = book;
+            }
         }
     }
-
-    return result;
-}
-
-/** Render a single reading as a string */
-function renderReading(r: Reading, abbreviated: boolean): string {
-    const book = abbreviated ? abbreviate(r.book) : r.book;
-    return book + ' ' + r.verses;
-}
-
-/** Abbreviate a book name */
-function abbreviate(book: string): string {
-    return ABBREVIATIONS[book] ?? book;
+    return bestMatch;
 }
 
 /**
@@ -221,18 +202,17 @@ function abbreviate(book: string): string {
  * that minimizes the width of the longest line.
  * Groups are joined with "; " when rendered.
  */
-function balancedPartition(items: Reading[], k: number, abbreviated: boolean, charWidth: CharWidthFn): string[] {
+function balancedPartition(items: string[], k: number, charWidth: CharWidthFn): string[] {
     const n = items.length;
-    if (k >= n) return items.map(r => renderReading(r, abbreviated));
+    if (k >= n) return [...items];
 
     const sepWidth = measureWidth('; ', charWidth);
 
-    // Precompute the rendered width of combining items[i..j] into one line
     const lineLength = (from: number, to: number): number => {
         let width = 0;
         for (let i = from; i <= to; i++) {
             if (i > from) width += sepWidth;
-            width += measureWidth(renderReading(items[i], abbreviated), charWidth);
+            width += measureWidth(items[i], charWidth);
         }
         return width;
     };
@@ -240,19 +220,15 @@ function balancedPartition(items: Reading[], k: number, abbreviated: boolean, ch
     const renderLine = (from: number, to: number): string => {
         const parts: string[] = [];
         for (let i = from; i <= to; i++) {
-            parts.push(renderReading(items[i], abbreviated));
+            parts.push(items[i]);
         }
         return parts.join('; ');
     };
 
-    // Brute-force: find all ways to place k-1 dividers among n-1 gaps
-    // For n≤5 and k≤4, this is at most C(4,3)=4 combinations
     const bestPartition = findBestSplit(n, k, lineLength);
 
-    // Render the partition
     const result: string[] = [];
-    for (let g = 0; g < bestPartition.length; g++) {
-        const [from, to] = bestPartition[g];
+    for (const [from, to] of bestPartition) {
         result.push(renderLine(from, to));
     }
 
@@ -268,12 +244,10 @@ function findBestSplit(
     let bestMax = Infinity;
     let bestSplit: [number, number][] = [];
 
-    // Generate all combinations of k-1 split points from positions 1..n-1
     const splits: number[] = [];
 
     function search(start: number, remaining: number): void {
         if (remaining === 0) {
-            // Evaluate this partition
             const groups: [number, number][] = [];
             let prev = 0;
             for (const s of splits) {

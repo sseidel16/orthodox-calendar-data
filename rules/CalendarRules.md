@@ -205,7 +205,9 @@ The following rules will surface feasts, saints, and notes. The final value that
 * If the date is missing a feast, saint, or note, then the subsequent optional key is missing entirely. It will never be present as an empty array, or an array of size 2 with two empty strings. In the rare occurrence that an English string is available without a Greek one, or vice-versa, then the field should be there and the missing language will be an empty string.  
 * Rules below may trigger/add multiple of the same date, field, and language. For every date-field-language combo, these can be brought into a list, and then concatenated with a newline separator. The result should be a single string for each date-field-language, which are then brought into the array of size 2 for each date-field.
 
-Entries in *data/TextMovable.csv*, termed “movables”, are added based on movable references, very often the PASCHA offset value.
+Entries in *data/TextMovable.csv*, termed “movables”, are added based on movable references, very often the PASCHA offset value. Exceptions:
+
+* Text movables that are offset from PASCHA should only be added if they fall before SUNbE non-inclusive
 
 Entries in *data/TextImmovable.csv* are added based on dates, termed “immovables”. These should be added to every date.
 

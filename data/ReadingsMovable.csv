@@ -1,845 +1,840 @@
-Reference,Offset,Type,Book,Verse,Note
-PASCHA,-118,EPISTLE,1 Corinthians,15:12-19,Gap week 0
-PASCHA,-118,GOSPEL,Matthew,21:18-22,Gap week 0
-PASCHA,-117,EPISTLE,1 Corinthians,15:29-38,Gap week 0
-PASCHA,-117,GOSPEL,Matthew,21:23-27,Gap week 0
-PASCHA,-116,EPISTLE,1 Corinthians,16:4-12,Gap week 0
-PASCHA,-116,GOSPEL,Matthew,21:28-32,Gap week 0
-PASCHA,-115,EPISTLE,2 Corinthians,1:1-7,Gap week 0
-PASCHA,-115,GOSPEL,Matthew,21:43-46,Gap week 0
-PASCHA,-114,EPISTLE,2 Corinthians,1:12-20,Gap week 0
-PASCHA,-114,GOSPEL,Matthew,22:23-33,Gap week 0
-PASCHA,-113,EPISTLE,Romans,15:30-33,Gap week 0
-PASCHA,-113,GOSPEL,Matthew,17:24-18:4,Gap week 0
-PASCHA,-111,EPISTLE,2 Corinthians,2:3-15,Gap week 1
-PASCHA,-111,GOSPEL,Matthew,23:13-22,Gap week 1
-PASCHA,-110,EPISTLE,2 Corinthians,2:14-3:3,Gap week 1
-PASCHA,-110,GOSPEL,Matthew,23:23-28,Gap week 1
-PASCHA,-109,EPISTLE,2 Corinthians,3:4-11,Gap week 1
-PASCHA,-109,GOSPEL,Matthew,23:29-39,Gap week 1
-PASCHA,-108,EPISTLE,2 Corinthians,4:1-12,Gap week 1
-PASCHA,-108,GOSPEL,Matthew,24:13-28,Gap week 1
-PASCHA,-107,EPISTLE,2 Corinthians,4:13-18,Gap week 1
-PASCHA,-107,GOSPEL,Matthew,"24:27-33, 42-51",Gap week 1
-PASCHA,-106,EPISTLE,1 Corinthians,1:3-9,Gap week 1
-PASCHA,-106,GOSPEL,Matthew,19:3-12,Gap week 1
-PASCHA,-104,EPISTLE,2 Corinthians,5:10-15,Gap week 2
-PASCHA,-104,GOSPEL,Mark,1:9-15,Gap week 2
-PASCHA,-103,EPISTLE,2 Corinthians,5:15-21,Gap week 2
-PASCHA,-103,GOSPEL,Mark,1:16-22,Gap week 2
-PASCHA,-102,EPISTLE,2 Corinthians,6:11-16,Gap week 2
-PASCHA,-102,GOSPEL,Mark,1:23-28,Gap week 2
-PASCHA,-101,EPISTLE,2 Corinthians,7:1-10,Gap week 2
-PASCHA,-101,GOSPEL,Mark,1:29-35,Gap week 2
-PASCHA,-100,EPISTLE,2 Corinthians,7:10-16,Gap week 2
-PASCHA,-100,GOSPEL,Mark,2:18-22,Gap week 2
-PASCHA,-99,EPISTLE,1 Corinthians,1:26-2:5,Gap week 2
-PASCHA,-99,GOSPEL,Matthew,20:29-34,Gap week 2
-PASCHA,-97,EPISTLE,2 Corinthians,8:7-15,Gap week 3
-PASCHA,-97,GOSPEL,Mark,3:6-12,Gap week 3
-PASCHA,-96,EPISTLE,2 Corinthians,8:16-9:5,Gap week 3
-PASCHA,-96,GOSPEL,Mark,3:13-21,Gap week 3
-PASCHA,-95,EPISTLE,2 Corinthians,9:12-10:7,Gap week 3
-PASCHA,-95,GOSPEL,Mark,3:20-27,Gap week 3
-PASCHA,-94,EPISTLE,2 Corinthians,10:7-18,Gap week 3
-PASCHA,-94,GOSPEL,Mark,3:28-35,Gap week 3
-PASCHA,-93,EPISTLE,2 Corinthians,11:5-21,Gap week 3
-PASCHA,-93,GOSPEL,Mark,4:1-9,Gap week 3
-PASCHA,-92,EPISTLE,1 Corinthians,2:6-9,Gap week 3
-PASCHA,-92,GOSPEL,Matthew,22:15-22,Gap week 3
-PASCHA,-90,EPISTLE,2 Corinthians,12:10-19,Gap week 4
-PASCHA,-90,GOSPEL,Mark,4:10-23,Gap week 4
-PASCHA,-89,EPISTLE,2 Corinthians,12:20-13:2,Gap week 4
-PASCHA,-89,GOSPEL,Mark,4:24-34,Gap week 4
-PASCHA,-88,EPISTLE,2 Corinthians,13:3-13,Gap week 4
-PASCHA,-88,GOSPEL,Mark,4:35-41,Gap week 4
-PASCHA,-87,EPISTLE,Galatians,"1:1-3, 20-2:5",Gap week 4
-PASCHA,-87,GOSPEL,Mark,5:1-20,Gap week 4
-PASCHA,-86,EPISTLE,Galatians,2:6-10,Gap week 4
-PASCHA,-86,GOSPEL,Mark,"5:22-24, 35-6:1",Gap week 4
-PASCHA,-85,EPISTLE,1 Corinthians,4:1-5,Gap week 4
-PASCHA,-85,GOSPEL,Matthew,23:1-12,Gap week 4
-PASCHA,-83,EPISTLE,Galatians,2:11-16,Gap week 5
-PASCHA,-83,GOSPEL,Mark,5:24-34,Gap week 5
-PASCHA,-82,EPISTLE,Galatians,2:21-3:7,Gap week 5
-PASCHA,-82,GOSPEL,Mark,6:1-7,Gap week 5
-PASCHA,-81,EPISTLE,Galatians,3:15-22,Gap week 5
-PASCHA,-81,GOSPEL,Mark,6:7-13,Gap week 5
-PASCHA,-80,EPISTLE,Galatians,3:23-4:5,Gap week 5
-PASCHA,-80,GOSPEL,Mark,6:30-45,Gap week 5
-PASCHA,-79,EPISTLE,Galatians,4:8-21,Gap week 5
-PASCHA,-79,GOSPEL,Mark,6:45-53,Gap week 5
-PASCHA,-78,EPISTLE,1 Corinthians,4:17-5:5,Gap week 5
-PASCHA,-78,GOSPEL,Matthew,24:1-13,Gap week 5
-PASCHA,-76,EPISTLE,Galatians,4:28-5:10,Gap week 6
-PASCHA,-76,GOSPEL,Mark,6:54-7:8,Gap week 6
-PASCHA,-75,EPISTLE,Galatians,5:11-21,Gap week 6
-PASCHA,-75,GOSPEL,Mark,7:5-16,Gap week 6
-PASCHA,-74,EPISTLE,Galatians,6:2-10,Gap week 6
-PASCHA,-74,GOSPEL,Mark,7:14-24,Gap week 6
-PASCHA,-73,EPISTLE,Ephesians,1:1-9,Gap week 6
-PASCHA,-73,GOSPEL,Mark,7:24-30,Gap week 6
-PASCHA,-72,EPISTLE,Ephesians,1:7-17,Gap week 6
-PASCHA,-72,GOSPEL,Mark,8:1-10,Gap week 6
-PASCHA,-71,EPISTLE,1 Corinthians,10:23-28,Gap week 6
-PASCHA,-71,GOSPEL,Matthew,"24:34-37, 42-44",Gap week 6
-PASCHA,-70,EPISTLE,2 Timothy,3:10-15,Publican and the Pharisee
-PASCHA,-70,GOSPEL,Luke,18:10-14,
-PASCHA,-69,EPISTLE,Hebrews,7:7-17,
-PASCHA,-69,GOSPEL,Luke,2:22-40,
-PASCHA,-68,EPISTLE,2 Peter,2:9-22,
-PASCHA,-68,GOSPEL,Mark,13:14-23,
-PASCHA,-67,EPISTLE,2 Peter,3:1-18,
-PASCHA,-67,GOSPEL,Mark,13:24-31,
-PASCHA,-66,EPISTLE,1 John,1:8-2:6,
-PASCHA,-66,GOSPEL,Mark,13:31-14:2,
-PASCHA,-65,EPISTLE,1 John,2:7-17,
-PASCHA,-65,GOSPEL,Mark,14:3-9,
-PASCHA,-64,EPISTLE,1 Timothy,6:11-16,
-PASCHA,-64,GOSPEL,Luke,20:46-21:4,
-PASCHA,-63,EPISTLE,1 Corinthians,6:12-20,Prodigal Son
-PASCHA,-63,GOSPEL,Luke,15:11-32,
-PASCHA,-62,EPISTLE,1 John,2:18-3:8,
-PASCHA,-62,GOSPEL,Mark,11:1-11,
-PASCHA,-61,EPISTLE,2 Timothy,2:1-10,
-PASCHA,-61,GOSPEL,John,15:17-16:2,
-PASCHA,-60,EPISTLE,1 John,3:21-4:11,
-PASCHA,-60,GOSPEL,Mark,14:43-15:1,
-PASCHA,-59,EPISTLE,1 John,4:20-5:21,
-PASCHA,-59,GOSPEL,Mark,15:1-15,
-PASCHA,-58,EPISTLE,2 John,1:1-13,
-PASCHA,-58,GOSPEL,Mark,"15:20, 22, 25, 33-41",
-PASCHA,-57,EPISTLE,1 Corinthians,10:23-28,
-PASCHA,-57,EPISTLE,1 Thessalonians,4:13-17,
-PASCHA,-57,GOSPEL,Luke,"21:8-9, 25-27, 33-36",
-PASCHA,-56,EPISTLE,1 Corinthians,8:8-9:2,Judgement Sunday
-PASCHA,-56,GOSPEL,Matthew,25:31-46,
-PASCHA,-55,EPISTLE,3 John,1:1-15,
-PASCHA,-55,GOSPEL,Luke,"19:29-40, 22:7-39",
-PASCHA,-54,EPISTLE,Jude,1:1-10,
-PASCHA,-54,GOSPEL,Luke,"22:39-42, 45-23:1",
-PASCHA,-53,OLD,Joel,2:12-26,
-PASCHA,-53,OLD,Joel,3:12-21,
-PASCHA,-52,EPISTLE,Jude,1:11-25,
-PASCHA,-52,GOSPEL,Luke,"23:1-31, 33, 44-56",
-PASCHA,-51,OLD,Zechariah,8:7-14,
-PASCHA,-51,OLD,Zechariah,8:19-23,
-PASCHA,-50,EPISTLE,Romans,"14:19-23, 16:25-27",
-PASCHA,-50,GOSPEL,Matthew,6:1-13,
-PASCHA,-49,EPISTLE,Romans,13:11-14:4,Forgiveness Sunday
-PASCHA,-49,GOSPEL,Matthew,6:14-21,
-PASCHA,-48,OLD,Isaiah,1:1-20,
-PASCHA,-48,OLD,Genesis,1:1-13,
-PASCHA,-48,OLD,Proverbs,1:1-20,
-PASCHA,-47,OLD,Isaiah,1:19-2:3,
-PASCHA,-47,OLD,Genesis,1:14-23,
-PASCHA,-47,OLD,Proverbs,1:20-33,
-PASCHA,-46,OLD,Isaiah,2:3-11,
-PASCHA,-46,OLD,Genesis,1:24-2:3,
-PASCHA,-46,OLD,Proverbs,2:1-22,
-PASCHA,-45,OLD,Isaiah,2:11-22,
-PASCHA,-45,OLD,Genesis,2:4-19,
-PASCHA,-45,OLD,Proverbs,3:1-18,
-PASCHA,-44,OLD,Isaiah,3:1-14,
-PASCHA,-44,OLD,Genesis,2:20-3:20,
-PASCHA,-44,OLD,Proverbs,3:19-34,
-PASCHA,-43,EPISTLE,2 Timothy,2:1-10,
-PASCHA,-43,GOSPEL,Mark,2:23-3:5,
-PASCHA,-42,EPISTLE,Hebrews,"11:24-26, 32-40",
-PASCHA,-42,GOSPEL,John,1:44-51,
-PASCHA,-41,OLD,Isaiah,"4:2-6, 5:1-7",
-PASCHA,-41,OLD,Genesis,3:21-4:7,
-PASCHA,-41,OLD,Proverbs,3:34-4:22,
-PASCHA,-40,OLD,Isaiah,5:7-16,
-PASCHA,-40,OLD,Genesis,4:8-15,
-PASCHA,-40,OLD,Proverbs,5:1-15,
-PASCHA,-39,OLD,Isaiah,5:16-26,
-PASCHA,-39,OLD,Genesis,4:16-26,
-PASCHA,-39,OLD,Proverbs,5:15-6:3,
-PASCHA,-38,OLD,Isaiah,6:1-12,
-PASCHA,-38,OLD,Genesis,5:1-24,
-PASCHA,-38,OLD,Proverbs,6:3-20,
-PASCHA,-37,OLD,Isaiah,7:1-14,
-PASCHA,-37,OLD,Genesis,5:32-6:8,
-PASCHA,-37,OLD,Proverbs,6:20-7:1,
-PASCHA,-36,EPISTLE,Hebrews,3:12-16,
-PASCHA,-36,GOSPEL,Mark,1:35-44,
-PASCHA,-35,EPISTLE,Hebrews,1:10-2:3,
-PASCHA,-35,GOSPEL,Mark,2:1-12,
-PASCHA,-34,OLD,Isaiah,8:13-9:7,
-PASCHA,-34,OLD,Genesis,6:9-22,
-PASCHA,-34,OLD,Proverbs,8:1-21,
-PASCHA,-33,OLD,Isaiah,9:9-10:4,
-PASCHA,-33,OLD,Genesis,7:1-5,
-PASCHA,-33,OLD,Proverbs,8:32-9:11,
-PASCHA,-32,OLD,Isaiah,10:12-20,
-PASCHA,-32,OLD,Genesis,7:6-9,
-PASCHA,-32,OLD,Proverbs,9:12-18,
-PASCHA,-31,OLD,Isaiah,11:10-12:2,
-PASCHA,-31,OLD,Genesis,7:11-8:3,
-PASCHA,-31,OLD,Proverbs,10:1-22,
-PASCHA,-30,OLD,Isaiah,13:2-13,
-PASCHA,-30,OLD,Genesis,8:4-21,
-PASCHA,-30,OLD,Proverbs,10:31-11:12,
-PASCHA,-29,EPISTLE,Hebrews,10:32-38,
-PASCHA,-29,GOSPEL,Mark,2:14-17,
-PASCHA,-28,EPISTLE,Hebrews,4:14-5:6,
-PASCHA,-28,GOSPEL,Mark,8:34-9:1,
-PASCHA,-27,OLD,Isaiah,14:24-32,
-PASCHA,-27,OLD,Genesis,8:21-9:7,
-PASCHA,-27,OLD,Proverbs,11:19-12:6,
-PASCHA,-26,OLD,Isaiah,25:1-9,
-PASCHA,-26,OLD,Genesis,9:8-17,
-PASCHA,-26,OLD,Proverbs,12:8-22,
-PASCHA,-25,OLD,Isaiah,26:21-27:9,
-PASCHA,-25,OLD,Genesis,9:18-10:1,
-PASCHA,-25,OLD,Proverbs,12:23-13:9,
-PASCHA,-24,OLD,Isaiah,28:14-22,
-PASCHA,-24,OLD,Genesis,10:32-11:9,
-PASCHA,-24,OLD,Proverbs,13:19-14:6,
-PASCHA,-23,OLD,Isaiah,29:13-23,
-PASCHA,-23,OLD,Genesis,12:1-7,
-PASCHA,-23,OLD,Proverbs,14:15-26,
-PASCHA,-22,EPISTLE,Hebrews,6:9-12,
-PASCHA,-22,GOSPEL,Mark,7:31-37,
-PASCHA,-21,EPISTLE,Hebrews,6:13-20,
-PASCHA,-21,GOSPEL,Mark,9:17-31,
-PASCHA,-20,OLD,Isaiah,37:33-38:6,
-PASCHA,-20,OLD,Genesis,13:12-18,
-PASCHA,-20,OLD,Proverbs,14:27-15:4,
-PASCHA,-19,OLD,Isaiah,40:18-31,
-PASCHA,-19,OLD,Genesis,15:1-15,
-PASCHA,-19,OLD,Proverbs,15:7-19,
-PASCHA,-18,OLD,Isaiah,41:4-14,
-PASCHA,-18,OLD,Genesis,17:1-9,
-PASCHA,-18,OLD,Proverbs,15:20-16:9,
-PASCHA,-17,OLD,Isaiah,42:5-16,
-PASCHA,-17,OLD,Genesis,18:20-33,
-PASCHA,-17,OLD,Proverbs,16:17-17:17,
-PASCHA,-16,OLD,Isaiah,45:11-17,
-PASCHA,-16,OLD,Genesis,22:1-18,
-PASCHA,-16,OLD,Proverbs,17:17-18:5,
-PASCHA,-15,EPISTLE,Hebrews,9:1-7,
-PASCHA,-15,GOSPEL,Luke,"1:39-49, 56",
-PASCHA,-14,EPISTLE,Hebrews,9:11-14,
-PASCHA,-14,GOSPEL,Mark,10:32-45,
-PASCHA,-13,OLD,Isaiah,48:17-49:4,
-PASCHA,-13,OLD,Genesis,27:1-41,
-PASCHA,-13,OLD,Proverbs,19:16-25,
-PASCHA,-12,OLD,Isaiah,49:6-10,
-PASCHA,-12,OLD,Genesis,31:3-16,
-PASCHA,-12,OLD,Proverbs,21:3-21,
-PASCHA,-11,OLD,Isaiah,58:1-11,
-PASCHA,-11,OLD,Genesis,"43:26-31, 45:1-16",
-PASCHA,-11,OLD,Proverbs,21:23-22:4,
-PASCHA,-10,OLD,Isaiah,65:8-16,
-PASCHA,-10,OLD,Genesis,46:1-7,
-PASCHA,-10,OLD,Proverbs,23:15-24:5,
-PASCHA,-9,OLD,Isaiah,66:10-24,
-PASCHA,-9,OLD,Genesis,49:33-50:26,
-PASCHA,-9,OLD,Proverbs,31:8-31,
-PASCHA,-8,EPISTLE,Hebrews,12:28-13:8,
-PASCHA,-8,GOSPEL,John,11:1-45,
-PASCHA,-7,EPISTLE,Philippians,4:4-9,
-PASCHA,-7,GOSPEL,John,12:1-18,
-PASCHA,-6,GOSPEL,Matthew,"21:18-43, 24:3-35",
-PASCHA,-5,GOSPEL,Matthew,"22:15-23:39, 24:36-26:2",
-PASCHA,-4,GOSPEL,John,12:17-50,
-PASCHA,-4,GOSPEL,Matthew,26:6-16,
-PASCHA,-3,EPISTLE,1 Corinthians,11:23-32,
-PASCHA,-3,GOSPEL,Matthew,26:2-20,
-PASCHA,-3,GOSPEL,John,13:3-17,
-PASCHA,-3,GOSPEL,Matthew,26:21-39,
-PASCHA,-3,GOSPEL,Luke,22:43-44,
-PASCHA,-3,GOSPEL,Matthew,26:40-27:2,
-PASCHA,-2,EPISTLE,UNKNOWN,UNKNOWN,
-PASCHA,-2,GOSPEL,UNKNOWN,UNKNOWN,
-PASCHA,-1,EPISTLE,Romans,6:3-11,
-PASCHA,-1,GOSPEL,Matthew,28:1-20,
-PASCHA,0,EPISTLE,Acts,1:1-8,
-PASCHA,0,GOSPEL,John,1:1-17,
-PASCHA,1,EPISTLE,Acts,"1:12-17, 21-26",
-PASCHA,1,GOSPEL,John,1:18-28,
-PASCHA,2,EPISTLE,Acts,2:14-21,
-PASCHA,2,GOSPEL,Luke,24:12-35,
-PASCHA,3,EPISTLE,Acts,"2:22-38, 12:1-11",
-PASCHA,3,GOSPEL,John,1:35-51,
-PASCHA,4,EPISTLE,Acts,2:38-43,
-PASCHA,4,GOSPEL,John,3:1-15,
-PASCHA,5,EPISTLE,Acts,3:1-8,
-PASCHA,5,GOSPEL,John,2:12-22,
-PASCHA,6,EPISTLE,Acts,3:11-16,
-PASCHA,6,GOSPEL,John,3:22-33,
-PASCHA,7,EPISTLE,Acts,5:12-20,
-PASCHA,7,GOSPEL,John,20:19-31,
-PASCHA,8,EPISTLE,Acts,3:19-26,
-PASCHA,8,GOSPEL,John,2:1-11,
-PASCHA,9,EPISTLE,Acts,4:1-10,
-PASCHA,9,GOSPEL,John,3:16-21,
-PASCHA,10,EPISTLE,Acts,4:13-22,
-PASCHA,10,GOSPEL,John,5:17-24,
-PASCHA,11,EPISTLE,Acts,4:23-31,
-PASCHA,11,GOSPEL,John,5:24-30,
-PASCHA,12,EPISTLE,Acts,5:1-11,
-PASCHA,12,GOSPEL,John,5:30-6:2,
-PASCHA,13,EPISTLE,Acts,5:21-32,
-PASCHA,13,GOSPEL,John,6:14-27,
-PASCHA,14,EPISTLE,Acts,6:1-7,
-PASCHA,14,GOSPEL,Mark,15:43-16:8,
-PASCHA,15,EPISTLE,Acts,"6:8-7:5, 47-60",
-PASCHA,15,GOSPEL,John,4:46-54,
-PASCHA,16,EPISTLE,Acts,8:5-17,
-PASCHA,16,GOSPEL,John,6:27-33,
-PASCHA,17,EPISTLE,Acts,8:18-25,
-PASCHA,17,GOSPEL,John,6:35-39,
-PASCHA,18,EPISTLE,Acts,8:26-39,
-PASCHA,18,GOSPEL,John,6:40-44,
-PASCHA,19,EPISTLE,Acts,8:40-9:18,
-PASCHA,19,GOSPEL,John,6:48-54,
-PASCHA,20,EPISTLE,Acts,9:19-31,
-PASCHA,20,GOSPEL,John,15:17-16:2,
-PASCHA,21,EPISTLE,Acts,9:32-42,
-PASCHA,21,GOSPEL,John,5:1-15,
-PASCHA,22,EPISTLE,Acts,10:1-16,
-PASCHA,22,GOSPEL,John,6:56-69,
-PASCHA,23,EPISTLE,Acts,10:21-33,
-PASCHA,23,GOSPEL,John,7:1-13,
-PASCHA,24,EPISTLE,Acts,14:6-18,
-PASCHA,24,GOSPEL,John,7:14-30,
-PASCHA,25,EPISTLE,Acts,10:34-43,
-PASCHA,25,GOSPEL,John,8:12-20,
-PASCHA,26,EPISTLE,Acts,10:44-11:10,
-PASCHA,26,GOSPEL,John,"19:25-27, 21:24-25",
-PASCHA,27,EPISTLE,Acts,12:1-11,
-PASCHA,27,GOSPEL,John,8:31-42,
-PASCHA,28,EPISTLE,Acts,11:19-30,
-PASCHA,28,GOSPEL,John,4:5-42,
-PASCHA,29,EPISTLE,Acts,12:12-17,
-PASCHA,29,GOSPEL,John,8:42-51,
-PASCHA,30,EPISTLE,Acts,12:25-13:12,
-PASCHA,30,GOSPEL,John,8:51-59,
-PASCHA,31,EPISTLE,Acts,13:13-24,
-PASCHA,31,GOSPEL,John,6:5-14,
-PASCHA,32,EPISTLE,Acts,14:20-15:4,
-PASCHA,32,GOSPEL,John,9:39-10:9,
-PASCHA,33,EPISTLE,Acts,15:5-12,
-PASCHA,33,GOSPEL,John,10:17-28,
-PASCHA,34,EPISTLE,Acts,15:35-41,
-PASCHA,34,GOSPEL,John,10:27-38,
-PASCHA,35,EPISTLE,Acts,16:16-34,
-PASCHA,35,GOSPEL,John,9:1-38,
-PASCHA,36,EPISTLE,Acts,17:1-9,
-PASCHA,36,GOSPEL,John,11:47-54,
-PASCHA,37,EPISTLE,Acts,17:19-28,
-PASCHA,37,GOSPEL,John,12:19-36,
-PASCHA,38,EPISTLE,Acts,18:22-28,
-PASCHA,38,GOSPEL,John,12:36-47,
-PASCHA,39,EPISTLE,Acts,1:1-12,
-PASCHA,39,GOSPEL,Luke,24:36-53,
-PASCHA,40,EPISTLE,Acts,19:1-8,
-PASCHA,40,GOSPEL,John,14:1-11,
-PASCHA,41,EPISTLE,Acts,20:7-12,
-PASCHA,41,GOSPEL,John,14:10-21,
-PASCHA,42,EPISTLE,Acts,"20:16-18, 28-36",
-PASCHA,42,GOSPEL,John,17:1-13,
-PASCHA,43,EPISTLE,Acts,21:8-14,
-PASCHA,43,GOSPEL,John,14:27-15:7,
-PASCHA,44,EPISTLE,Acts,21:26-32,
-PASCHA,44,GOSPEL,John,16:2-13,
-PASCHA,45,EPISTLE,Acts,23:1-11,
-PASCHA,45,GOSPEL,John,16:15-23,
-PASCHA,46,EPISTLE,Acts,25:13-19,
-PASCHA,46,GOSPEL,John,16:23-33,
-PASCHA,47,EPISTLE,Acts,27:1-28:1,
-PASCHA,47,GOSPEL,John,17:18-26,
-PASCHA,48,EPISTLE,Acts,28:1-31,
-PASCHA,48,GOSPEL,John,21:14-25,
-PASCHA,49,EPISTLE,Acts,2:1-11,
-PASCHA,49,GOSPEL,John,"7:37-52, 8:12",
-PASCHA,50,EPISTLE,Ephesians,5:8-19,
-PASCHA,50,GOSPEL,Matthew,18:10-20,
-PASCHA,51,EPISTLE,Romans,"1:1-7, 13-17",
-PASCHA,51,GOSPEL,Matthew,4:23-5:13,
-PASCHA,52,EPISTLE,Romans,1:18-27,
-PASCHA,52,GOSPEL,Matthew,5:20-26,
-PASCHA,53,EPISTLE,Romans,1:28-2:9,
-PASCHA,53,GOSPEL,Matthew,5:27-32,
-PASCHA,54,EPISTLE,Romans,2:14-28,
-PASCHA,54,GOSPEL,Matthew,5:33-41,
-PASCHA,55,EPISTLE,Romans,1:7-12,
-PASCHA,55,GOSPEL,Matthew,5:42-48,
-PASCHA,56,EPISTLE,Hebrews,11:33-12:2,
-PASCHA,56,GOSPEL,Matthew,"10:32-33, 37-38, 19:27-30",
-PASCHA,57,EPISTLE,Romans,2:28-3:18,
-PASCHA,57,GOSPEL,Matthew,"6:31-34, 7:9-11",
-PASCHA,58,EPISTLE,Romans,4:4-12,
-PASCHA,58,GOSPEL,Matthew,7:15-21,
-PASCHA,59,EPISTLE,Romans,4:13-25,
-PASCHA,59,GOSPEL,Matthew,7:21-23,
-PASCHA,60,EPISTLE,Romans,5:10-16,
-PASCHA,60,GOSPEL,Matthew,8:23-27,
-PASCHA,61,EPISTLE,Romans,5:17-6:2,
-PASCHA,61,GOSPEL,Matthew,9:14-17,
-PASCHA,62,EPISTLE,Romans,3:19-26,
-PASCHA,62,GOSPEL,Matthew,7:1-8,
-PASCHA,63,EPISTLE,Romans,2:10-16,
-PASCHA,63,GOSPEL,Matthew,4:18-23,
-PASCHA,64,EPISTLE,Romans,7:1-13,
-PASCHA,64,GOSPEL,Matthew,9:36-10:8,
-PASCHA,65,EPISTLE,Romans,7:14-8:2,
-PASCHA,65,GOSPEL,Matthew,10:9-15,
-PASCHA,66,EPISTLE,Romans,8:2-13,
-PASCHA,66,GOSPEL,Matthew,10:16-22,
-PASCHA,67,EPISTLE,Romans,8:22-27,
-PASCHA,67,GOSPEL,Matthew,10:23-31,
-PASCHA,68,EPISTLE,Romans,9:6-19,
-PASCHA,68,GOSPEL,Matthew,"10:32-36, 11-1",
-PASCHA,69,EPISTLE,Romans,3:28-4:3,
-PASCHA,69,GOSPEL,Matthew,7:24-8:4,
-PASCHA,70,EPISTLE,Romans,5:1-10,
-PASCHA,70,GOSPEL,Matthew,6:22-33,
-PASCHA,71,EPISTLE,Romans,9:18-33,
-PASCHA,71,GOSPEL,Matthew,11:2-15,
-PASCHA,72,EPISTLE,Romans,10:11-11:2,
-PASCHA,72,GOSPEL,Matthew,11:16-20,
-PASCHA,73,EPISTLE,Romans,"13:11-14, 14:1-4",
-PASCHA,73,GOSPEL,Matthew,11:20-26,
-PASCHA,74,EPISTLE,Romans,11:13-24,
-PASCHA,74,GOSPEL,Matthew,11:27-30,
-PASCHA,75,EPISTLE,Romans,11:25-36,
-PASCHA,75,GOSPEL,Matthew,12:1-8,
-PASCHA,76,EPISTLE,Romans,6:11-17,
-PASCHA,76,GOSPEL,Matthew,8:14-23,
-PASCHA,77,EPISTLE,Romans,6:18-23,
-PASCHA,77,GOSPEL,Matthew,8:5-13,
-PASCHA,78,EPISTLE,Romans,"12:4-5, 15-21",
-PASCHA,78,GOSPEL,Matthew,12:9-13,
-PASCHA,79,EPISTLE,Romans,14:9-18,
-PASCHA,79,GOSPEL,Matthew,"12:14-16, 22-30",
-PASCHA,80,EPISTLE,Romans,15:7-16,
-PASCHA,80,GOSPEL,Matthew,12:38-45,
-PASCHA,81,EPISTLE,Romans,15:17-29,
-PASCHA,81,GOSPEL,Matthew,12:46-13:3,
-PASCHA,82,EPISTLE,Romans,16:1-16,
-PASCHA,82,GOSPEL,Matthew,13:3-9,
-PASCHA,83,EPISTLE,Romans,8:14-21,
-PASCHA,83,GOSPEL,Matthew,9:9-13,
-PASCHA,84,EPISTLE,Romans,10:1-10,
-PASCHA,84,GOSPEL,Matthew,8:28-9:1,
-PASCHA,85,EPISTLE,Romans,16:17-24,
-PASCHA,85,GOSPEL,Matthew,13:10-23,
-PASCHA,86,EPISTLE,1 Corinthians,1:1-9,
-PASCHA,86,GOSPEL,Matthew,13:24-30,
-PASCHA,87,EPISTLE,1 Corinthians,2:9-3:8,
-PASCHA,87,GOSPEL,Matthew,13:31-36,
-PASCHA,88,EPISTLE,1 Corinthians,3:18-23,
-PASCHA,88,GOSPEL,Matthew,13:36-43,
-PASCHA,89,EPISTLE,1 Corinthians,4:5-8,
-PASCHA,89,GOSPEL,Matthew,13:44-54,
-PASCHA,90,EPISTLE,Romans,9:1-5,
-PASCHA,90,GOSPEL,Matthew,9:18-26,
-PASCHA,91,EPISTLE,Romans,12:6-14,
-PASCHA,91,GOSPEL,Matthew,9:1-8,
-PASCHA,92,EPISTLE,1 Corinthians,5:9-6:11,
-PASCHA,92,GOSPEL,Matthew,13:54-58,
-PASCHA,93,EPISTLE,1 Corinthians,6:20-7:12,
-PASCHA,93,GOSPEL,Matthew,14:1-13,
-PASCHA,94,EPISTLE,1 Corinthians,7:12-24,
-PASCHA,94,GOSPEL,Matthew,14:35-15:11,
-PASCHA,95,EPISTLE,1 Corinthians,7:24-35,
-PASCHA,95,GOSPEL,Matthew,15:12-21,
-PASCHA,96,EPISTLE,1 Corinthians,7:35-8:7,
-PASCHA,96,GOSPEL,Matthew,15:29-31,
-PASCHA,97,EPISTLE,Romans,12:1-3,
-PASCHA,97,GOSPEL,Matthew,10:37-11:1,
-PASCHA,98,EPISTLE,Romans,15:1-7,
-PASCHA,98,GOSPEL,Matthew,9:27-35,
-PASCHA,99,EPISTLE,1 Corinthians,9:13-18,
-PASCHA,99,GOSPEL,Matthew,16:1-6,
-PASCHA,100,EPISTLE,1 Corinthians,10:5-12,
-PASCHA,100,GOSPEL,Matthew,16:6-12,
-PASCHA,101,EPISTLE,1 Corinthians,10:12-22,
-PASCHA,101,GOSPEL,Matthew,16:20-24,
-PASCHA,102,EPISTLE,1 Corinthians,10:28-11:8,
-PASCHA,102,GOSPEL,Matthew,16:24-28,
-PASCHA,103,EPISTLE,1 Corinthians,11:8-23,
-PASCHA,103,GOSPEL,Matthew,17:10-18,
-PASCHA,104,EPISTLE,Romans,13:1-10,
-PASCHA,104,GOSPEL,Matthew,12:30-37,
-PASCHA,105,EPISTLE,1 Corinthians,1:10-17,
-PASCHA,105,GOSPEL,Matthew,14:14-22,
-PASCHA,106,EPISTLE,1 Corinthians,11:31-12:6,
-PASCHA,106,GOSPEL,Matthew,18:1-11,
-PASCHA,107,EPISTLE,1 Corinthians,12:12-26,
-PASCHA,107,GOSPEL,Matthew,"18:18-22, 19:1-2, 13-15",
-PASCHA,108,EPISTLE,1 Corinthians,13:4-14:5,
-PASCHA,108,GOSPEL,Matthew,20:1-16,
-PASCHA,109,EPISTLE,1 Corinthians,14:6-19,
-PASCHA,109,GOSPEL,Matthew,20:17-28,
-PASCHA,110,EPISTLE,1 Corinthians,14:26-40,
-PASCHA,110,GOSPEL,Matthew,"21:12-14, 17-20",
-PASCHA,111,EPISTLE,Romans,14:6-9,
-PASCHA,111,GOSPEL,Matthew,15:32-39,
-PASCHA,112,EPISTLE,1 Corinthians,3:9-17,
-PASCHA,112,GOSPEL,Matthew,14:22-34,
-PASCHA,113,EPISTLE,1 Corinthians,15:12-19,
-PASCHA,113,GOSPEL,Matthew,21:18-22,
-PASCHA,114,EPISTLE,1 Corinthians,15:29-38,
-PASCHA,114,GOSPEL,Matthew,21:23-27,
-PASCHA,115,EPISTLE,1 Corinthians,16:4-12,
-PASCHA,115,GOSPEL,Matthew,21:28-32,
-PASCHA,116,EPISTLE,2 Corinthians,1:1-7,
-PASCHA,116,GOSPEL,Matthew,21:43-46,
-PASCHA,117,EPISTLE,2 Corinthians,1:12-20,
-PASCHA,117,GOSPEL,Matthew,22:23-33,
-PASCHA,118,EPISTLE,Romans,15:30-33,
-PASCHA,118,GOSPEL,Matthew,17:24-18:4,
-PASCHA,119,EPISTLE,1 Corinthians,4:9-16,
-PASCHA,119,GOSPEL,Matthew,17:14-23,
-PASCHA,120,EPISTLE,2 Corinthians,2:3-15,
-PASCHA,120,GOSPEL,Matthew,23:13-22,"11th week of Matthew, Monday"
-PASCHA,121,EPISTLE,2 Corinthians,2:14-3:3,
-PASCHA,121,GOSPEL,Matthew,23:23-28,
-PASCHA,122,EPISTLE,2 Corinthians,3:4-11,
-PASCHA,122,GOSPEL,Matthew,23:29-39,
-PASCHA,123,EPISTLE,2 Corinthians,4:1-12,
-PASCHA,123,GOSPEL,Matthew,24:13-28,
-PASCHA,124,EPISTLE,2 Corinthians,4:13-18,
-PASCHA,124,GOSPEL,Matthew,"24:27-33, 42-51",
-PASCHA,125,EPISTLE,1 Corinthians,1:3-9,
-PASCHA,125,GOSPEL,Matthew,19:3-12,
-PASCHA,126,EPISTLE,1 Corinthians,9:2-12,11th Sunday
-PASCHA,126,GOSPEL,Matthew,18:23-35,"11th week of Matthew, Sunday"
-PASCHA,127,EPISTLE,2 Corinthians,5:10-15,
-PASCHA,127,GOSPEL,Mark,1:9-15,
-PASCHA,128,EPISTLE,2 Corinthians,5:15-21,
-PASCHA,128,GOSPEL,Mark,1:16-22,
-PASCHA,129,EPISTLE,2 Corinthians,6:11-16,
-PASCHA,129,GOSPEL,Mark,1:23-28,
-PASCHA,130,EPISTLE,2 Corinthians,7:1-10,
-PASCHA,130,GOSPEL,Mark,1:29-35,
-PASCHA,131,EPISTLE,2 Corinthians,7:10-16,
-PASCHA,131,GOSPEL,Mark,2:18-22,
-PASCHA,132,EPISTLE,1 Corinthians,1:26-2:5,
-PASCHA,132,GOSPEL,Matthew,20:29-34,
-PASCHA,133,EPISTLE,1 Corinthians,15:1-11,12th Sunday
-PASCHA,133,GOSPEL,Matthew,19:16-26,"12th week of Matthew, Sunday"
-PASCHA,134,EPISTLE,2 Corinthians,8:7-15,
-PASCHA,134,GOSPEL,Mark,3:6-12,
-PASCHA,135,EPISTLE,2 Corinthians,8:16-9:5,
-PASCHA,135,GOSPEL,Mark,3:13-21,
-PASCHA,136,EPISTLE,2 Corinthians,9:12-10:7,
-PASCHA,136,GOSPEL,Mark,3:20-27,
-PASCHA,137,EPISTLE,2 Corinthians,10:7-18,
-PASCHA,137,GOSPEL,Mark,3:28-35,
-PASCHA,138,EPISTLE,2 Corinthians,11:5-21,
-PASCHA,138,GOSPEL,Mark,4:1-9,
-PASCHA,139,EPISTLE,1 Corinthians,2:6-9,
-PASCHA,139,GOSPEL,Matthew,22:15-22,
-PASCHA,140,EPISTLE,1 Corinthians,16:13-24,13th Sunday
-PASCHA,140,GOSPEL,Matthew,21:33-42,"13th week of Matthew, Sunday"
-PASCHA,141,EPISTLE,2 Corinthians,12:10-19,
-PASCHA,141,GOSPEL,Mark,4:10-23,
-PASCHA,142,EPISTLE,2 Corinthians,12:20-13:2,
-PASCHA,142,GOSPEL,Mark,4:24-34,
-PASCHA,143,EPISTLE,2 Corinthians,13:3-13,
-PASCHA,143,GOSPEL,Mark,4:35-41,
-PASCHA,144,EPISTLE,Galatians,"1:1-3, 20-2:5",
-PASCHA,144,GOSPEL,Mark,5:1-20,
-PASCHA,145,EPISTLE,Galatians,2:6-10,
-PASCHA,145,GOSPEL,Mark,"5:22-24, 35-6:1",
-PASCHA,146,EPISTLE,1 Corinthians,4:1-5,
-PASCHA,146,GOSPEL,Matthew,23:1-12,
-PASCHA,147,EPISTLE,2 Corinthians,1:21-2:4,14th Sunday
-PASCHA,147,GOSPEL,Matthew,22:2-14,"14th week of Matthew, Sunday"
-PASCHA,148,EPISTLE,Galatians,2:11-16,
-PASCHA,148,GOSPEL,Mark,5:24-34,
-PASCHA,149,EPISTLE,Galatians,2:21-3:7,
-PASCHA,149,GOSPEL,Mark,6:1-7,
-PASCHA,150,EPISTLE,Galatians,3:15-22,
-PASCHA,150,GOSPEL,Mark,6:7-13,
-PASCHA,151,EPISTLE,Galatians,3:23-4:5,
-PASCHA,151,GOSPEL,Mark,6:30-45,
-PASCHA,152,EPISTLE,Galatians,4:8-21,
-PASCHA,152,GOSPEL,Mark,6:45-53,
-PASCHA,153,EPISTLE,1 Corinthians,4:17-5:5,
-PASCHA,153,GOSPEL,Matthew,24:1-13,
-PASCHA,154,EPISTLE,2 Corinthians,4:6-15,15th Sunday
-PASCHA,154,GOSPEL,Matthew,22:35-46,"15th week of Matthew, Sunday"
-PASCHA,155,EPISTLE,Galatians,4:28-5:10,
-PASCHA,155,GOSPEL,Mark,6:54-7:8,
-PASCHA,156,EPISTLE,Galatians,5:11-21,
-PASCHA,156,GOSPEL,Mark,7:5-16,
-PASCHA,157,EPISTLE,Galatians,6:2-10,
-PASCHA,157,GOSPEL,Mark,7:14-24,
-PASCHA,158,EPISTLE,Ephesians,1:1-9,
-PASCHA,158,GOSPEL,Mark,7:24-30,
-PASCHA,159,EPISTLE,Ephesians,1:7-17,
-PASCHA,159,GOSPEL,Mark,8:1-10,
-PASCHA,160,EPISTLE,1 Corinthians,10:23-28,
-PASCHA,160,GOSPEL,Matthew,"24:34-37, 42-44",
-PASCHA,161,EPISTLE,2 Corinthians,6:1-10,16th Sunday
-PASCHA,161,GOSPEL,Matthew,25:14-30,"16th week of Matthew, Sunday"
-PASCHA,161,GOSPEL,Luke,8:8,"16th week of Matthew, Sunday"
-PASCHA,162,EPISTLE,Ephesians,1:22-2:3,
-PASCHA,163,EPISTLE,Ephesians,2:19-3:7,
-PASCHA,164,EPISTLE,Ephesians,3:8-21,
-PASCHA,165,EPISTLE,Ephesians,4:14-17,
-PASCHA,166,EPISTLE,Ephesians,4:17-25,
-PASCHA,167,EPISTLE,1 Corinthians,14:20-25,
-PASCHA,168,EPISTLE,2 Corinthians,6:16-7:1,17th Sunday
-PASCHA,169,EPISTLE,Ephesians,4:25-32,
-PASCHA,170,EPISTLE,Ephesians,5:20-25,
-PASCHA,171,EPISTLE,Ephesians,5:25-33,
-PASCHA,172,EPISTLE,Ephesians,5:33-6:9,
-PASCHA,173,EPISTLE,Ephesians,6:18-24,
-PASCHA,174,EPISTLE,1 Corinthians,15:39-45,
-PASCHA,175,EPISTLE,2 Corinthians,9:6-11,18th Sunday
-PASCHA,176,EPISTLE,Philippians,1:1-7,
-PASCHA,177,EPISTLE,Philippians,1:8-14,
-PASCHA,178,EPISTLE,Philippians,1:12-20,
-PASCHA,179,EPISTLE,Philippians,1:20-27,
-PASCHA,180,EPISTLE,Philippians,1:27-2:4,
-PASCHA,181,EPISTLE,1 Corinthians,15:58-16:3,
-PASCHA,182,EPISTLE,2 Corinthians,11:31-12:9,19th Sunday
-PASCHA,183,EPISTLE,Philippians,2:12-16,
-PASCHA,184,EPISTLE,Philippians,2:16-23,
-PASCHA,185,EPISTLE,Philippians,2:24-30,
-PASCHA,186,EPISTLE,Philippians,3:1-8,
-PASCHA,187,EPISTLE,Philippians,3:8-19,
-PASCHA,188,EPISTLE,2 Corinthians,1:8-11,
-PASCHA,189,EPISTLE,Galatians,1:11-19,20th Sunday
-PASCHA,190,EPISTLE,Philippians,4:10-23,
-PASCHA,191,EPISTLE,Colossians,"1:1-3, 6-11",
-PASCHA,192,EPISTLE,Colossians,1:18-23,
-PASCHA,193,EPISTLE,Colossians,1:24-2:1,
-PASCHA,194,EPISTLE,Colossians,2:1-7,
-PASCHA,195,EPISTLE,2 Corinthians,3:12-18,
-PASCHA,196,EPISTLE,Galatians,2:16-20,21st Sunday
-PASCHA,197,EPISTLE,Colossians,2:13-20,
-PASCHA,198,EPISTLE,Colossians,2:20-3:3,
-PASCHA,199,EPISTLE,Colossians,3:17-4:1,
-PASCHA,200,EPISTLE,Colossians,4:2-9,
-PASCHA,201,EPISTLE,Colossians,4:10-18,
-PASCHA,202,EPISTLE,2 Corinthians,5:1-10,
-PASCHA,203,EPISTLE,Galatians,6:11-18,22nd Sunday
-PASCHA,204,EPISTLE,1 Thessalonians,1:1-5,
-PASCHA,205,EPISTLE,1 Thessalonians,1:6-10,
-PASCHA,206,EPISTLE,1 Thessalonians,2:1-8,
-PASCHA,207,EPISTLE,1 Thessalonians,2:9-14,
-PASCHA,208,EPISTLE,1 Thessalonians,2:14-20,
-PASCHA,209,EPISTLE,2 Corinthians,8:1-5,
-PASCHA,210,EPISTLE,Ephesians,2:4-10,23rd Sunday
-PASCHA,211,EPISTLE,1 Thessalonians,2:20-3:8,
-PASCHA,212,EPISTLE,1 Thessalonians,3:8-13,
-PASCHA,213,EPISTLE,1 Thessalonians,4:1-12,
-PASCHA,214,EPISTLE,1 Thessalonians,4:18-5:10,
-PASCHA,215,EPISTLE,1 Thessalonians,"5:9-13, 24-28",
-PASCHA,216,EPISTLE,2 Corinthians,11:1-6,
-PASCHA,217,EPISTLE,Ephesians,2:14-22,24th Sunday
-PASCHA,218,EPISTLE,2 Thessalonians,1:1-10,
-PASCHA,219,EPISTLE,2 Thessalonians,1:10-2:2,
-PASCHA,220,EPISTLE,2 Thessalonians,2:1-12,
-PASCHA,221,EPISTLE,2 Thessalonians,2:13-3:5,
-PASCHA,222,EPISTLE,2 Thessalonians,3:6-18,
-PASCHA,223,EPISTLE,Galatians,1:3-10,
-PASCHA,224,EPISTLE,Ephesians,4:1-7,25th Sunday
-PASCHA,225,EPISTLE,1 Timothy,1:1-7,
-PASCHA,226,EPISTLE,1 Timothy,1:8-14,
-PASCHA,227,EPISTLE,1 Timothy,"1:18-20, 2:8-15",
-PASCHA,228,EPISTLE,1 Timothy,3:1-13,
-PASCHA,229,EPISTLE,1 Timothy,"4:4-8, 16",
-PASCHA,230,EPISTLE,Galatians,3:8-12,
-PASCHA,231,EPISTLE,Ephesians,5:8-19,26th Sunday
-PASCHA,232,EPISTLE,1 Timothy,5:1-10,
-PASCHA,233,EPISTLE,1 Timothy,5:11-21,
-PASCHA,234,EPISTLE,1 Timothy,5:22-6:11,
-PASCHA,235,EPISTLE,1 Timothy,6:17-21,
-PASCHA,236,EPISTLE,2 Timothy,"1:1-2, 8-18",
-PASCHA,237,EPISTLE,Galatians,5:22-6:2,
-PASCHA,238,EPISTLE,Ephesians,6:10-17,27th Sunday
-PASCHA,239,EPISTLE,2 Timothy,2:20-26,
-PASCHA,240,EPISTLE,2 Timothy,3:16-4:4,
-PASCHA,241,EPISTLE,2 Timothy,4:9-22,
-PASCHA,242,EPISTLE,Titus,1:5-14,
-PASCHA,243,EPISTLE,Titus,1:15-2:10,
-PASCHA,244,EPISTLE,Ephesians,1:16-23,
-PASCHA,245,EPISTLE,Colossians,1:12-18,28th Sunday
-PASCHA,246,EPISTLE,Hebrews,"3:5-11, 17-19",
-PASCHA,247,EPISTLE,Hebrews,4:1-13,
-PASCHA,248,EPISTLE,Hebrews,5:11-6:8,
-PASCHA,249,EPISTLE,Hebrews,7:1-6,
-PASCHA,250,EPISTLE,Hebrews,7:18-25,
-PASCHA,251,EPISTLE,Ephesians,2:11-13,
-PASCHA,252,EPISTLE,Colossians,3:4-11,29th Sunday
-PASCHA,253,EPISTLE,Hebrews,8:7-13,
-PASCHA,254,EPISTLE,Hebrews,9:8-23,
-PASCHA,255,EPISTLE,Hebrews,10:1-18,
-PASCHA,256,EPISTLE,Hebrews,10:35-11:7,
-PASCHA,257,EPISTLE,Hebrews,11:8-16,
-PASCHA,258,EPISTLE,Hebrews,13:7-16,
-PASCHA,259,EPISTLE,Colossians,3:12-16,30th Sunday
-PASCHA,260,EPISTLE,Hebrews,11:17-31,
-PASCHA,261,EPISTLE,Hebrews,"12:25-27, 13:22-25",
-PASCHA,262,EPISTLE,James,1:1-8,
-PASCHA,263,EPISTLE,James,1:19-27,
-PASCHA,264,EPISTLE,James,2:1-13,
-PASCHA,265,EPISTLE,Hebrews,7:26-8:2,
-PASCHA,266,EPISTLE,1 Timothy,1:15-17,31st Sunday
-PASCHA,267,EPISTLE,James,2:14-26,
-PASCHA,268,EPISTLE,James,3:1-10,
-PASCHA,269,EPISTLE,James,3:11-4:6,
-PASCHA,270,EPISTLE,James,4:7-5:9,
-PASCHA,271,EPISTLE,1 Peter,1:1-2:10,
-PASCHA,272,EPISTLE,1 Thessalonians,5:14-23,
-PASCHA,273,EPISTLE,1 Timothy,4:9-15,32nd Sunday
-PASCHA,274,EPISTLE,1 Peter,"2:21-25, 3:1-9",
-PASCHA,275,EPISTLE,1 Peter,3:10-22,
-PASCHA,276,EPISTLE,1 Peter,4:1-11,
-PASCHA,277,EPISTLE,1 Peter,4:12-5:5,
-PASCHA,278,EPISTLE,2 Peter,1:1-10,
-PASCHA,279,EPISTLE,2 Timothy,2:11-19,
-ECUM4,0,EPISTLE,Titus,3:8-15,Holy Fathers of 4th Ecumenical Council
-ECUM4,0,GOSPEL,Matthew,5:14-19,Holy Fathers of 4th Ecumenical Council
-SATbE,0,EPISTLE,1 Corinthians,2:6-9,Saturday before the Elevation of the Cross
-SATbE,0,GOSPEL,Matthew,10:37-11:1,Saturday before the Elevation of the Cross
-SUNbE,0,EPISTLE,Galatians,6:11-18,Sunday before the Elevation of the Cross
-SUNbE,0,GOSPEL,John,3:13-17,Sunday before the Elevation of the Cross
-SATaE,0,EPISTLE,1 Corinthians,1:26-2:5,Saturday after the Elevation of the Cross
-SATaE,0,GOSPEL,John,8:21-30,Saturday after the Elevation of the Cross
-SUNaE,0,EPISTLE,Galatians,2:16-20,Sunday after the Elevation of the Cross
-SUNaE,0,GOSPEL,Mark,8:34-9:1,Sunday after the Elevation of the Cross
-SUNaE,1,GOSPEL,Luke,3:19-22,"1st week of Luke, Monday"
-SUNaE,2,GOSPEL,Luke,3:23-4:1,"1st week of Luke, Tuesday"
-SUNaE,3,GOSPEL,Luke,4:1-15,"1st week of Luke, Wednesday"
-SUNaE,4,GOSPEL,Luke,4:16-22,"1st week of Luke, Thursday"
-SUNaE,5,GOSPEL,Luke,4:22-30,"1st week of Luke, Friday"
-SUNaE,6,GOSPEL,Luke,4:31-36,"1st week of Luke, Saturday"
-SUNaE,8,GOSPEL,Luke,4:38-44,"2nd week of Luke, Monday"
-SUNaE,9,GOSPEL,Luke,5:12-16,"2nd week of Luke, Tuesday"
-SUNaE,10,GOSPEL,Luke,5:33-39,"2nd week of Luke, Wednesday"
-SUNaE,11,GOSPEL,Luke,6:12-19,"2nd week of Luke, Thursday"
-SUNaE,12,GOSPEL,Luke,6:17-23,"2nd week of Luke, Friday"
-SUNaE,13,GOSPEL,Luke,5:17-26,"2nd week of Luke, Saturday"
-SUNaE,15,GOSPEL,Luke,6:24-30,"3rd week of Luke, Monday"
-SUNaE,16,GOSPEL,Luke,6:37-45,"3rd week of Luke, Tuesday"
-SUNaE,17,GOSPEL,Luke,6:46-7:1,"3rd week of Luke, Wednesday"
-SUNaE,18,GOSPEL,Luke,7:17-30,"3rd week of Luke, Thursday"
-SUNaE,19,GOSPEL,Luke,7:31-35,"3rd week of Luke, Friday"
-SUNaE,20,GOSPEL,Luke,5:27-32,"3rd week of Luke, Saturday"
-SUNaE,22,GOSPEL,Luke,7:36-50,"4th week of Luke, Monday"
-SUNaE,23,GOSPEL,Luke,8:1-3,"4th week of Luke, Tuesday"
-SUNaE,24,GOSPEL,Luke,8:22-25,"4th week of Luke, Wednesday"
-SUNaE,25,GOSPEL,Luke,9:7-11,"4th week of Luke, Thursday"
-SUNaE,26,GOSPEL,Luke,9:12-18,"4th week of Luke, Friday"
-SUNaE,27,GOSPEL,Luke,6:1-10,"4th week of Luke, Saturday"
-SUNaE,29,GOSPEL,Luke,9:18-22,"5th week of Luke, Monday"
-SUNaE,30,GOSPEL,Luke,9:23-27,"5th week of Luke, Tuesday"
-SUNaE,31,GOSPEL,Luke,9:44-50,"5th week of Luke, Wednesday"
-SUNaE,32,GOSPEL,Luke,9:49-56,"5th week of Luke, Thursday"
-SUNaE,33,GOSPEL,Luke,10:1-15,"5th week of Luke, Friday"
-SUNaE,34,GOSPEL,Luke,7:1-10,"5th week of Luke, Saturday"
-SUNaE,36,GOSPEL,Luke,10:22-24,"6th week of Luke, Monday"
-SUNaE,37,GOSPEL,Luke,11:1-10,"6th week of Luke, Tuesday"
-SUNaE,38,GOSPEL,Luke,11:9-13,"6th week of Luke, Wednesday"
-SUNaE,39,GOSPEL,Luke,11:14-23,"6th week of Luke, Thursday"
-SUNaE,40,GOSPEL,Luke,11:23-26,"6th week of Luke, Friday"
-SUNaE,41,GOSPEL,Luke,8:16-21,"6th week of Luke, Saturday"
-SUNaE,43,GOSPEL,Luke,11:29-33,"7th week of Luke, Monday"
-SUNaE,44,GOSPEL,Luke,11:34-41,"7th week of Luke, Tuesday"
-SUNaE,45,GOSPEL,Luke,11:42-46,"7th week of Luke, Wednesday"
-SUNaE,46,GOSPEL,Luke,11:47-12:1,"7th week of Luke, Thursday"
-SUNaE,47,GOSPEL,Luke,12:2-12,"7th week of Luke, Friday"
-SUNaE,48,GOSPEL,Luke,9:1-6,"7th week of Luke, Saturday"
-SUNaE,50,GOSPEL,Luke,"12:13-15, 22-31","8th week of Luke, Monday"
-SUNaE,51,GOSPEL,Luke,12:42-48,"8th week of Luke, Tuesday"
-SUNaE,52,GOSPEL,Luke,12:48-59,"8th week of Luke, Wednesday"
-SUNaE,53,GOSPEL,Luke,13:1-9,"8th week of Luke, Thursday"
-SUNaE,54,GOSPEL,Luke,13:31-35,"8th week of Luke, Friday"
-SUNaE,55,GOSPEL,Luke,9:37-43,"8th week of Luke, Saturday"
-SUNaE,57,GOSPEL,Luke,"14:1, 12-15","9th week of Luke, Monday"
-SUNaE,58,GOSPEL,Luke,14:25-35,"9th week of Luke, Tuesday"
-SUNaE,59,GOSPEL,Luke,15:1-10,"9th week of Luke, Wednesday"
-SUNaE,60,GOSPEL,Luke,16:1-9,"9th week of Luke, Thursday"
-SUNaE,61,GOSPEL,Luke,16:15-18; 17:1-4,"9th week of Luke, Friday"
-SUNaE,62,GOSPEL,Luke,9:57-62,"9th week of Luke, Saturday"
-SUNaE,64,GOSPEL,Luke,17:20-25,"10th week of Luke, Monday"
-SUNaE,65,GOSPEL,Luke,17:26-37; 18:8,"10th week of Luke, Tuesday"
-SUNaE,66,GOSPEL,Luke,"18:15-17, 26-30","10th week of Luke, Wednesday"
-SUNaE,67,GOSPEL,Luke,18:31-34,"10th week of Luke, Thursday"
-SUNaE,68,GOSPEL,Luke,19:12-28,"10th week of Luke, Friday"
-SUNaE,69,GOSPEL,Luke,10:19-21,"10th week of Luke, Saturday"
-SUNaE,71,GOSPEL,Luke,19:37-44,"11th week of Luke, Monday"
-SUNaE,72,GOSPEL,Luke,19:45-48,"11th week of Luke, Tuesday"
-SUNaE,73,GOSPEL,Luke,20:1-8,"11th week of Luke, Wednesday"
-SUNaE,74,GOSPEL,Luke,20:9-18,"11th week of Luke, Thursday"
-SUNaE,75,GOSPEL,Luke,20:19-26,"11th week of Luke, Friday"
-SUNaE,76,GOSPEL,Luke,12:32-40,"11th week of Luke, Saturday"
-SUNaE,78,GOSPEL,Luke,20:27-44,"12th week of Luke, Monday"
-SUNaE,79,GOSPEL,Luke,21:12-19,"12th week of Luke, Tuesday"
-SUNaE,80,GOSPEL,Luke,"21:5-8, 10-11, 20-24","12th week of Luke, Wednesday"
-SUNaE,81,GOSPEL,Luke,21:28-33,"12th week of Luke, Thursday"
-SUNaE,82,GOSPEL,Luke,21:37-22:8,"12th week of Luke, Friday"
-SUNaE,83,GOSPEL,Luke,13:19-29,"12th week of Luke, Saturday"
-SUNaE,85,GOSPEL,Mark,8:11-21,"13th week of Luke, Monday"
-SUNaE,86,GOSPEL,Mark,8:22-26,"13th week of Luke, Tuesday"
-SUNaE,87,GOSPEL,Mark,8:30-34,"13th week of Luke, Wednesday"
-SUNaE,88,GOSPEL,Mark,9:10-15,"13th week of Luke, Thursday"
-SUNaE,89,GOSPEL,Mark,9:33-41,"13th week of Luke, Friday"
-SUNaE,90,GOSPEL,Luke,14:1-11,"13th week of Luke, Saturday"
-SUNaE,92,GOSPEL,Mark,9:42-10:1,"14th week of Luke, Monday"
-SUNaE,93,GOSPEL,Mark,10:2-12,"14th week of Luke, Tuesday"
-SUNaE,94,GOSPEL,Mark,10:11-16,"14th week of Luke, Wednesday"
-SUNaE,95,GOSPEL,Mark,10:17-27,"14th week of Luke, Thursday"
-SUNaE,96,GOSPEL,Mark,10:24-32,"14th week of Luke, Friday"
-SUNaE,97,GOSPEL,Luke,16:10-15,"14th week of Luke, Saturday"
-SUNaE,99,GOSPEL,Mark,10:46-52,"15th week of Luke, Monday"
-SUNaE,100,GOSPEL,Mark,11:11-23,"15th week of Luke, Tuesday"
-SUNaE,101,GOSPEL,Mark,11:22-26,"15th week of Luke, Wednesday"
-SUNaE,102,GOSPEL,Mark,11:27-33,"15th week of Luke, Thursday"
-SUNaE,103,GOSPEL,Mark,12:1-12,"15th week of Luke, Friday"
-SUNaE,104,GOSPEL,Luke,17:3-10,"15th week of Luke, Saturday"
-SUNaE,106,GOSPEL,Mark,12:13-17,"16th week of Luke, Monday"
-SUNaE,107,GOSPEL,Mark,12:18-27,"16th week of Luke, Tuesday"
-SUNaE,108,GOSPEL,Mark,12:28-37,"16th week of Luke, Wednesday"
-SUNaE,109,GOSPEL,Mark,12:38-44,"16th week of Luke, Thursday"
-SUNaE,110,GOSPEL,Mark,13:1-8,"16th week of Luke, Friday"
-SUNaE,111,GOSPEL,Luke,18:2-8,"16th week of Luke, Saturday"
-L1,0,GOSPEL,Luke,5:1-11,"1st week of Luke, Sunday"
-L2,0,GOSPEL,Luke,6:31-36,"2nd week of Luke, Sunday"
-L3,0,GOSPEL,Luke,7:11-16,"3rd week of Luke, Sunday"
-L4,0,EPISTLE,Titus,3:8-15,"4th week of Luke, Sunday Holy Fathers of 7th Ecumenical Council"
-L4,0,GOSPEL,Luke,8:5-15,"4th week of Luke, Sunday Holy Fathers of 7th Ecumenical Council"
-L5,0,GOSPEL,Luke,16:19-31,"5th week of Luke, Sunday"
-L6,0,GOSPEL,Luke,8:27-39,"6th week of Luke, Sunday"
-L7,0,GOSPEL,Luke,8:41-56,"7th week of Luke, Sunday"
-L8,0,GOSPEL,Luke,10:25-37,"8th week of Luke, Sunday"
-L9,0,GOSPEL,Luke,12:16-21; 8:8,"9th week of Luke, Sunday"
-L10,0,GOSPEL,Luke,13:10-17,"10th week of Luke, Sunday"
-L11,0,EPISTLE,Colossians,3:4-11,Sunday of the Holy Ancestors
-L11,0,GOSPEL,Luke,14:16-24,"11th week of Luke, Sunday, Sunday of the Holy Ancestors"
-L11,0,GOSPEL,Matthew,22:14,"11th week of Luke, Sunday, Sunday of the Holy Ancestors"
-L13,0,GOSPEL,Luke,18:18-27,"13th week of Luke, Sunday"
-SATbN,0,EPISTLE,Galatians,3:8-12,Saturday before Nativity
-SATbN,0,GOSPEL,Luke,13:19-29,Saturday before Nativity
-SUNbN,0,EPISTLE,Hebrews,"11:9-10, 32-40",Sunday before Nativity
-SUNbN,0,GOSPEL,Matthew,1:1-25,Sunday before Nativity
-SATaN,0,EPISTLE,1 Timothy,6:11-16,Saturday after Nativity
-SATaN,0,GOSPEL,Matthew,12:15-21,Saturday after Nativity
-SUNaN,0,EPISTLE,Galatians,1:11-19,Sunday after Nativity
-SUNaN,0,GOSPEL,Matthew,2:13-23,Sunday after Nativity
-SATbT,0,EPISTLE,1 Timothy,3:13-4:5,Saturday before Theophany
-SATbT,0,GOSPEL,Matthew,3:1-6,Saturday before Theophany
-SUNbT,0,EPISTLE,2 Timothy,4:5-8,Sunday before Theophany
-SUNbT,0,GOSPEL,Mark,1:1-8,Sunday before Theophany
-SATaT,0,EPISTLE,Ephesians,6:10-17,Saturday after Theophany
-SATaT,0,GOSPEL,Matthew,4:1-11,Saturday after Theophany
-SUNaT,0,EPISTLE,Ephesians,4:7-13,Sunday after Theophany
-SUNaT,0,GOSPEL,Matthew,4:12-17,Sunday after Theophany
-L12,0,GOSPEL,Luke,17:12-19,"12th week of Luke, Gap Sunday"
-L14,0,GOSPEL,Luke,18:35-43,"14th week of Luke, Gap Sunday"
-M15,0,GOSPEL,Matthew,22:35-46,"15th week of Matthew, Gap Sunday"
-M16,0,GOSPEL,Matthew,25:14-30,"16th week of Matthew, Gap Sunday"
-M16,0,GOSPEL,Luke,8:8,"16th week of Matthew, Gap Sunday"
-L15,0,GOSPEL,Luke,19:1-10,"Zaccheos, Gap Sunday"
-M17,0,GOSPEL,Matthew,15:21-28,"17th week of Matthew, Gap Sunday"
+Reference,Offset,Type,Reading,Note
+PASCHA,-118,EPISTLE,1 Corinthians 15:12-19,Gap week 0
+PASCHA,-118,GOSPEL,Matthew 21:18-22,Gap week 0
+PASCHA,-117,EPISTLE,1 Corinthians 15:29-38,Gap week 0
+PASCHA,-117,GOSPEL,Matthew 21:23-27,Gap week 0
+PASCHA,-116,EPISTLE,1 Corinthians 16:4-12,Gap week 0
+PASCHA,-116,GOSPEL,Matthew 21:28-32,Gap week 0
+PASCHA,-115,EPISTLE,2 Corinthians 1:1-7,Gap week 0
+PASCHA,-115,GOSPEL,Matthew 21:43-46,Gap week 0
+PASCHA,-114,EPISTLE,2 Corinthians 1:12-20,Gap week 0
+PASCHA,-114,GOSPEL,Matthew 22:23-33,Gap week 0
+PASCHA,-113,EPISTLE,Romans 15:30-33,Gap week 0
+PASCHA,-113,GOSPEL,Matthew 17:24-18:4,Gap week 0
+PASCHA,-111,EPISTLE,2 Corinthians 2:3-15,Gap week 1
+PASCHA,-111,GOSPEL,Matthew 23:13-22,Gap week 1
+PASCHA,-110,EPISTLE,2 Corinthians 2:14-3:3,Gap week 1
+PASCHA,-110,GOSPEL,Matthew 23:23-28,Gap week 1
+PASCHA,-109,EPISTLE,2 Corinthians 3:4-11,Gap week 1
+PASCHA,-109,GOSPEL,Matthew 23:29-39,Gap week 1
+PASCHA,-108,EPISTLE,2 Corinthians 4:1-12,Gap week 1
+PASCHA,-108,GOSPEL,Matthew 24:13-28,Gap week 1
+PASCHA,-107,EPISTLE,2 Corinthians 4:13-18,Gap week 1
+PASCHA,-107,GOSPEL,"Matthew 24:27-33, 42-51",Gap week 1
+PASCHA,-106,EPISTLE,1 Corinthians 1:3-9,Gap week 1
+PASCHA,-106,GOSPEL,Matthew 19:3-12,Gap week 1
+PASCHA,-104,EPISTLE,2 Corinthians 5:10-15,Gap week 2
+PASCHA,-104,GOSPEL,Mark 1:9-15,Gap week 2
+PASCHA,-103,EPISTLE,2 Corinthians 5:15-21,Gap week 2
+PASCHA,-103,GOSPEL,Mark 1:16-22,Gap week 2
+PASCHA,-102,EPISTLE,2 Corinthians 6:11-16,Gap week 2
+PASCHA,-102,GOSPEL,Mark 1:23-28,Gap week 2
+PASCHA,-101,EPISTLE,2 Corinthians 7:1-10,Gap week 2
+PASCHA,-101,GOSPEL,Mark 1:29-35,Gap week 2
+PASCHA,-100,EPISTLE,2 Corinthians 7:10-16,Gap week 2
+PASCHA,-100,GOSPEL,Mark 2:18-22,Gap week 2
+PASCHA,-99,EPISTLE,1 Corinthians 1:26-2:5,Gap week 2
+PASCHA,-99,GOSPEL,Matthew 20:29-34,Gap week 2
+PASCHA,-97,EPISTLE,2 Corinthians 8:7-15,Gap week 3
+PASCHA,-97,GOSPEL,Mark 3:6-12,Gap week 3
+PASCHA,-96,EPISTLE,2 Corinthians 8:16-9:5,Gap week 3
+PASCHA,-96,GOSPEL,Mark 3:13-21,Gap week 3
+PASCHA,-95,EPISTLE,2 Corinthians 9:12-10:7,Gap week 3
+PASCHA,-95,GOSPEL,Mark 3:20-27,Gap week 3
+PASCHA,-94,EPISTLE,2 Corinthians 10:7-18,Gap week 3
+PASCHA,-94,GOSPEL,Mark 3:28-35,Gap week 3
+PASCHA,-93,EPISTLE,2 Corinthians 11:5-21,Gap week 3
+PASCHA,-93,GOSPEL,Mark 4:1-9,Gap week 3
+PASCHA,-92,EPISTLE,1 Corinthians 2:6-9,Gap week 3
+PASCHA,-92,GOSPEL,Matthew 22:15-22,Gap week 3
+PASCHA,-90,EPISTLE,2 Corinthians 12:10-19,Gap week 4
+PASCHA,-90,GOSPEL,Mark 4:10-23,Gap week 4
+PASCHA,-89,EPISTLE,2 Corinthians 12:20-13:2,Gap week 4
+PASCHA,-89,GOSPEL,Mark 4:24-34,Gap week 4
+PASCHA,-88,EPISTLE,2 Corinthians 13:3-13,Gap week 4
+PASCHA,-88,GOSPEL,Mark 4:35-41,Gap week 4
+PASCHA,-87,EPISTLE,"Galatians 1:1-3, 20-2:5",Gap week 4
+PASCHA,-87,GOSPEL,Mark 5:1-20,Gap week 4
+PASCHA,-86,EPISTLE,Galatians 2:6-10,Gap week 4
+PASCHA,-86,GOSPEL,"Mark 5:22-24, 35-6:1",Gap week 4
+PASCHA,-85,EPISTLE,1 Corinthians 4:1-5,Gap week 4
+PASCHA,-85,GOSPEL,Matthew 23:1-12,Gap week 4
+PASCHA,-83,EPISTLE,Galatians 2:11-16,Gap week 5
+PASCHA,-83,GOSPEL,Mark 5:24-34,Gap week 5
+PASCHA,-82,EPISTLE,Galatians 2:21-3:7,Gap week 5
+PASCHA,-82,GOSPEL,Mark 6:1-7,Gap week 5
+PASCHA,-81,EPISTLE,Galatians 3:15-22,Gap week 5
+PASCHA,-81,GOSPEL,Mark 6:7-13,Gap week 5
+PASCHA,-80,EPISTLE,Galatians 3:23-4:5,Gap week 5
+PASCHA,-80,GOSPEL,Mark 6:30-45,Gap week 5
+PASCHA,-79,EPISTLE,Galatians 4:8-21,Gap week 5
+PASCHA,-79,GOSPEL,Mark 6:45-53,Gap week 5
+PASCHA,-78,EPISTLE,1 Corinthians 4:17-5:5,Gap week 5
+PASCHA,-78,GOSPEL,Matthew 24:1-13,Gap week 5
+PASCHA,-76,EPISTLE,Galatians 4:28-5:10,Gap week 6
+PASCHA,-76,GOSPEL,Mark 6:54-7:8,Gap week 6
+PASCHA,-75,EPISTLE,Galatians 5:11-21,Gap week 6
+PASCHA,-75,GOSPEL,Mark 7:5-16,Gap week 6
+PASCHA,-74,EPISTLE,Galatians 6:2-10,Gap week 6
+PASCHA,-74,GOSPEL,Mark 7:14-24,Gap week 6
+PASCHA,-73,EPISTLE,Ephesians 1:1-9,Gap week 6
+PASCHA,-73,GOSPEL,Mark 7:24-30,Gap week 6
+PASCHA,-72,EPISTLE,Ephesians 1:7-17,Gap week 6
+PASCHA,-72,GOSPEL,Mark 8:1-10,Gap week 6
+PASCHA,-71,EPISTLE,1 Corinthians 10:23-28,Gap week 6
+PASCHA,-71,GOSPEL,"Matthew 24:34-37, 42-44",Gap week 6
+PASCHA,-70,EPISTLE,2 Timothy 3:10-15,Publican and the Pharisee
+PASCHA,-70,GOSPEL,Luke 18:10-14,
+PASCHA,-69,EPISTLE,Hebrews 7:7-17,
+PASCHA,-69,GOSPEL,Luke 2:22-40,
+PASCHA,-68,EPISTLE,2 Peter 2:9-22,
+PASCHA,-68,GOSPEL,Mark 13:14-23,
+PASCHA,-67,EPISTLE,2 Peter 3:1-18,
+PASCHA,-67,GOSPEL,Mark 13:24-31,
+PASCHA,-66,EPISTLE,1 John 1:8-2:6,
+PASCHA,-66,GOSPEL,Mark 13:31-14:2,
+PASCHA,-65,EPISTLE,1 John 2:7-17,
+PASCHA,-65,GOSPEL,Mark 14:3-9,
+PASCHA,-64,EPISTLE,1 Timothy 6:11-16,
+PASCHA,-64,GOSPEL,Luke 20:46-21:4,
+PASCHA,-63,EPISTLE,1 Corinthians 6:12-20,Prodigal Son
+PASCHA,-63,GOSPEL,Luke 15:11-32,
+PASCHA,-62,EPISTLE,1 John 2:18-3:8,
+PASCHA,-62,GOSPEL,Mark 11:1-11,
+PASCHA,-61,EPISTLE,2 Timothy 2:1-10,
+PASCHA,-61,GOSPEL,John 15:17-16:2,
+PASCHA,-60,EPISTLE,1 John 3:21-4:11,
+PASCHA,-60,GOSPEL,Mark 14:43-15:1,
+PASCHA,-59,EPISTLE,1 John 4:20-5:21,
+PASCHA,-59,GOSPEL,Mark 15:1-15,
+PASCHA,-58,EPISTLE,2 John 1:1-13,
+PASCHA,-58,GOSPEL,"Mark 15:20, 22, 25, 33-41",
+PASCHA,-57,EPISTLE,1 Corinthians 10:23-28,
+PASCHA,-57,EPISTLE,1 Thessalonians 4:13-17,
+PASCHA,-57,GOSPEL,"Luke 21:8-9, 25-27, 33-36",
+PASCHA,-56,EPISTLE,1 Corinthians 8:8-9:2,Judgement Sunday
+PASCHA,-56,GOSPEL,Matthew 25:31-46,
+PASCHA,-55,EPISTLE,3 John 1:1-15,
+PASCHA,-55,GOSPEL,"Luke 19:29-40, 22:7-39",
+PASCHA,-54,EPISTLE,Jude 1:1-10,
+PASCHA,-54,GOSPEL,"Luke 22:39-42, 45-23:1",
+PASCHA,-53,OLD,Joel 2:12-26,
+PASCHA,-53,OLD,Joel 3:12-21,
+PASCHA,-52,EPISTLE,Jude 1:11-25,
+PASCHA,-52,GOSPEL,"Luke 23:1-31, 33, 44-56",
+PASCHA,-51,OLD,Zechariah 8:7-14,
+PASCHA,-51,OLD,Zechariah 8:19-23,
+PASCHA,-50,EPISTLE,"Romans 14:19-23, 16:25-27",
+PASCHA,-50,GOSPEL,Matthew 6:1-13,
+PASCHA,-49,EPISTLE,Romans 13:11-14:4,Forgiveness Sunday
+PASCHA,-49,GOSPEL,Matthew 6:14-21,
+PASCHA,-48,OLD,Isaiah 1:1-20,
+PASCHA,-48,OLD,Genesis 1:1-13,
+PASCHA,-48,OLD,Proverbs 1:1-20,
+PASCHA,-47,OLD,Isaiah 1:19-2:3,
+PASCHA,-47,OLD,Genesis 1:14-23,
+PASCHA,-47,OLD,Proverbs 1:20-33,
+PASCHA,-46,OLD,Isaiah 2:3-11,
+PASCHA,-46,OLD,Genesis 1:24-2:3,
+PASCHA,-46,OLD,Proverbs 2:1-22,
+PASCHA,-45,OLD,Isaiah 2:11-22,
+PASCHA,-45,OLD,Genesis 2:4-19,
+PASCHA,-45,OLD,Proverbs 3:1-18,
+PASCHA,-44,OLD,Isaiah 3:1-14,
+PASCHA,-44,OLD,Genesis 2:20-3:20,
+PASCHA,-44,OLD,Proverbs 3:19-34,
+PASCHA,-43,EPISTLE,2 Timothy 2:1-10,
+PASCHA,-43,GOSPEL,Mark 2:23-3:5,
+PASCHA,-42,EPISTLE,"Hebrews 11:24-26, 32-40",
+PASCHA,-42,GOSPEL,John 1:44-51,
+PASCHA,-41,OLD,"Isaiah 4:2-6, 5:1-7",
+PASCHA,-41,OLD,Genesis 3:21-4:7,
+PASCHA,-41,OLD,Proverbs 3:34-4:22,
+PASCHA,-40,OLD,Isaiah 5:7-16,
+PASCHA,-40,OLD,Genesis 4:8-15,
+PASCHA,-40,OLD,Proverbs 5:1-15,
+PASCHA,-39,OLD,Isaiah 5:16-26,
+PASCHA,-39,OLD,Genesis 4:16-26,
+PASCHA,-39,OLD,Proverbs 5:15-6:3,
+PASCHA,-38,OLD,Isaiah 6:1-12,
+PASCHA,-38,OLD,Genesis 5:1-24,
+PASCHA,-38,OLD,Proverbs 6:3-20,
+PASCHA,-37,OLD,Isaiah 7:1-14,
+PASCHA,-37,OLD,Genesis 5:32-6:8,
+PASCHA,-37,OLD,Proverbs 6:20-7:1,
+PASCHA,-36,EPISTLE,Hebrews 3:12-16,
+PASCHA,-36,GOSPEL,Mark 1:35-44,
+PASCHA,-35,EPISTLE,Hebrews 1:10-2:3,
+PASCHA,-35,GOSPEL,Mark 2:1-12,
+PASCHA,-34,OLD,Isaiah 8:13-9:7,
+PASCHA,-34,OLD,Genesis 6:9-22,
+PASCHA,-34,OLD,Proverbs 8:1-21,
+PASCHA,-33,OLD,Isaiah 9:9-10:4,
+PASCHA,-33,OLD,Genesis 7:1-5,
+PASCHA,-33,OLD,Proverbs 8:32-9:11,
+PASCHA,-32,OLD,Isaiah 10:12-20,
+PASCHA,-32,OLD,Genesis 7:6-9,
+PASCHA,-32,OLD,Proverbs 9:12-18,
+PASCHA,-31,OLD,Isaiah 11:10-12:2,
+PASCHA,-31,OLD,Genesis 7:11-8:3,
+PASCHA,-31,OLD,Proverbs 10:1-22,
+PASCHA,-30,OLD,Isaiah 13:2-13,
+PASCHA,-30,OLD,Genesis 8:4-21,
+PASCHA,-30,OLD,Proverbs 10:31-11:12,
+PASCHA,-29,EPISTLE,Hebrews 10:32-38,
+PASCHA,-29,GOSPEL,Mark 2:14-17,
+PASCHA,-28,EPISTLE,Hebrews 4:14-5:6,
+PASCHA,-28,GOSPEL,Mark 8:34-9:1,
+PASCHA,-27,OLD,Isaiah 14:24-32,
+PASCHA,-27,OLD,Genesis 8:21-9:7,
+PASCHA,-27,OLD,Proverbs 11:19-12:6,
+PASCHA,-26,OLD,Isaiah 25:1-9,
+PASCHA,-26,OLD,Genesis 9:8-17,
+PASCHA,-26,OLD,Proverbs 12:8-22,
+PASCHA,-25,OLD,Isaiah 26:21-27:9,
+PASCHA,-25,OLD,Genesis 9:18-10:1,
+PASCHA,-25,OLD,Proverbs 12:23-13:9,
+PASCHA,-24,OLD,Isaiah 28:14-22,
+PASCHA,-24,OLD,Genesis 10:32-11:9,
+PASCHA,-24,OLD,Proverbs 13:19-14:6,
+PASCHA,-23,OLD,Isaiah 29:13-23,
+PASCHA,-23,OLD,Genesis 12:1-7,
+PASCHA,-23,OLD,Proverbs 14:15-26,
+PASCHA,-22,EPISTLE,Hebrews 6:9-12,
+PASCHA,-22,GOSPEL,Mark 7:31-37,
+PASCHA,-21,EPISTLE,Hebrews 6:13-20,
+PASCHA,-21,GOSPEL,Mark 9:17-31,
+PASCHA,-20,OLD,Isaiah 37:33-38:6,
+PASCHA,-20,OLD,Genesis 13:12-18,
+PASCHA,-20,OLD,Proverbs 14:27-15:4,
+PASCHA,-19,OLD,Isaiah 40:18-31,
+PASCHA,-19,OLD,Genesis 15:1-15,
+PASCHA,-19,OLD,Proverbs 15:7-19,
+PASCHA,-18,OLD,Isaiah 41:4-14,
+PASCHA,-18,OLD,Genesis 17:1-9,
+PASCHA,-18,OLD,Proverbs 15:20-16:9,
+PASCHA,-17,OLD,Isaiah 42:5-16,
+PASCHA,-17,OLD,Genesis 18:20-33,
+PASCHA,-17,OLD,Proverbs 16:17-17:17,
+PASCHA,-16,OLD,Isaiah 45:11-17,
+PASCHA,-16,OLD,Genesis 22:1-18,
+PASCHA,-16,OLD,Proverbs 17:17-18:5,
+PASCHA,-15,EPISTLE,Hebrews 9:1-7,
+PASCHA,-15,GOSPEL,"Luke 1:39-49, 56",
+PASCHA,-14,EPISTLE,Hebrews 9:11-14,
+PASCHA,-14,GOSPEL,Mark 10:32-45,
+PASCHA,-13,OLD,Isaiah 48:17-49:4,
+PASCHA,-13,OLD,Genesis 27:1-41,
+PASCHA,-13,OLD,Proverbs 19:16-25,
+PASCHA,-12,OLD,Isaiah 49:6-10,
+PASCHA,-12,OLD,Genesis 31:3-16,
+PASCHA,-12,OLD,Proverbs 21:3-21,
+PASCHA,-11,OLD,Isaiah 58:1-11,
+PASCHA,-11,OLD,"Genesis 43:26-31, 45:1-16",
+PASCHA,-11,OLD,Proverbs 21:23-22:4,
+PASCHA,-10,OLD,Isaiah 65:8-16,
+PASCHA,-10,OLD,Genesis 46:1-7,
+PASCHA,-10,OLD,Proverbs 23:15-24:5,
+PASCHA,-9,OLD,Isaiah 66:10-24,
+PASCHA,-9,OLD,Genesis 49:33-50:26,
+PASCHA,-9,OLD,Proverbs 31:8-31,
+PASCHA,-8,EPISTLE,Hebrews 12:28-13:8,
+PASCHA,-8,GOSPEL,John 11:1-45,
+PASCHA,-7,EPISTLE,Philippians 4:4-9,
+PASCHA,-7,GOSPEL,John 12:1-18,
+PASCHA,-6,GOSPEL,"Matthew 21:18-43, 24:3-35",
+PASCHA,-5,GOSPEL,"Matthew 22:15-23:39, 24:36-26:2",
+PASCHA,-4,GOSPEL,John 12:17-50; Matthew 26:6-16,
+PASCHA,-3,EPISTLE,1 Corinthians 11:23-32,
+PASCHA,-3,GOSPEL,Matthew 26:2-20; John 13:3-17; Matthew 26:21-39; Luke 22:43-44; Matthew 26:40-27:2,
+PASCHA,-2,GOSPEL,12 Passion Gospels,
+PASCHA,-2,GOSPEL,ΙΒʹ Εὐαγγέλια,
+PASCHA,-1,EPISTLE,Romans 6:3-11,
+PASCHA,-1,GOSPEL,Matthew 28:1-20,
+PASCHA,0,EPISTLE,Acts 1:1-8,
+PASCHA,0,GOSPEL,John 1:1-17,
+PASCHA,1,EPISTLE,"Acts 1:12-17, 21-26",
+PASCHA,1,GOSPEL,John 1:18-28,
+PASCHA,2,EPISTLE,Acts 2:14-21,
+PASCHA,2,GOSPEL,Luke 24:12-35,
+PASCHA,3,EPISTLE,"Acts 2:22-38, 12:1-11",
+PASCHA,3,GOSPEL,John 1:35-51,
+PASCHA,4,EPISTLE,Acts 2:38-43,
+PASCHA,4,GOSPEL,John 3:1-15,
+PASCHA,5,EPISTLE,Acts 3:1-8,
+PASCHA,5,GOSPEL,John 2:12-22,
+PASCHA,6,EPISTLE,Acts 3:11-16,
+PASCHA,6,GOSPEL,John 3:22-33,
+PASCHA,7,EPISTLE,Acts 5:12-20,
+PASCHA,7,GOSPEL,John 20:19-31,
+PASCHA,8,EPISTLE,Acts 3:19-26,
+PASCHA,8,GOSPEL,John 2:1-11,
+PASCHA,9,EPISTLE,Acts 4:1-10,
+PASCHA,9,GOSPEL,John 3:16-21,
+PASCHA,10,EPISTLE,Acts 4:13-22,
+PASCHA,10,GOSPEL,John 5:17-24,
+PASCHA,11,EPISTLE,Acts 4:23-31,
+PASCHA,11,GOSPEL,John 5:24-30,
+PASCHA,12,EPISTLE,Acts 5:1-11,
+PASCHA,12,GOSPEL,John 5:30-6:2,
+PASCHA,13,EPISTLE,Acts 5:21-32,
+PASCHA,13,GOSPEL,John 6:14-27,
+PASCHA,14,EPISTLE,Acts 6:1-7,
+PASCHA,14,GOSPEL,Mark 15:43-16:8,
+PASCHA,15,EPISTLE,"Acts 6:8-7:5, 47-60",
+PASCHA,15,GOSPEL,John 4:46-54,
+PASCHA,16,EPISTLE,Acts 8:5-17,
+PASCHA,16,GOSPEL,John 6:27-33,
+PASCHA,17,EPISTLE,Acts 8:18-25,
+PASCHA,17,GOSPEL,John 6:35-39,
+PASCHA,18,EPISTLE,Acts 8:26-39,
+PASCHA,18,GOSPEL,John 6:40-44,
+PASCHA,19,EPISTLE,Acts 8:40-9:18,
+PASCHA,19,GOSPEL,John 6:48-54,
+PASCHA,20,EPISTLE,Acts 9:19-31,
+PASCHA,20,GOSPEL,John 15:17-16:2,
+PASCHA,21,EPISTLE,Acts 9:32-42,
+PASCHA,21,GOSPEL,John 5:1-15,
+PASCHA,22,EPISTLE,Acts 10:1-16,
+PASCHA,22,GOSPEL,John 6:56-69,
+PASCHA,23,EPISTLE,Acts 10:21-33,
+PASCHA,23,GOSPEL,John 7:1-13,
+PASCHA,24,EPISTLE,Acts 14:6-18,
+PASCHA,24,GOSPEL,John 7:14-30,
+PASCHA,25,EPISTLE,Acts 10:34-43,
+PASCHA,25,GOSPEL,John 8:12-20,
+PASCHA,26,EPISTLE,Acts 10:44-11:10,
+PASCHA,26,GOSPEL,"John 19:25-27, 21:24-25",
+PASCHA,27,EPISTLE,Acts 12:1-11,
+PASCHA,27,GOSPEL,John 8:31-42,
+PASCHA,28,EPISTLE,Acts 11:19-30,
+PASCHA,28,GOSPEL,John 4:5-42,
+PASCHA,29,EPISTLE,Acts 12:12-17,
+PASCHA,29,GOSPEL,John 8:42-51,
+PASCHA,30,EPISTLE,Acts 12:25-13:12,
+PASCHA,30,GOSPEL,John 8:51-59,
+PASCHA,31,EPISTLE,Acts 13:13-24,
+PASCHA,31,GOSPEL,John 6:5-14,
+PASCHA,32,EPISTLE,Acts 14:20-15:4,
+PASCHA,32,GOSPEL,John 9:39-10:9,
+PASCHA,33,EPISTLE,Acts 15:5-12,
+PASCHA,33,GOSPEL,John 10:17-28,
+PASCHA,34,EPISTLE,Acts 15:35-41,
+PASCHA,34,GOSPEL,John 10:27-38,
+PASCHA,35,EPISTLE,Acts 16:16-34,
+PASCHA,35,GOSPEL,John 9:1-38,
+PASCHA,36,EPISTLE,Acts 17:1-9,
+PASCHA,36,GOSPEL,John 11:47-54,
+PASCHA,37,EPISTLE,Acts 17:19-28,
+PASCHA,37,GOSPEL,John 12:19-36,
+PASCHA,38,EPISTLE,Acts 18:22-28,
+PASCHA,38,GOSPEL,John 12:36-47,
+PASCHA,39,EPISTLE,Acts 1:1-12,
+PASCHA,39,GOSPEL,Luke 24:36-53,
+PASCHA,40,EPISTLE,Acts 19:1-8,
+PASCHA,40,GOSPEL,John 14:1-11,
+PASCHA,41,EPISTLE,Acts 20:7-12,
+PASCHA,41,GOSPEL,John 14:10-21,
+PASCHA,42,EPISTLE,"Acts 20:16-18, 28-36",
+PASCHA,42,GOSPEL,John 17:1-13,
+PASCHA,43,EPISTLE,Acts 21:8-14,
+PASCHA,43,GOSPEL,John 14:27-15:7,
+PASCHA,44,EPISTLE,Acts 21:26-32,
+PASCHA,44,GOSPEL,John 16:2-13,
+PASCHA,45,EPISTLE,Acts 23:1-11,
+PASCHA,45,GOSPEL,John 16:15-23,
+PASCHA,46,EPISTLE,Acts 25:13-19,
+PASCHA,46,GOSPEL,John 16:23-33,
+PASCHA,47,EPISTLE,Acts 27:1-28:1,
+PASCHA,47,GOSPEL,John 17:18-26,
+PASCHA,48,EPISTLE,Acts 28:1-31,
+PASCHA,48,GOSPEL,John 21:14-25,
+PASCHA,49,EPISTLE,Acts 2:1-11,
+PASCHA,49,GOSPEL,"John 7:37-52, 8:12",
+PASCHA,50,EPISTLE,Ephesians 5:8-19,
+PASCHA,50,GOSPEL,Matthew 18:10-20,
+PASCHA,51,EPISTLE,"Romans 1:1-7, 13-17",
+PASCHA,51,GOSPEL,Matthew 4:23-5:13,
+PASCHA,52,EPISTLE,Romans 1:18-27,
+PASCHA,52,GOSPEL,Matthew 5:20-26,
+PASCHA,53,EPISTLE,Romans 1:28-2:9,
+PASCHA,53,GOSPEL,Matthew 5:27-32,
+PASCHA,54,EPISTLE,Romans 2:14-28,
+PASCHA,54,GOSPEL,Matthew 5:33-41,
+PASCHA,55,EPISTLE,Romans 1:7-12,
+PASCHA,55,GOSPEL,Matthew 5:42-48,
+PASCHA,56,EPISTLE,Hebrews 11:33-12:2,
+PASCHA,56,GOSPEL,"Matthew 10:32-33, 37-38, 19:27-30",
+PASCHA,57,EPISTLE,Romans 2:28-3:18,
+PASCHA,57,GOSPEL,"Matthew 6:31-34, 7:9-11",
+PASCHA,58,EPISTLE,Romans 4:4-12,
+PASCHA,58,GOSPEL,Matthew 7:15-21,
+PASCHA,59,EPISTLE,Romans 4:13-25,
+PASCHA,59,GOSPEL,Matthew 7:21-23,
+PASCHA,60,EPISTLE,Romans 5:10-16,
+PASCHA,60,GOSPEL,Matthew 8:23-27,
+PASCHA,61,EPISTLE,Romans 5:17-6:2,
+PASCHA,61,GOSPEL,Matthew 9:14-17,
+PASCHA,62,EPISTLE,Romans 3:19-26,
+PASCHA,62,GOSPEL,Matthew 7:1-8,
+PASCHA,63,EPISTLE,Romans 2:10-16,
+PASCHA,63,GOSPEL,Matthew 4:18-23,
+PASCHA,64,EPISTLE,Romans 7:1-13,
+PASCHA,64,GOSPEL,Matthew 9:36-10:8,
+PASCHA,65,EPISTLE,Romans 7:14-8:2,
+PASCHA,65,GOSPEL,Matthew 10:9-15,
+PASCHA,66,EPISTLE,Romans 8:2-13,
+PASCHA,66,GOSPEL,Matthew 10:16-22,
+PASCHA,67,EPISTLE,Romans 8:22-27,
+PASCHA,67,GOSPEL,Matthew 10:23-31,
+PASCHA,68,EPISTLE,Romans 9:6-19,
+PASCHA,68,GOSPEL,"Matthew 10:32-36, 11-1",
+PASCHA,69,EPISTLE,Romans 3:28-4:3,
+PASCHA,69,GOSPEL,Matthew 7:24-8:4,
+PASCHA,70,EPISTLE,Romans 5:1-10,
+PASCHA,70,GOSPEL,Matthew 6:22-33,
+PASCHA,71,EPISTLE,Romans 9:18-33,
+PASCHA,71,GOSPEL,Matthew 11:2-15,
+PASCHA,72,EPISTLE,Romans 10:11-11:2,
+PASCHA,72,GOSPEL,Matthew 11:16-20,
+PASCHA,73,EPISTLE,"Romans 13:11-14, 14:1-4",
+PASCHA,73,GOSPEL,Matthew 11:20-26,
+PASCHA,74,EPISTLE,Romans 11:13-24,
+PASCHA,74,GOSPEL,Matthew 11:27-30,
+PASCHA,75,EPISTLE,Romans 11:25-36,
+PASCHA,75,GOSPEL,Matthew 12:1-8,
+PASCHA,76,EPISTLE,Romans 6:11-17,
+PASCHA,76,GOSPEL,Matthew 8:14-23,
+PASCHA,77,EPISTLE,Romans 6:18-23,
+PASCHA,77,GOSPEL,Matthew 8:5-13,
+PASCHA,78,EPISTLE,"Romans 12:4-5, 15-21",
+PASCHA,78,GOSPEL,Matthew 12:9-13,
+PASCHA,79,EPISTLE,Romans 14:9-18,
+PASCHA,79,GOSPEL,"Matthew 12:14-16, 22-30",
+PASCHA,80,EPISTLE,Romans 15:7-16,
+PASCHA,80,GOSPEL,Matthew 12:38-45,
+PASCHA,81,EPISTLE,Romans 15:17-29,
+PASCHA,81,GOSPEL,Matthew 12:46-13:3,
+PASCHA,82,EPISTLE,Romans 16:1-16,
+PASCHA,82,GOSPEL,Matthew 13:3-9,
+PASCHA,83,EPISTLE,Romans 8:14-21,
+PASCHA,83,GOSPEL,Matthew 9:9-13,
+PASCHA,84,EPISTLE,Romans 10:1-10,
+PASCHA,84,GOSPEL,Matthew 8:28-9:1,
+PASCHA,85,EPISTLE,Romans 16:17-24,
+PASCHA,85,GOSPEL,Matthew 13:10-23,
+PASCHA,86,EPISTLE,1 Corinthians 1:1-9,
+PASCHA,86,GOSPEL,Matthew 13:24-30,
+PASCHA,87,EPISTLE,1 Corinthians 2:9-3:8,
+PASCHA,87,GOSPEL,Matthew 13:31-36,
+PASCHA,88,EPISTLE,1 Corinthians 3:18-23,
+PASCHA,88,GOSPEL,Matthew 13:36-43,
+PASCHA,89,EPISTLE,1 Corinthians 4:5-8,
+PASCHA,89,GOSPEL,Matthew 13:44-54,
+PASCHA,90,EPISTLE,Romans 9:1-5,
+PASCHA,90,GOSPEL,Matthew 9:18-26,
+PASCHA,91,EPISTLE,Romans 12:6-14,
+PASCHA,91,GOSPEL,Matthew 9:1-8,
+PASCHA,92,EPISTLE,1 Corinthians 5:9-6:11,
+PASCHA,92,GOSPEL,Matthew 13:54-58,
+PASCHA,93,EPISTLE,1 Corinthians 6:20-7:12,
+PASCHA,93,GOSPEL,Matthew 14:1-13,
+PASCHA,94,EPISTLE,1 Corinthians 7:12-24,
+PASCHA,94,GOSPEL,Matthew 14:35-15:11,
+PASCHA,95,EPISTLE,1 Corinthians 7:24-35,
+PASCHA,95,GOSPEL,Matthew 15:12-21,
+PASCHA,96,EPISTLE,1 Corinthians 7:35-8:7,
+PASCHA,96,GOSPEL,Matthew 15:29-31,
+PASCHA,97,EPISTLE,Romans 12:1-3,
+PASCHA,97,GOSPEL,Matthew 10:37-11:1,
+PASCHA,98,EPISTLE,Romans 15:1-7,
+PASCHA,98,GOSPEL,Matthew 9:27-35,
+PASCHA,99,EPISTLE,1 Corinthians 9:13-18,
+PASCHA,99,GOSPEL,Matthew 16:1-6,
+PASCHA,100,EPISTLE,1 Corinthians 10:5-12,
+PASCHA,100,GOSPEL,Matthew 16:6-12,
+PASCHA,101,EPISTLE,1 Corinthians 10:12-22,
+PASCHA,101,GOSPEL,Matthew 16:20-24,
+PASCHA,102,EPISTLE,1 Corinthians 10:28-11:8,
+PASCHA,102,GOSPEL,Matthew 16:24-28,
+PASCHA,103,EPISTLE,1 Corinthians 11:8-23,
+PASCHA,103,GOSPEL,Matthew 17:10-18,
+PASCHA,104,EPISTLE,Romans 13:1-10,
+PASCHA,104,GOSPEL,Matthew 12:30-37,
+PASCHA,105,EPISTLE,1 Corinthians 1:10-17,
+PASCHA,105,GOSPEL,Matthew 14:14-22,
+PASCHA,106,EPISTLE,1 Corinthians 11:31-12:6,
+PASCHA,106,GOSPEL,Matthew 18:1-11,
+PASCHA,107,EPISTLE,1 Corinthians 12:12-26,
+PASCHA,107,GOSPEL,"Matthew 18:18-22, 19:1-2, 13-15",
+PASCHA,108,EPISTLE,1 Corinthians 13:4-14:5,
+PASCHA,108,GOSPEL,Matthew 20:1-16,
+PASCHA,109,EPISTLE,1 Corinthians 14:6-19,
+PASCHA,109,GOSPEL,Matthew 20:17-28,
+PASCHA,110,EPISTLE,1 Corinthians 14:26-40,
+PASCHA,110,GOSPEL,"Matthew 21:12-14, 17-20",
+PASCHA,111,EPISTLE,Romans 14:6-9,
+PASCHA,111,GOSPEL,Matthew 15:32-39,
+PASCHA,112,EPISTLE,1 Corinthians 3:9-17,
+PASCHA,112,GOSPEL,Matthew 14:22-34,
+PASCHA,113,EPISTLE,1 Corinthians 15:12-19,
+PASCHA,113,GOSPEL,Matthew 21:18-22,
+PASCHA,114,EPISTLE,1 Corinthians 15:29-38,
+PASCHA,114,GOSPEL,Matthew 21:23-27,
+PASCHA,115,EPISTLE,1 Corinthians 16:4-12,
+PASCHA,115,GOSPEL,Matthew 21:28-32,
+PASCHA,116,EPISTLE,2 Corinthians 1:1-7,
+PASCHA,116,GOSPEL,Matthew 21:43-46,
+PASCHA,117,EPISTLE,2 Corinthians 1:12-20,
+PASCHA,117,GOSPEL,Matthew 22:23-33,
+PASCHA,118,EPISTLE,Romans 15:30-33,
+PASCHA,118,GOSPEL,Matthew 17:24-18:4,
+PASCHA,119,EPISTLE,1 Corinthians 4:9-16,
+PASCHA,119,GOSPEL,Matthew 17:14-23,
+PASCHA,120,EPISTLE,2 Corinthians 2:3-15,
+PASCHA,120,GOSPEL,Matthew 23:13-22,"11th week of Matthew, Monday"
+PASCHA,121,EPISTLE,2 Corinthians 2:14-3:3,
+PASCHA,121,GOSPEL,Matthew 23:23-28,
+PASCHA,122,EPISTLE,2 Corinthians 3:4-11,
+PASCHA,122,GOSPEL,Matthew 23:29-39,
+PASCHA,123,EPISTLE,2 Corinthians 4:1-12,
+PASCHA,123,GOSPEL,Matthew 24:13-28,
+PASCHA,124,EPISTLE,2 Corinthians 4:13-18,
+PASCHA,124,GOSPEL,"Matthew 24:27-33, 42-51",
+PASCHA,125,EPISTLE,1 Corinthians 1:3-9,
+PASCHA,125,GOSPEL,Matthew 19:3-12,
+PASCHA,126,EPISTLE,1 Corinthians 9:2-12,11th Sunday
+PASCHA,126,GOSPEL,Matthew 18:23-35,"11th week of Matthew, Sunday"
+PASCHA,127,EPISTLE,2 Corinthians 5:10-15,
+PASCHA,127,GOSPEL,Mark 1:9-15,
+PASCHA,128,EPISTLE,2 Corinthians 5:15-21,
+PASCHA,128,GOSPEL,Mark 1:16-22,
+PASCHA,129,EPISTLE,2 Corinthians 6:11-16,
+PASCHA,129,GOSPEL,Mark 1:23-28,
+PASCHA,130,EPISTLE,2 Corinthians 7:1-10,
+PASCHA,130,GOSPEL,Mark 1:29-35,
+PASCHA,131,EPISTLE,2 Corinthians 7:10-16,
+PASCHA,131,GOSPEL,Mark 2:18-22,
+PASCHA,132,EPISTLE,1 Corinthians 1:26-2:5,
+PASCHA,132,GOSPEL,Matthew 20:29-34,
+PASCHA,133,EPISTLE,1 Corinthians 15:1-11,12th Sunday
+PASCHA,133,GOSPEL,Matthew 19:16-26,"12th week of Matthew, Sunday"
+PASCHA,134,EPISTLE,2 Corinthians 8:7-15,
+PASCHA,134,GOSPEL,Mark 3:6-12,
+PASCHA,135,EPISTLE,2 Corinthians 8:16-9:5,
+PASCHA,135,GOSPEL,Mark 3:13-21,
+PASCHA,136,EPISTLE,2 Corinthians 9:12-10:7,
+PASCHA,136,GOSPEL,Mark 3:20-27,
+PASCHA,137,EPISTLE,2 Corinthians 10:7-18,
+PASCHA,137,GOSPEL,Mark 3:28-35,
+PASCHA,138,EPISTLE,2 Corinthians 11:5-21,
+PASCHA,138,GOSPEL,Mark 4:1-9,
+PASCHA,139,EPISTLE,1 Corinthians 2:6-9,
+PASCHA,139,GOSPEL,Matthew 22:15-22,
+PASCHA,140,EPISTLE,1 Corinthians 16:13-24,13th Sunday
+PASCHA,140,GOSPEL,Matthew 21:33-42,"13th week of Matthew, Sunday"
+PASCHA,141,EPISTLE,2 Corinthians 12:10-19,
+PASCHA,141,GOSPEL,Mark 4:10-23,
+PASCHA,142,EPISTLE,2 Corinthians 12:20-13:2,
+PASCHA,142,GOSPEL,Mark 4:24-34,
+PASCHA,143,EPISTLE,2 Corinthians 13:3-13,
+PASCHA,143,GOSPEL,Mark 4:35-41,
+PASCHA,144,EPISTLE,"Galatians 1:1-3, 20-2:5",
+PASCHA,144,GOSPEL,Mark 5:1-20,
+PASCHA,145,EPISTLE,Galatians 2:6-10,
+PASCHA,145,GOSPEL,"Mark 5:22-24, 35-6:1",
+PASCHA,146,EPISTLE,1 Corinthians 4:1-5,
+PASCHA,146,GOSPEL,Matthew 23:1-12,
+PASCHA,147,EPISTLE,2 Corinthians 1:21-2:4,14th Sunday
+PASCHA,147,GOSPEL,Matthew 22:2-14,"14th week of Matthew, Sunday"
+PASCHA,148,EPISTLE,Galatians 2:11-16,
+PASCHA,148,GOSPEL,Mark 5:24-34,
+PASCHA,149,EPISTLE,Galatians 2:21-3:7,
+PASCHA,149,GOSPEL,Mark 6:1-7,
+PASCHA,150,EPISTLE,Galatians 3:15-22,
+PASCHA,150,GOSPEL,Mark 6:7-13,
+PASCHA,151,EPISTLE,Galatians 3:23-4:5,
+PASCHA,151,GOSPEL,Mark 6:30-45,
+PASCHA,152,EPISTLE,Galatians 4:8-21,
+PASCHA,152,GOSPEL,Mark 6:45-53,
+PASCHA,153,EPISTLE,1 Corinthians 4:17-5:5,
+PASCHA,153,GOSPEL,Matthew 24:1-13,
+PASCHA,154,EPISTLE,2 Corinthians 4:6-15,15th Sunday
+PASCHA,154,GOSPEL,Matthew 22:35-46,"15th week of Matthew, Sunday"
+PASCHA,155,EPISTLE,Galatians 4:28-5:10,
+PASCHA,155,GOSPEL,Mark 6:54-7:8,
+PASCHA,156,EPISTLE,Galatians 5:11-21,
+PASCHA,156,GOSPEL,Mark 7:5-16,
+PASCHA,157,EPISTLE,Galatians 6:2-10,
+PASCHA,157,GOSPEL,Mark 7:14-24,
+PASCHA,158,EPISTLE,Ephesians 1:1-9,
+PASCHA,158,GOSPEL,Mark 7:24-30,
+PASCHA,159,EPISTLE,Ephesians 1:7-17,
+PASCHA,159,GOSPEL,Mark 8:1-10,
+PASCHA,160,EPISTLE,1 Corinthians 10:23-28,
+PASCHA,160,GOSPEL,"Matthew 24:34-37, 42-44",
+PASCHA,161,EPISTLE,2 Corinthians 6:1-10,16th Sunday
+PASCHA,161,GOSPEL,Matthew 25:14-30,"16th week of Matthew, Sunday"
+PASCHA,161,GOSPEL,Luke 8:8,"16th week of Matthew, Sunday"
+PASCHA,162,EPISTLE,Ephesians 1:22-2:3,
+PASCHA,163,EPISTLE,Ephesians 2:19-3:7,
+PASCHA,164,EPISTLE,Ephesians 3:8-21,
+PASCHA,165,EPISTLE,Ephesians 4:14-17,
+PASCHA,166,EPISTLE,Ephesians 4:17-25,
+PASCHA,167,EPISTLE,1 Corinthians 14:20-25,
+PASCHA,168,EPISTLE,2 Corinthians 6:16-7:1,17th Sunday
+PASCHA,169,EPISTLE,Ephesians 4:25-32,
+PASCHA,170,EPISTLE,Ephesians 5:20-25,
+PASCHA,171,EPISTLE,Ephesians 5:25-33,
+PASCHA,172,EPISTLE,Ephesians 5:33-6:9,
+PASCHA,173,EPISTLE,Ephesians 6:18-24,
+PASCHA,174,EPISTLE,1 Corinthians 15:39-45,
+PASCHA,175,EPISTLE,2 Corinthians 9:6-11,18th Sunday
+PASCHA,176,EPISTLE,Philippians 1:1-7,
+PASCHA,177,EPISTLE,Philippians 1:8-14,
+PASCHA,178,EPISTLE,Philippians 1:12-20,
+PASCHA,179,EPISTLE,Philippians 1:20-27,
+PASCHA,180,EPISTLE,Philippians 1:27-2:4,
+PASCHA,181,EPISTLE,1 Corinthians 15:58-16:3,
+PASCHA,182,EPISTLE,2 Corinthians 11:31-12:9,19th Sunday
+PASCHA,183,EPISTLE,Philippians 2:12-16,
+PASCHA,184,EPISTLE,Philippians 2:16-23,
+PASCHA,185,EPISTLE,Philippians 2:24-30,
+PASCHA,186,EPISTLE,Philippians 3:1-8,
+PASCHA,187,EPISTLE,Philippians 3:8-19,
+PASCHA,188,EPISTLE,2 Corinthians 1:8-11,
+PASCHA,189,EPISTLE,Galatians 1:11-19,20th Sunday
+PASCHA,190,EPISTLE,Philippians 4:10-23,
+PASCHA,191,EPISTLE,"Colossians 1:1-3, 6-11",
+PASCHA,192,EPISTLE,Colossians 1:18-23,
+PASCHA,193,EPISTLE,Colossians 1:24-2:1,
+PASCHA,194,EPISTLE,Colossians 2:1-7,
+PASCHA,195,EPISTLE,2 Corinthians 3:12-18,
+PASCHA,196,EPISTLE,Galatians 2:16-20,21st Sunday
+PASCHA,197,EPISTLE,Colossians 2:13-20,
+PASCHA,198,EPISTLE,Colossians 2:20-3:3,
+PASCHA,199,EPISTLE,Colossians 3:17-4:1,
+PASCHA,200,EPISTLE,Colossians 4:2-9,
+PASCHA,201,EPISTLE,Colossians 4:10-18,
+PASCHA,202,EPISTLE,2 Corinthians 5:1-10,
+PASCHA,203,EPISTLE,Galatians 6:11-18,22nd Sunday
+PASCHA,204,EPISTLE,1 Thessalonians 1:1-5,
+PASCHA,205,EPISTLE,1 Thessalonians 1:6-10,
+PASCHA,206,EPISTLE,1 Thessalonians 2:1-8,
+PASCHA,207,EPISTLE,1 Thessalonians 2:9-14,
+PASCHA,208,EPISTLE,1 Thessalonians 2:14-20,
+PASCHA,209,EPISTLE,2 Corinthians 8:1-5,
+PASCHA,210,EPISTLE,Ephesians 2:4-10,23rd Sunday
+PASCHA,211,EPISTLE,1 Thessalonians 2:20-3:8,
+PASCHA,212,EPISTLE,1 Thessalonians 3:8-13,
+PASCHA,213,EPISTLE,1 Thessalonians 4:1-12,
+PASCHA,214,EPISTLE,1 Thessalonians 4:18-5:10,
+PASCHA,215,EPISTLE,"1 Thessalonians 5:9-13, 24-28",
+PASCHA,216,EPISTLE,2 Corinthians 11:1-6,
+PASCHA,217,EPISTLE,Ephesians 2:14-22,24th Sunday
+PASCHA,218,EPISTLE,2 Thessalonians 1:1-10,
+PASCHA,219,EPISTLE,2 Thessalonians 1:10-2:2,
+PASCHA,220,EPISTLE,2 Thessalonians 2:1-12,
+PASCHA,221,EPISTLE,2 Thessalonians 2:13-3:5,
+PASCHA,222,EPISTLE,2 Thessalonians 3:6-18,
+PASCHA,223,EPISTLE,Galatians 1:3-10,
+PASCHA,224,EPISTLE,Ephesians 4:1-7,25th Sunday
+PASCHA,225,EPISTLE,1 Timothy 1:1-7,
+PASCHA,226,EPISTLE,1 Timothy 1:8-14,
+PASCHA,227,EPISTLE,"1 Timothy 1:18-20, 2:8-15",
+PASCHA,228,EPISTLE,1 Timothy 3:1-13,
+PASCHA,229,EPISTLE,"1 Timothy 4:4-8, 16",
+PASCHA,230,EPISTLE,Galatians 3:8-12,
+PASCHA,231,EPISTLE,Ephesians 5:8-19,26th Sunday
+PASCHA,232,EPISTLE,1 Timothy 5:1-10,
+PASCHA,233,EPISTLE,1 Timothy 5:11-21,
+PASCHA,234,EPISTLE,1 Timothy 5:22-6:11,
+PASCHA,235,EPISTLE,1 Timothy 6:17-21,
+PASCHA,236,EPISTLE,"2 Timothy 1:1-2, 8-18",
+PASCHA,237,EPISTLE,Galatians 5:22-6:2,
+PASCHA,238,EPISTLE,Ephesians 6:10-17,27th Sunday
+PASCHA,239,EPISTLE,2 Timothy 2:20-26,
+PASCHA,240,EPISTLE,2 Timothy 3:16-4:4,
+PASCHA,241,EPISTLE,2 Timothy 4:9-22,
+PASCHA,242,EPISTLE,Titus 1:5-14,
+PASCHA,243,EPISTLE,Titus 1:15-2:10,
+PASCHA,244,EPISTLE,Ephesians 1:16-23,
+PASCHA,245,EPISTLE,Colossians 1:12-18,28th Sunday
+PASCHA,246,EPISTLE,"Hebrews 3:5-11, 17-19",
+PASCHA,247,EPISTLE,Hebrews 4:1-13,
+PASCHA,248,EPISTLE,Hebrews 5:11-6:8,
+PASCHA,249,EPISTLE,Hebrews 7:1-6,
+PASCHA,250,EPISTLE,Hebrews 7:18-25,
+PASCHA,251,EPISTLE,Ephesians 2:11-13,
+PASCHA,252,EPISTLE,Colossians 3:4-11,29th Sunday
+PASCHA,253,EPISTLE,Hebrews 8:7-13,
+PASCHA,254,EPISTLE,Hebrews 9:8-23,
+PASCHA,255,EPISTLE,Hebrews 10:1-18,
+PASCHA,256,EPISTLE,Hebrews 10:35-11:7,
+PASCHA,257,EPISTLE,Hebrews 11:8-16,
+PASCHA,258,EPISTLE,Hebrews 13:7-16,
+PASCHA,259,EPISTLE,Colossians 3:12-16,30th Sunday
+PASCHA,260,EPISTLE,Hebrews 11:17-31,
+PASCHA,261,EPISTLE,"Hebrews 12:25-27, 13:22-25",
+PASCHA,262,EPISTLE,James 1:1-8,
+PASCHA,263,EPISTLE,James 1:19-27,
+PASCHA,264,EPISTLE,James 2:1-13,
+PASCHA,265,EPISTLE,Hebrews 7:26-8:2,
+PASCHA,266,EPISTLE,1 Timothy 1:15-17,31st Sunday
+PASCHA,267,EPISTLE,James 2:14-26,
+PASCHA,268,EPISTLE,James 3:1-10,
+PASCHA,269,EPISTLE,James 3:11-4:6,
+PASCHA,270,EPISTLE,James 4:7-5:9,
+PASCHA,271,EPISTLE,1 Peter 1:1-2:10,
+PASCHA,272,EPISTLE,1 Thessalonians 5:14-23,
+PASCHA,273,EPISTLE,1 Timothy 4:9-15,32nd Sunday
+PASCHA,274,EPISTLE,"1 Peter 2:21-25, 3:1-9",
+PASCHA,275,EPISTLE,1 Peter 3:10-22,
+PASCHA,276,EPISTLE,1 Peter 4:1-11,
+PASCHA,277,EPISTLE,1 Peter 4:12-5:5,
+PASCHA,278,EPISTLE,2 Peter 1:1-10,
+PASCHA,279,EPISTLE,2 Timothy 2:11-19,
+ECUM4,0,EPISTLE,Titus 3:8-15,Holy Fathers of 4th Ecumenical Council
+ECUM4,0,GOSPEL,Matthew 5:14-19,Holy Fathers of 4th Ecumenical Council
+SATbE,0,EPISTLE,1 Corinthians 2:6-9,Saturday before the Elevation of the Cross
+SATbE,0,GOSPEL,Matthew 10:37-11:1,Saturday before the Elevation of the Cross
+SUNbE,0,EPISTLE,Galatians 6:11-18,Sunday before the Elevation of the Cross
+SUNbE,0,GOSPEL,John 3:13-17,Sunday before the Elevation of the Cross
+SATaE,0,EPISTLE,1 Corinthians 1:26-2:5,Saturday after the Elevation of the Cross
+SATaE,0,GOSPEL,John 8:21-30,Saturday after the Elevation of the Cross
+SUNaE,0,EPISTLE,Galatians 2:16-20,Sunday after the Elevation of the Cross
+SUNaE,0,GOSPEL,Mark 8:34-9:1,Sunday after the Elevation of the Cross
+SUNaE,1,GOSPEL,Luke 3:19-22,"1st week of Luke, Monday"
+SUNaE,2,GOSPEL,Luke 3:23-4:1,"1st week of Luke, Tuesday"
+SUNaE,3,GOSPEL,Luke 4:1-15,"1st week of Luke, Wednesday"
+SUNaE,4,GOSPEL,Luke 4:16-22,"1st week of Luke, Thursday"
+SUNaE,5,GOSPEL,Luke 4:22-30,"1st week of Luke, Friday"
+SUNaE,6,GOSPEL,Luke 4:31-36,"1st week of Luke, Saturday"
+SUNaE,8,GOSPEL,Luke 4:38-44,"2nd week of Luke, Monday"
+SUNaE,9,GOSPEL,Luke 5:12-16,"2nd week of Luke, Tuesday"
+SUNaE,10,GOSPEL,Luke 5:33-39,"2nd week of Luke, Wednesday"
+SUNaE,11,GOSPEL,Luke 6:12-19,"2nd week of Luke, Thursday"
+SUNaE,12,GOSPEL,Luke 6:17-23,"2nd week of Luke, Friday"
+SUNaE,13,GOSPEL,Luke 5:17-26,"2nd week of Luke, Saturday"
+SUNaE,15,GOSPEL,Luke 6:24-30,"3rd week of Luke, Monday"
+SUNaE,16,GOSPEL,Luke 6:37-45,"3rd week of Luke, Tuesday"
+SUNaE,17,GOSPEL,Luke 6:46-7:1,"3rd week of Luke, Wednesday"
+SUNaE,18,GOSPEL,Luke 7:17-30,"3rd week of Luke, Thursday"
+SUNaE,19,GOSPEL,Luke 7:31-35,"3rd week of Luke, Friday"
+SUNaE,20,GOSPEL,Luke 5:27-32,"3rd week of Luke, Saturday"
+SUNaE,22,GOSPEL,Luke 7:36-50,"4th week of Luke, Monday"
+SUNaE,23,GOSPEL,Luke 8:1-3,"4th week of Luke, Tuesday"
+SUNaE,24,GOSPEL,Luke 8:22-25,"4th week of Luke, Wednesday"
+SUNaE,25,GOSPEL,Luke 9:7-11,"4th week of Luke, Thursday"
+SUNaE,26,GOSPEL,Luke 9:12-18,"4th week of Luke, Friday"
+SUNaE,27,GOSPEL,Luke 6:1-10,"4th week of Luke, Saturday"
+SUNaE,29,GOSPEL,Luke 9:18-22,"5th week of Luke, Monday"
+SUNaE,30,GOSPEL,Luke 9:23-27,"5th week of Luke, Tuesday"
+SUNaE,31,GOSPEL,Luke 9:44-50,"5th week of Luke, Wednesday"
+SUNaE,32,GOSPEL,Luke 9:49-56,"5th week of Luke, Thursday"
+SUNaE,33,GOSPEL,Luke 10:1-15,"5th week of Luke, Friday"
+SUNaE,34,GOSPEL,Luke 7:1-10,"5th week of Luke, Saturday"
+SUNaE,36,GOSPEL,Luke 10:22-24,"6th week of Luke, Monday"
+SUNaE,37,GOSPEL,Luke 11:1-10,"6th week of Luke, Tuesday"
+SUNaE,38,GOSPEL,Luke 11:9-13,"6th week of Luke, Wednesday"
+SUNaE,39,GOSPEL,Luke 11:14-23,"6th week of Luke, Thursday"
+SUNaE,40,GOSPEL,Luke 11:23-26,"6th week of Luke, Friday"
+SUNaE,41,GOSPEL,Luke 8:16-21,"6th week of Luke, Saturday"
+SUNaE,43,GOSPEL,Luke 11:29-33,"7th week of Luke, Monday"
+SUNaE,44,GOSPEL,Luke 11:34-41,"7th week of Luke, Tuesday"
+SUNaE,45,GOSPEL,Luke 11:42-46,"7th week of Luke, Wednesday"
+SUNaE,46,GOSPEL,Luke 11:47-12:1,"7th week of Luke, Thursday"
+SUNaE,47,GOSPEL,Luke 12:2-12,"7th week of Luke, Friday"
+SUNaE,48,GOSPEL,Luke 9:1-6,"7th week of Luke, Saturday"
+SUNaE,50,GOSPEL,"Luke 12:13-15, 22-31","8th week of Luke, Monday"
+SUNaE,51,GOSPEL,Luke 12:42-48,"8th week of Luke, Tuesday"
+SUNaE,52,GOSPEL,Luke 12:48-59,"8th week of Luke, Wednesday"
+SUNaE,53,GOSPEL,Luke 13:1-9,"8th week of Luke, Thursday"
+SUNaE,54,GOSPEL,Luke 13:31-35,"8th week of Luke, Friday"
+SUNaE,55,GOSPEL,Luke 9:37-43,"8th week of Luke, Saturday"
+SUNaE,57,GOSPEL,"Luke 14:1, 12-15","9th week of Luke, Monday"
+SUNaE,58,GOSPEL,Luke 14:25-35,"9th week of Luke, Tuesday"
+SUNaE,59,GOSPEL,Luke 15:1-10,"9th week of Luke, Wednesday"
+SUNaE,60,GOSPEL,Luke 16:1-9,"9th week of Luke, Thursday"
+SUNaE,61,GOSPEL,Luke 16:15-18; 17:1-4,"9th week of Luke, Friday"
+SUNaE,62,GOSPEL,Luke 9:57-62,"9th week of Luke, Saturday"
+SUNaE,64,GOSPEL,Luke 17:20-25,"10th week of Luke, Monday"
+SUNaE,65,GOSPEL,Luke 17:26-37; 18:8,"10th week of Luke, Tuesday"
+SUNaE,66,GOSPEL,"Luke 18:15-17, 26-30","10th week of Luke, Wednesday"
+SUNaE,67,GOSPEL,Luke 18:31-34,"10th week of Luke, Thursday"
+SUNaE,68,GOSPEL,Luke 19:12-28,"10th week of Luke, Friday"
+SUNaE,69,GOSPEL,Luke 10:19-21,"10th week of Luke, Saturday"
+SUNaE,71,GOSPEL,Luke 19:37-44,"11th week of Luke, Monday"
+SUNaE,72,GOSPEL,Luke 19:45-48,"11th week of Luke, Tuesday"
+SUNaE,73,GOSPEL,Luke 20:1-8,"11th week of Luke, Wednesday"
+SUNaE,74,GOSPEL,Luke 20:9-18,"11th week of Luke, Thursday"
+SUNaE,75,GOSPEL,Luke 20:19-26,"11th week of Luke, Friday"
+SUNaE,76,GOSPEL,Luke 12:32-40,"11th week of Luke, Saturday"
+SUNaE,78,GOSPEL,Luke 20:27-44,"12th week of Luke, Monday"
+SUNaE,79,GOSPEL,Luke 21:12-19,"12th week of Luke, Tuesday"
+SUNaE,80,GOSPEL,"Luke 21:5-8, 10-11, 20-24","12th week of Luke, Wednesday"
+SUNaE,81,GOSPEL,Luke 21:28-33,"12th week of Luke, Thursday"
+SUNaE,82,GOSPEL,Luke 21:37-22:8,"12th week of Luke, Friday"
+SUNaE,83,GOSPEL,Luke 13:19-29,"12th week of Luke, Saturday"
+SUNaE,85,GOSPEL,Mark 8:11-21,"13th week of Luke, Monday"
+SUNaE,86,GOSPEL,Mark 8:22-26,"13th week of Luke, Tuesday"
+SUNaE,87,GOSPEL,Mark 8:30-34,"13th week of Luke, Wednesday"
+SUNaE,88,GOSPEL,Mark 9:10-15,"13th week of Luke, Thursday"
+SUNaE,89,GOSPEL,Mark 9:33-41,"13th week of Luke, Friday"
+SUNaE,90,GOSPEL,Luke 14:1-11,"13th week of Luke, Saturday"
+SUNaE,92,GOSPEL,Mark 9:42-10:1,"14th week of Luke, Monday"
+SUNaE,93,GOSPEL,Mark 10:2-12,"14th week of Luke, Tuesday"
+SUNaE,94,GOSPEL,Mark 10:11-16,"14th week of Luke, Wednesday"
+SUNaE,95,GOSPEL,Mark 10:17-27,"14th week of Luke, Thursday"
+SUNaE,96,GOSPEL,Mark 10:24-32,"14th week of Luke, Friday"
+SUNaE,97,GOSPEL,Luke 16:10-15,"14th week of Luke, Saturday"
+SUNaE,99,GOSPEL,Mark 10:46-52,"15th week of Luke, Monday"
+SUNaE,100,GOSPEL,Mark 11:11-23,"15th week of Luke, Tuesday"
+SUNaE,101,GOSPEL,Mark 11:22-26,"15th week of Luke, Wednesday"
+SUNaE,102,GOSPEL,Mark 11:27-33,"15th week of Luke, Thursday"
+SUNaE,103,GOSPEL,Mark 12:1-12,"15th week of Luke, Friday"
+SUNaE,104,GOSPEL,Luke 17:3-10,"15th week of Luke, Saturday"
+SUNaE,106,GOSPEL,Mark 12:13-17,"16th week of Luke, Monday"
+SUNaE,107,GOSPEL,Mark 12:18-27,"16th week of Luke, Tuesday"
+SUNaE,108,GOSPEL,Mark 12:28-37,"16th week of Luke, Wednesday"
+SUNaE,109,GOSPEL,Mark 12:38-44,"16th week of Luke, Thursday"
+SUNaE,110,GOSPEL,Mark 13:1-8,"16th week of Luke, Friday"
+SUNaE,111,GOSPEL,Luke 18:2-8,"16th week of Luke, Saturday"
+L1,0,GOSPEL,Luke 5:1-11,"1st week of Luke, Sunday"
+L2,0,GOSPEL,Luke 6:31-36,"2nd week of Luke, Sunday"
+L3,0,GOSPEL,Luke 7:11-16,"3rd week of Luke, Sunday"
+L4,0,EPISTLE,Titus 3:8-15,"4th week of Luke, Sunday Holy Fathers of 7th Ecumenical Council"
+L4,0,GOSPEL,Luke 8:5-15,"4th week of Luke, Sunday Holy Fathers of 7th Ecumenical Council"
+L5,0,GOSPEL,Luke 16:19-31,"5th week of Luke, Sunday"
+L6,0,GOSPEL,Luke 8:27-39,"6th week of Luke, Sunday"
+L7,0,GOSPEL,Luke 8:41-56,"7th week of Luke, Sunday"
+L8,0,GOSPEL,Luke 10:25-37,"8th week of Luke, Sunday"
+L9,0,GOSPEL,Luke 12:16-21; 8:8,"9th week of Luke, Sunday"
+L10,0,GOSPEL,Luke 13:10-17,"10th week of Luke, Sunday"
+L11,0,EPISTLE,Colossians 3:4-11,Sunday of the Holy Ancestors
+L11,0,GOSPEL,Luke 14:16-24,"11th week of Luke, Sunday, Sunday of the Holy Ancestors"
+L11,0,GOSPEL,Matthew 22:14,"11th week of Luke, Sunday, Sunday of the Holy Ancestors"
+L13,0,GOSPEL,Luke 18:18-27,"13th week of Luke, Sunday"
+SATbN,0,EPISTLE,Galatians 3:8-12,Saturday before Nativity
+SATbN,0,GOSPEL,Luke 13:19-29,Saturday before Nativity
+SUNbN,0,EPISTLE,"Hebrews 11:9-10, 32-40",Sunday before Nativity
+SUNbN,0,GOSPEL,Matthew 1:1-25,Sunday before Nativity
+SATaN,0,EPISTLE,1 Timothy 6:11-16,Saturday after Nativity
+SATaN,0,GOSPEL,Matthew 12:15-21,Saturday after Nativity
+SUNaN,0,EPISTLE,Galatians 1:11-19,Sunday after Nativity
+SUNaN,0,GOSPEL,Matthew 2:13-23,Sunday after Nativity
+SATbT,0,EPISTLE,1 Timothy 3:13-4:5,Saturday before Theophany
+SATbT,0,GOSPEL,Matthew 3:1-6,Saturday before Theophany
+SUNbT,0,EPISTLE,2 Timothy 4:5-8,Sunday before Theophany
+SUNbT,0,GOSPEL,Mark 1:1-8,Sunday before Theophany
+SATaT,0,EPISTLE,Ephesians 6:10-17,Saturday after Theophany
+SATaT,0,GOSPEL,Matthew 4:1-11,Saturday after Theophany
+SUNaT,0,EPISTLE,Ephesians 4:7-13,Sunday after Theophany
+SUNaT,0,GOSPEL,Matthew 4:12-17,Sunday after Theophany
+L12,0,GOSPEL,Luke 17:12-19,"12th week of Luke, Gap Sunday"
+L14,0,GOSPEL,Luke 18:35-43,"14th week of Luke, Gap Sunday"
+M15,0,GOSPEL,Matthew 22:35-46,"15th week of Matthew, Gap Sunday"
+M16,0,GOSPEL,Matthew 25:14-30,"16th week of Matthew, Gap Sunday"
+M16,0,GOSPEL,Luke 8:8,"16th week of Matthew, Gap Sunday"
+L15,0,GOSPEL,Luke 19:1-10,"Zaccheos, Gap Sunday"
+M17,0,GOSPEL,Matthew 15:21-28,"17th week of Matthew, Gap Sunday"

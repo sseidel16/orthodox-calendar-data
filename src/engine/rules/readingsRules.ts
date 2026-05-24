@@ -88,11 +88,6 @@ export function buildReadingsMap(
     return result;
 }
 
-/** Format a reading entry as "Book Verse" */
-function formatReading(book: string, verse: string): string {
-    return `${book} ${verse}`;
-}
-
 /** Get or create DateReadings for a given MM-DD */
 function getDateReadings(map: Map<string, DateReadings>, mmdd: string): DateReadings {
     let dr = map.get(mmdd);
@@ -128,7 +123,7 @@ function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: num
             entries[i].reference === bundleRef &&
             entries[i].offset === bundleOffset &&
             entries[i].type === bundleType) {
-            bundleReadings.push(formatReading(entries[i].book, entries[i].verse));
+            bundleReadings.push(entries[i].reading);
             i++;
         }
 
@@ -200,7 +195,7 @@ function buildPaschaEpistleIndex(): Map<number, string[]> {
                 entries[i].reference === 'PASCHA' &&
                 entries[i].offset === offset &&
                 entries[i].type === 'EPISTLE') {
-                bundle.push(formatReading(entries[i].book, entries[i].verse));
+                bundle.push(entries[i].reading);
                 i++;
             }
             index.set(offset, bundle);
@@ -230,7 +225,7 @@ function applyImmovableReadings(dateReadings: Map<string, DateReadings>, year: n
         while (i < entries.length &&
             entries[i].date === bundleDate &&
             entries[i].type === bundleType) {
-            bundleReadings.push(formatReading(entries[i].book, entries[i].verse));
+            bundleReadings.push(entries[i].reading);
             i++;
         }
 
