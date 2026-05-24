@@ -147,7 +147,7 @@ function applyDateSpecificOverrides(map: Map<number, FastingLevel>, year: number
         map.set(doy, (dow === 3 || dow === 5) ? 'OIL' : 'NONE');
     };
 
-    for (const [m, d] of [[1,2],[1,3],[1,4],[1,7],[1,17],[1,20],[1,28],[1,30],[2,10],[5,8],[5,21],[6,30],[7,20],[7,27],[8,16],[8,24],[9,26],[10,20],[10,26],[11,8],[11,9],[11,13]] as [number,number][]) {
+    for (const [m, d] of [[1,2],[1,3],[1,4],[1,7],[1,17],[1,20],[1,28],[1,30],[2,10],[5,8],[5,21],[6,30],[7,20],[7,27],[8,16],[8,24],[9,26],[10,20],[10,26],[11,8],[11,9],[11,13],[12,26],[12,27],[12,28],[12,29],[12,30],[12,31]] as [number,number][]) {
         noneOrOilWedFri(m, d);
     }
 
@@ -186,9 +186,12 @@ function apply0309(map: Map<number, FastingLevel>, year: number, pascha: Physica
     const dow = date.dayOfWeek();
     const offset = date.daysSince(pascha);
 
-    if (offset < -48) {
-        // Before Clean Monday: normal basemap logic
+    if (offset < -55) {
+        // Before Cheese Fare: NONE on non-Wed/Fri, OIL on Wed/Fri
         map.set(doy, (dow === 3 || dow === 5) ? 'OIL' : 'NONE');
+    } else if (offset >= -55 && offset < -48) {
+        // Cheese Fare week: OIL on Wed/Fri, otherwise leave basemap (DAIRY from movable overrides)
+        if (dow === 3 || dow === 5) map.set(doy, 'OIL');
     } else if (offset >= -48 && offset <= -44) {
         // First week of Great Lent: strict
         map.set(doy, 'STRICT');
