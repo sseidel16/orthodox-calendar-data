@@ -3,15 +3,6 @@
  * These are separate from the UI types in types.ts.
  */
 
-import { PhysicalDay } from './physicalDay.js';
-
-export type EnrichedDate = {
-    date: PhysicalDay;
-    moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
-    oldData: EnrichedDateData;
-    newData: EnrichedDateData;
-};
-
 export type EnrichedDateData = {
     date: number;
     fasting: 'NONE' | 'DAIRY' | 'FISH' | 'OIL' | 'STRICT';

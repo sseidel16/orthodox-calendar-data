@@ -53,8 +53,8 @@ export type ReadingsImmovableEntry = {
 
 export type PaschaDateEntry = {
     year: number;
-    newPaschaDate: Date;
-    oldPaschaDate: Date;
+    gregorian: { year: number; month: number; day: number };
+    julian: { year: number; month: number; day: number };
 };
 
 // ============================================================
@@ -165,6 +165,11 @@ export function parseReadingsImmovable(): ReadingsImmovableEntry[] {
     return entries;
 }
 
+function parseDateParts(str: string): { year: number; month: number; day: number } {
+    const [y, m, d] = str.trim().split('-').map(Number);
+    return { year: y, month: m, day: d };
+}
+
 export function parsePaschaDates(): PaschaDateEntry[] {
     const content = readFileSync(join(DATA_DIR, 'PaschaDates.csv'), 'utf-8');
     const lines = content.trim().split('\n');
@@ -174,8 +179,8 @@ export function parsePaschaDates(): PaschaDateEntry[] {
         if (parts.length < 3) continue;
         entries.push({
             year: parseInt(parts[0].trim(), 10),
-            newPaschaDate: new Date(parts[1].trim() + 'T00:00:00Z'),
-            oldPaschaDate: new Date(parts[2].trim() + 'T00:00:00Z'),
+            gregorian: parseDateParts(parts[1]),
+            julian: parseDateParts(parts[2]),
         });
     }
     return entries;

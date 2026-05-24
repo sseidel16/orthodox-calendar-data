@@ -41,27 +41,35 @@ export type YearContext = {
 };
 
 // Lazy-loaded Pascha date cache
-let paschaCache: Map<number, { newPascha: PhysicalDay; oldPascha: PhysicalDay }> | null = null;
+// Lazy-loaded Pascha date cache — stores calendar dates, not physical dates.
+// The conversion to physical is done via the CalendarSystem at lookup time.
+type PaschaCalendarDates = {
+    gregorian: { year: number; month: number; day: number };
+    julian: { year: number; month: number; day: number };
+};
 
-function getPaschaData(): Map<number, { newPascha: PhysicalDay; oldPascha: PhysicalDay }> {
+let paschaCache: Map<number, PaschaCalendarDates> | null = null;
+
+function getPaschaData(): Map<number, PaschaCalendarDates> {
     if (!paschaCache) {
         paschaCache = new Map();
         for (const entry of parsePaschaDates()) {
             paschaCache.set(entry.year, {
-                newPascha: PhysicalDay.fromDate(entry.newPaschaDate),
-                oldPascha: PhysicalDay.fromDate(entry.oldPaschaDate),
+                gregorian: entry.gregorian,
+                julian: entry.julian,
             });
         }
     }
     return paschaCache;
 }
 
-/** Get Pascha dates (old and new calendar) for a given year. */
-export function getPaschaForYear(year: number): { newPascha: PhysicalDay; oldPascha: PhysicalDay } {
+/** Get the physical Pascha date for a given year and calendar system. */
+export function getPaschaForYear(year: number, cal: CalendarSystem): PhysicalDay {
     const data = getPaschaData();
     const entry = data.get(year);
     if (!entry) throw new Error(`Pascha date not available for year ${year}`);
-    return entry;
+    const calDate = cal.name === 'gregorian' ? entry.gregorian : entry.julian;
+    return cal.toPhysicalDate(calDate.year, calDate.month, calDate.day);
 }
 
 /**
@@ -111,20 +119,24 @@ function buildCalendarContext(
 }
 
 /**
+ * Build a CalendarContext for one calendar system for one year.
+ * This is the core precomputation unit — all rule maps keyed by physical day-of-year or calendar MM-DD.
+ */
+export function buildCalendarContextForYear(year: number, cal: CalendarSystem): CalendarContext {
+    const pascha = getPaschaForYear(year, cal);
+    const prevPascha = getPaschaForYear(year - 1, cal);
+    const prevRefs = resolveMovableReferences(year - 1, prevPascha, cal);
+
+    return buildCalendarContext(year, pascha, prevPascha, pascha, prevRefs, cal);
+}
+
+/**
  * Build a full YearContext for a given year.
  * Called once, then reused for all date generation within that year.
  */
 export function buildYearContext(year: number, timezone?: string): YearContext {
-    const { newPascha, oldPascha } = getPaschaForYear(year);
-    const prevYear = getPaschaForYear(year - 1);
-
-    const prevNewRefs = resolveMovableReferences(year - 1, prevYear.newPascha, GREGORIAN);
-    const prevOldRefs = resolveMovableReferences(year - 1, prevYear.oldPascha, JULIAN);
-
-    // Both calendars share the same physical Pascha Sunday.
-    // New calendar uses Gregorian dates; old calendar uses Julian dates (shifted -13).
-    const newCalendar = buildCalendarContext(year, newPascha, prevYear.newPascha, newPascha, prevNewRefs, GREGORIAN);
-    const oldCalendar = buildCalendarContext(year, newPascha, prevYear.newPascha, oldPascha, prevOldRefs, JULIAN);
+    const newCalendar = buildCalendarContextForYear(year, GREGORIAN);
+    const oldCalendar = buildCalendarContextForYear(year, JULIAN);
 
     const moonMap = buildMoonMap(year, timezone);
 

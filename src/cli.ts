@@ -1,7 +1,7 @@
-import { getDate, getDateRange } from './api/range.js';
-import { getMonthGrid } from './api/month.js';
-import { getYearCalendar } from './api/year.js';
-import { CalendarOptions } from './options.js';
+import { generateData, generateDataRange } from './engine/dataEngine.js';
+import { generateCalendarYear } from './api/calendar.js';
+import { GREGORIAN } from './engine/calendarSystem.js';
+import { CalendarDate } from './engine/calendarDate.js';
 
 function printUsage(): void {
     console.log(`
@@ -27,17 +27,25 @@ Examples:
 `);
 }
 
-function parseDate(str: string): Date {
+function parseDateString(str: string): { year: number; month: number; day: number } {
     const d = new Date(str + 'T00:00:00Z');
     if (isNaN(d.getTime())) {
         throw new Error(`Invalid date: ${str}`);
     }
-    return d;
+    return {
+        year: d.getUTCFullYear(),
+        month: d.getUTCMonth() + 1,
+        day: d.getUTCDate(),
+    };
 }
 
-function parseArgs(args: string[]): { positional: string[]; options: CalendarOptions } {
+type CliOptions = {
+    timezone?: string;
+};
+
+function parseArgs(args: string[]): { positional: string[]; options: CliOptions } {
     const positional: string[] = [];
-    const options: CalendarOptions = {};
+    const options: CliOptions = {};
 
     for (let i = 0; i < args.length; i++) {
         if (args[i] === '--timezone' && i + 1 < args.length) {
@@ -66,8 +74,8 @@ function main(): void {
                 console.error('Error: date command requires a date argument (YYYY-MM-DD)');
                 process.exit(1);
             }
-            const date = parseDate(positional[1]);
-            const result = getDate(date, options);
+            const { year, month, day } = parseDateString(positional[1]);
+            const result = generateData(year, month, day, GREGORIAN);
             console.log(JSON.stringify(result, null, 2));
             break;
         }
@@ -77,9 +85,11 @@ function main(): void {
                 console.error('Error: range command requires start and end dates (YYYY-MM-DD YYYY-MM-DD)');
                 process.exit(1);
             }
-            const start = parseDate(positional[1]);
-            const end = parseDate(positional[2]);
-            const results = getDateRange(start, end, options);
+            const startParts = parseDateString(positional[1]);
+            const endParts = parseDateString(positional[2]);
+            const start: CalendarDate = { year: startParts.year, month: startParts.month, day: startParts.day };
+            const end: CalendarDate = { year: endParts.year, month: endParts.month, day: endParts.day };
+            const results = generateDataRange(start, end, GREGORIAN);
             console.log(JSON.stringify(results, null, 2));
             break;
         }
@@ -89,14 +99,17 @@ function main(): void {
                 console.error('Error: month command requires month (1-12) and year');
                 process.exit(1);
             }
-            const month = parseInt(positional[1], 10) - 1;
+            const month = parseInt(positional[1], 10);
             const year = parseInt(positional[2], 10);
-            if (month < 0 || month > 11) {
+            if (month < 1 || month > 12) {
                 console.error('Error: month must be between 1 and 12');
                 process.exit(1);
             }
-            const result = getMonthGrid(month, year, options);
-            console.log(JSON.stringify(result, null, 2));
+            const genOpts: Parameters<typeof generateCalendarYear>[1] = {};
+            if (options.timezone) genOpts.timezone = options.timezone;
+            const calendarData = generateCalendarYear(year, genOpts);
+            const monthData = calendarData.months[month - 1];
+            console.log(JSON.stringify(monthData, null, 2));
             break;
         }
 
@@ -106,7 +119,9 @@ function main(): void {
                 process.exit(1);
             }
             const year = parseInt(positional[1], 10);
-            const result = getYearCalendar(year, options);
+            const genOpts: Parameters<typeof generateCalendarYear>[1] = {};
+            if (options.timezone) genOpts.timezone = options.timezone;
+            const result = generateCalendarYear(year, genOpts);
             console.log(JSON.stringify(result, null, 2));
             break;
         }
