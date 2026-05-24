@@ -1,6 +1,7 @@
 // Calendar UI layer
 export { generateCalendar, generateCalendarYear, generateCalendarRange, generateCalendarDate } from './api/calendar.js';
-export type { GenerateCalendarOptions, CalendarDayData } from './api/calendar.js';
+export type { GenerateCalendarOptions, CalendarDayData, ReadingsLayoutOptions } from './api/calendar.js';
+export { formatReadings, MONOSPACE, PROPORTIONAL } from './engine/rules/readingsFormatter.js';
 
 // Data engine
 export { generateData, generateDataRange } from './engine/dataEngine.js';

@@ -125,15 +125,40 @@ type GenerateCalendarOptions = {
     secondaryCalendar?: CalendarSystem; // default: JULIAN
     timezone?: string;                  // for moon phases, default: 'America/Phoenix'
     noteIndicators?: string[];          // default: ['*', '†', '‡']
+    readingsLayout?: ReadingsLayoutOptions; // if provided, readings are formatted to fit
 };
 
-// Example: generate with custom timezone
+type ReadingsLayoutOptions = {
+    maxLines: number;           // max number of output lines
+    maxLineWidth: number;       // target width per line (in character units)
+    charWidth?: (char: string) => number; // optional width function (default: monospace)
+};
+```
+
+```ts
+// Default — raw readings, no formatting
+const cal = generateCalendarYear(2026);
+
+// With timezone override
 const cal = generateCalendarYear(2026, { timezone: 'America/New_York' });
+
+// With readings formatting (abbreviate books to fit 3 lines at 28 chars wide)
+const cal = generateCalendarYear(2026, {
+    readingsLayout: { maxLines: 3, maxLineWidth: 28 },
+});
+
+// Proportional width estimation for variable-width fonts
+import { PROPORTIONAL } from 'orthodox-calendar-data/engine/rules/readingsFormatter';
+const cal = generateCalendarYear(2026, {
+    readingsLayout: { maxLines: 3, maxLineWidth: 22, charWidth: PROPORTIONAL },
+});
 ```
 
 **`timezone`** — Moon phases are astronomical instants. Which calendar date they land on depends on timezone.
 
 **`noteIndicators`** — Symbols used to link DateBoxes to NoteBoxes. Assigned globally across the year so the same note always gets the same symbol. Wraps with a warning if more unique notes exist than symbols.
+
+**`readingsLayout`** — When provided, readings in each `DateBox.lowerText.readings` are packed into the given number of lines, abbreviating book names (e.g. "Matthew" → "Mt.") if needed to stay within `maxLineWidth`. Multiple readings may be combined onto one line with `; ` separators. When omitted, readings are raw unabbreviated strings from the source data. The formatter never drops readings — it only abbreviates and reflows.
 
 ## UI Grid Types
 

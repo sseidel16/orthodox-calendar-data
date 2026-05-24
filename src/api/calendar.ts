@@ -6,19 +6,28 @@ import { EnrichedDateData, MoonPhase } from '../engine/enrichedTypes.js';
 import { generateDataRange } from '../engine/dataEngine.js';
 import { buildMoonMap } from '../engine/rules/moonRules.js';
 import { dayOfYear } from '../engine/rules/dateUtils.js';
+import { formatReadings } from '../engine/rules/readingsFormatter.js';
+
+export type ReadingsLayoutOptions = {
+    maxLines: number;
+    maxLineWidth: number;
+    charWidth?: (char: string) => number;
+};
 
 export type GenerateCalendarOptions = {
     calendar?: CalendarSystem;          // default: GREGORIAN
     secondaryCalendar?: CalendarSystem; // default: JULIAN
     timezone?: string;                  // for moon phases, default: 'America/Phoenix'
     noteIndicators?: string[];          // default: ['*', '†', '‡']
+    readingsLayout?: ReadingsLayoutOptions; // if provided, readings are formatted/abbreviated to fit
 };
 
-const DEFAULTS: Required<GenerateCalendarOptions> = {
+const DEFAULTS = {
     calendar: GREGORIAN,
     secondaryCalendar: JULIAN,
     timezone: 'America/Phoenix',
     noteIndicators: ['*', '†', '‡'],
+    readingsLayout: undefined as ReadingsLayoutOptions | undefined,
 };
 
 /** A single composite day combining primary, secondary, and moon data. */
@@ -150,7 +159,7 @@ function physicalToCalendarDate(day: PhysicalDay, cal: CalendarSystem): Calendar
  * Split composite days into months and build MonthData[].
  * A new month starts when primaryData.date === 1 (except the very first day).
  */
-function buildMonths(compositeDays: CalendarDayData[], year: number, opts: Required<GenerateCalendarOptions>): MonthData[] {
+function buildMonths(compositeDays: CalendarDayData[], year: number, opts: typeof DEFAULTS): MonthData[] {
     const monthChunks: CalendarDayData[][] = [];
     let currentChunk: CalendarDayData[] = [];
 
@@ -171,7 +180,7 @@ function buildMonths(compositeDays: CalendarDayData[], year: number, opts: Requi
     const months: MonthData[] = [];
     for (let m = 0; m < monthChunks.length; m++) {
         const chunk = monthChunks[m];
-        const { dateBoxes, noteBoxes } = transformToUI(chunk, indicatorMap);
+        const { dateBoxes, noteBoxes } = transformToUI(chunk, indicatorMap, opts.readingsLayout);
         const startDow = opts.calendar.toPhysicalDate(year, m + 1, 1).dayOfWeek();
         const grid = buildGrid(dateBoxes, noteBoxes, startDow);
         months.push({
@@ -212,7 +221,7 @@ type TransformResult = {
 /**
  * Transform CalendarDayData[] into UI DateBoxes and NoteBoxes.
  */
-function transformToUI(chunk: CalendarDayData[], indicatorMap: Map<string, string>): TransformResult {
+function transformToUI(chunk: CalendarDayData[], indicatorMap: Map<string, string>, readingsLayout?: ReadingsLayoutOptions): TransformResult {
     const noteMap = new Map<string, [string, string]>();
     for (const cd of chunk) {
         const notes = cd.primaryData.lengthyNotes;
@@ -246,7 +255,7 @@ function transformToUI(chunk: CalendarDayData[], indicatorMap: Map<string, strin
             oldFeast: showOldFeast,
             mainText,
             lowerText: {
-                readings: nd.readings,
+                readings: readingsLayout ? formatReadings(nd.readings, readingsLayout) : nd.readings,
                 ...(nd.tone ? { tone: nd.tone } : {}),
             },
         };
