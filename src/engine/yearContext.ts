@@ -110,7 +110,7 @@ function buildCalendarContext(
         prevReferences: prevCalRefs,
         fastingMap: buildFastingMap(year, physicalPascha, calSystem.fixedDateShift),
         toneMap: buildToneMap(year, physicalPascha, prevPhysicalPascha),
-        noteMap: buildNoteMap(year, physicalPascha),
+        noteMap: buildNoteMap(year, physicalPascha, calSystem),
         movableTextMap: buildMovableTextMap(year, references, prevCalRefs, calSystem),
         specialTextMap: buildSpecialTextMap(year, calSystem),
         readingsMap: buildReadingsMap(year, references, prevCalRefs, physicalPascha, gapSundaySymbols, calSystem),

@@ -12,7 +12,8 @@
  */
 
 import { PhysicalDay } from '../physicalDay.js';
-import { dayOfYear, daysInYear, utcDate, formatPhysicalMMDD } from './dateUtils.js';
+import { CalendarSystem } from '../calendarSystem.js';
+import { dayOfYear, daysInYear, utcDate } from './dateUtils.js';
 
 const NOTE_NO_FASTING: [string, string] = [
     'Some traditions allow for no fasting on this day.',
@@ -36,14 +37,14 @@ const MONASTERY_EXCLUDED_DATES = new Set(['04-23', '05-08', '05-21', '06-24']);
  * Build a note map for the entire year. Returns a Map keyed by day-of-year (0-based).
  * Only days with a lengthy note will have entries.
  */
-export function buildNoteMap(year: number, pascha: PhysicalDay): Map<number, [string, string]> {
+export function buildNoteMap(year: number, pascha: PhysicalDay, cal: CalendarSystem): Map<number, [string, string]> {
     const map = new Map<number, [string, string]>();
     const totalDays = daysInYear(year);
 
     for (let doy = 0; doy < totalDays; doy++) {
         const date = utcDate(year, 0, 1 + doy);
         const dow = date.dayOfWeek();
-        const mmdd = formatPhysicalMMDD(date);
+        const mmdd = cal.getMMDD(date);
         const offset = date.daysSince(pascha);
 
         // Rule 1: PASCHA-67, PASCHA-65, PASCHA-53, PASCHA-51 (no-fasting tradition days)
@@ -66,11 +67,9 @@ export function buildNoteMap(year: number, pascha: PhysicalDay): Map<number, [st
             continue;
         }
 
-        // Rule 4: Wed/Fri in the Nativity/Theophany afterfeast periods
+        // Rule 4: Wed/Fri in the Nativity/Theophany afterfeast periods (calendar dates)
         if (dow === 3 || dow === 5) {
-            const d = new Date(date._epochMs());
-            const month = d.getUTCMonth() + 1;
-            const day = d.getUTCDate();
+            const [month, day] = mmdd.split('-').map(Number);
             const inJanRange = month === 1 && day >= 2 && day <= 4;
             const inDecRange = month === 12 && day >= 26 && day <= 31;
             if (inJanRange || inDecRange) {
