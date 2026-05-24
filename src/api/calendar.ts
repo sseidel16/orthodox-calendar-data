@@ -58,18 +58,21 @@ export function generateCalendarRange(
     const secondaryEnd = physicalToCalendarDate(physicalEnd, opts.secondaryCalendar);
     const secondaryData = generateDataRange(secondaryStart, secondaryEnd, opts.secondaryCalendar);
 
-    // Moon phases
-    const moonMap = buildMoonMap(physicalStart.year(), opts.timezone);
-    const moonMap2 = physicalEnd.year() !== physicalStart.year()
-        ? buildMoonMap(physicalEnd.year(), opts.timezone)
-        : null;
+    // Moon phases — keyed by physical year
+    const moonMaps = new Map<number, Map<number, MoonPhase>>();
+    const startYear = physicalStart.year();
+    const endYear = physicalEnd.year();
+    for (let y = startYear; y <= endYear; y++) {
+        moonMaps.set(y, buildMoonMap(y, opts.timezone));
+    }
 
     // Assemble composite days
     const results: CalendarDayData[] = [];
     let currentPhysical = physicalStart;
     for (let i = 0; i < primaryData.length; i++) {
         const doy = dayOfYear(currentPhysical);
-        const moon: MoonPhase = moonMap.get(doy) ?? (moonMap2 ? moonMap2.get(doy) ?? 'NONE' : 'NONE');
+        const moonMap = moonMaps.get(currentPhysical.year())!;
+        const moon: MoonPhase = moonMap.get(doy) ?? 'NONE';
         results.push({
             primaryData: primaryData[i],
             secondaryData: secondaryData[i],
