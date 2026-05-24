@@ -1,124 +1,170 @@
-# Orthodox Calendar Data Generator
+# Orthodox Calendar Data
 
 A TypeScript library that generates Orthodox Christian calendar data from CSV source files. Produces structured JSON representing saints, feasts, fasting rules, tones, readings, and liturgical notes for any year with available Pascha dates (2000-2050).
 
-## Architecture
+## Installation
 
-The library is organized in layers, each building on the one below:
-
-```
-CLI (src/cli.ts)
-  commands: date, range, month, year
-
-Year API — getYearCalendar(year)
-  builds 1 YearContext, passes to all 12 months
-
-Month API — getMonthGrid(month, year)
-  transforms EnrichedDate[] into the 5x7 UI grid
-
-Range API — getDateRange(start, end)
-  cross-year safe, splits into per-year batches
-  getDate(date) calls range with same start/end
-
-Engine — generateDateRange(start, end, year)
-  builds YearContext once, applies rules to each date
-
-YearContext (precomputed per year)
-  Pascha dates, fasting map, tone cycle, DRS, specials
+```bash
+npm install
+npm run build
 ```
 
-### Data Layer (lowest)
-
-The engine produces `EnrichedDate` objects — flat, raw calendar data for individual dates. This is what the rules operate on. See `rules/CalendarRules.md` for the full rule specification.
+## Quick Start
 
 ```ts
-type EnrichedDate = {
-    date: Date;
-    paschaOffset: number;
-    newDate: number;        // Gregorian date number
-    oldDate: number;        // Julian date number (13 days behind)
+import {
+    generateCalendarYear,
+    generateCalendarDate,
+    generateCalendarRange,
+    generateData,
+    generateDataRange,
+    GREGORIAN,
+    JULIAN,
+} from 'orthodox-calendar-data';
+
+// Full year calendar with UI grids (primary: Gregorian, secondary: Julian)
+const calendar = generateCalendarYear(2026);
+
+// Single date composite (primary + secondary + moon)
+const day = generateCalendarDate(2026, 4, 12); // Pascha 2026
+console.log(day.primaryData.feast);   // ["Holy Pascha...", "..."]
+console.log(day.secondaryData.feast); // same — Pascha is the same physical day
+console.log(day.moon);                // "NONE" | "NEW" | "FIRST" | "FULL" | "LAST"
+
+// Date range composite
+const holyWeek = generateCalendarRange(
+    { year: 2026, month: 4, day: 5 },
+    { year: 2026, month: 4, day: 12 },
+);
+
+// Raw data layer — single calendar, no moon, no secondary
+const data = generateData(2026, 1, 1, GREGORIAN);
+const oldData = generateData(2026, 1, 1, JULIAN);
+
+// Raw data range
+const year = generateDataRange(
+    { year: 2026, month: 1, day: 1 },
+    { year: 2026, month: 12, day: 31 },
+    GREGORIAN,
+);
+```
+
+## Architecture
+
+```
+UI Layer (src/api/calendar.ts)
+  generateCalendarYear    → CalendarData (12 months with 5x7 grids)
+  generateCalendarRange   → CalendarDayData[] (primary + secondary + moon)
+  generateCalendarDate    → CalendarDayData (single day)
+
+Data Layer (src/engine/dataEngine.ts)
+  generateDataRange       → EnrichedDateData[] (single calendar system)
+  generateData            → EnrichedDateData (single date, single calendar)
+
+Calendar Systems (src/engine/calendarSystem.ts)
+  GREGORIAN               → new calendar (physical dates = calendar dates)
+  JULIAN                  → old calendar (calendar dates are 13 days behind physical)
+
+Primitives
+  PhysicalDay             → opaque physical day (no month/day extraction without CalendarSystem)
+  CalendarDate            → { year, month, day } in a calendar's coordinate system
+```
+
+### Data Layer
+
+The data layer computes `EnrichedDateData` for a given calendar system. It handles year-splitting internally (one context per physical year), with a maximum range of 5 years.
+
+```ts
+type EnrichedDateData = {
+    date: number;                // calendar day number (1-31)
     fasting: 'NONE' | 'DAIRY' | 'FISH' | 'OIL' | 'STRICT';
-    moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
-    notes: string[];        // [] or [english, greek] — lengthy note text
-    mainText: {
-        feast?: string[];   // [english, greek]
-        saint?: string[];   // [english, greek]
-        note?: string[];    // [english, greek]
-    };
-    lowerText: {
-        tone?: string;      // e.g. "2nd Tone", "Plagal 1st Tone"
-        readings: string[];
-    };
+    lengthyNotes: string[];     // [] or [english, greek]
+    feast?: string[];           // [english, greek]
+    saint?: string[];           // [english, greek]
+    note?: string[];            // [english, greek]
+    tone?: string;              // e.g. "2nd Tone", "Plagal 1st Tone"
+    readings: string[];         // e.g. ["Acts 1:1-8", "John 1:1-17"]
 };
 ```
 
-### UI Layer (month/year)
+**Calendar date inputs** are specified in the target calendar's coordinate system:
+- `generateData(2026, 3, 25, GREGORIAN)` — Gregorian March 25 (Annunciation)
+- `generateData(2026, 3, 25, JULIAN)` — Julian March 25 (= physical April 7)
 
-The month grid builder transforms `EnrichedDate[]` into a `MonthData` structure suitable for calendar rendering. This involves:
+### UI Layer
 
-1. Converting `EnrichedDate` to `DateBox` (adding `type: 'DATE'`, computing `background` from `fasting`)
-2. Processing lengthy notes into indicator symbols and `NoteBox` entries
-3. Calculating `SplitBox` for overflow dates
-4. Laying out the 5x7 grid with `EmptyBox` padding
+The UI layer orchestrates two data-layer calls (primary + secondary calendar), adds moon phases, and optionally assembles into display-ready month grids.
 
-## UI Types
+```ts
+type CalendarDayData = {
+    primaryData: EnrichedDateData;
+    secondaryData: EnrichedDateData;
+    moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
+};
+```
 
-### CalendarData
-
-Top-level output for a full year:
+**`generateCalendarYear`** produces the full grid structure used by rendering clients:
 
 ```ts
 type CalendarData = {
     year: string;
     months: MonthData[];  // 12 entries
-}
+};
+
+type MonthData = {
+    name: string[];       // [english, greek]
+    grid: GridData;       // 5 rows x 7 columns
+};
 ```
 
-### MonthData
+### Options
 
 ```ts
-type MonthData = {
-    name: string[];  // [english, greek] e.g. ["January", "Ἰανουάριος"]
-    grid: GridData;  // 5x7 array
-}
+type GenerateCalendarOptions = {
+    calendar?: CalendarSystem;          // default: GREGORIAN
+    secondaryCalendar?: CalendarSystem; // default: JULIAN
+    timezone?: string;                  // for moon phases, default: 'America/Phoenix'
+    noteIndicators?: string[];          // default: ['*', '†', '‡']
+};
+
+// Example: generate with custom timezone
+const cal = generateCalendarYear(2026, { timezone: 'America/New_York' });
 ```
+
+**`timezone`** — Moon phases are astronomical instants. Which calendar date they land on depends on timezone.
+
+**`noteIndicators`** — Symbols used to link DateBoxes to NoteBoxes. Assigned globally across the year so the same note always gets the same symbol. Wraps with a warning if more unique notes exist than symbols.
+
+## UI Grid Types
 
 ### GridData — The 5x7 Grid
 
-Every month is rendered as exactly 5 rows by 7 columns. Each cell is one of four `BoxData` types:
+Every month is rendered as exactly 5 rows by 7 columns:
 
 ```ts
-type GridData = BoxData[][];  // always 5 rows, 7 columns
+type GridData = BoxData[][];
 type BoxData = EmptyBox | NoteBox | SplitBox | DateBox;
-```
-
-**Why 5x7?** A month has at most 31 days. Starting on any day of the week, plus up to 4 NoteBoxes, the maximum needed is 35 cells — which is exactly 5x7. SplitBoxes are used to compress overflow when a month would otherwise need a 6th row.
-
-### EmptyBox
-
-Unused cells (before the 1st of the month, or after the last date/note):
-
-```ts
-type EmptyBox = { type: 'EMPTY' };
 ```
 
 ### DateBox
 
-The primary cell type — one per calendar date:
+One per calendar date:
 
 ```ts
 type DateBox = {
     type: 'DATE';
-    newDate: number;
-    oldDate: number;
+    newDate: number;            // primary calendar date number
+    oldDate: number;            // secondary calendar date number
     background: 'STANDARD' | 'FASTING';
     moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
     fasting: 'NONE' | 'DAIRY' | 'FISH' | 'OIL' | 'STRICT';
-    note?: string;          // indicator symbol linking to a NoteBox
+    newFeast: boolean;          // primary calendar has a feast
+    oldFeast: boolean;          // both calendars have feasts
+    note?: string;              // indicator symbol linking to a NoteBox
     mainText: {
-        feast?: string[];   // [english, greek]
-        saint?: string[];   // [english, greek]
-        note?: string[];    // [english, greek]
+        feast?: string[];       // [english, greek]
+        saint?: string[];       // [english, greek]
+        note?: string[];        // [english, greek]
     };
     lowerText: {
         tone?: string;
@@ -127,13 +173,21 @@ type DateBox = {
 };
 ```
 
-The `background` field is derived from `fasting`: NONE maps to STANDARD, anything else maps to FASTING.
+### NoteBox
 
-The `note` field (when present) contains an indicator symbol that links to a `NoteBox` in the same month's grid. This is how lengthy notes are referenced without cluttering the date cell.
+Lengthy notes displayed separately, linked by indicator symbol:
+
+```ts
+type NoteBox = {
+    type: 'NOTE';
+    note: string;       // indicator symbol (*, †, ‡)
+    text: string[];     // [english, greek]
+};
+```
 
 ### SplitBox
 
-When a month's dates would overflow into a 6th row, the last dates are paired into SplitBoxes. Each SplitBox occupies one grid cell but displays two dates stacked vertically:
+When dates overflow into a 6th row, the last dates are paired vertically:
 
 ```ts
 type SplitBox = {
@@ -143,72 +197,29 @@ type SplitBox = {
 };
 ```
 
-**When SplitBoxes occur:**
-- Overflow of 1 (e.g., 31 days starting Friday): 1 SplitBox pairing the last 2 dates (30, 31)
-- Overflow of 2 (e.g., 31 days starting Saturday): 2 SplitBoxes pairing the last 4 dates (28+29, 30+31)
+### EmptyBox
 
-### NoteBox
-
-Lengthy notes (e.g., "Some traditions allow for fish on Palm Sunday") are too long to display inside a DateBox. Instead:
-
-1. The `EnrichedDate.notes` field contains the full bilingual note text at the data layer
-2. The month grid builder collects all unique notes for the month
-3. Each unique note gets an indicator symbol assigned in priority order (configurable via `noteIndicators` option, default: `*`, `**`, `†`, `‡`)
-4. DateBoxes that trigger a note get the indicator in their `note` field
-5. A `NoteBox` is placed in the grid with the indicator and full text
+Unused cells:
 
 ```ts
-type NoteBox = {
-    type: 'NOTE';
-    note: string;     // indicator symbol (*, **, †, ‡)
-    text: string[];   // [english, greek] — the full lengthy note
-};
+type EmptyBox = { type: 'EMPTY' };
 ```
-
-**Placement rules:**
-- NoteBoxes are placed next to the 1st of the month when empty cells are available (before the first date in that row)
-- If no room next to the 1st, they go near the end of the month
-- Dates sharing the same lengthy note text share the same indicator and NoteBox
-
-## Options
-
-All public API functions accept an optional `CalendarOptions` object:
-
-```ts
-type CalendarOptions = {
-    timezone?: string;         // IANA timezone for moon phase dates (default: 'America/Phoenix')
-    noteIndicators?: string[]; // Indicator symbols for NoteBoxes (default: ['*', '**', '†', '‡'])
-};
-```
-
-```ts
-import { getDate, getDateRange, getMonthGrid, getYearCalendar } from 'orthodox-calendar-data';
-
-getDate(date, { timezone: 'America/New_York' });
-getDateRange(start, end, { timezone: 'America/Phoenix' });
-getMonthGrid(3, 2026, { timezone: 'Europe/Athens', noteIndicators: ['†', '‡', '§', '¶'] });
-getYearCalendar(2026, { timezone: 'America/Phoenix' });
-```
-
-**`timezone`** — Moon phases are astronomical instants. Which calendar date they land on depends on timezone. Arizona (`America/Phoenix`) never observes DST. If your audience is in a different timezone, set this accordingly.
-
-**`noteIndicators`** — The symbols used to link DateBoxes to NoteBoxes. Assigned in order to unique notes within each month. If a month has more unique notes than indicators, the array wraps and a warning is emitted.
 
 ## CLI
 
 ```bash
 npm run build
 
-# Single date (EnrichedDate)
+# Single date (EnrichedDateData — primary calendar only)
 node dist/cli.js date 2026-04-12
 
-# Date range (EnrichedDate[])
+# Date range (EnrichedDateData[])
 node dist/cli.js range 2026-01-01 2026-01-31
 
-# Month grid (MonthData with full UI types)
+# Single month grid (MonthData)
 node dist/cli.js month 4 2026
 
-# Full year (CalendarData)
+# Full year (CalendarData with all 12 month grids)
 node dist/cli.js year 2026
 
 # With timezone override
@@ -218,45 +229,74 @@ node dist/cli.js year 2026 --timezone America/New_York
 ## Testing
 
 ```bash
-npm test            # run once
-npm run test:watch  # watch mode
+npm test
 ```
 
-Tests are organized by level:
-- `tests/date.test.ts` — Individual date generation with hard-coded expected outputs. Each test validates a complete `EnrichedDate` via deep equality.
-- `tests/month.test.ts` — Grid structure, SplitBox calculation, day-of-week alignment.
+Test files:
+- `tests/date.test.ts` — Data layer: fasting, tones, text, readings, ordering, cross-year behavior
+- `tests/calendar.test.ts` — UI layer: moon phases, grid structure, composite data, Pascha alignment
+- `tests/readingsFormatter.test.ts` — Readings display formatting
+
+## PhysicalDay
+
+Internal dates use `PhysicalDay` — an opaque type that prevents accidental extraction of month/day (which is calendar-system-dependent). You can only get a calendar date via `CalendarSystem.getMMDD(day)` or `CalendarSystem.getDateNumber(day)`.
+
+```ts
+// Available methods on PhysicalDay:
+day.dayOfWeek()        // 0=Sun, 6=Sat
+day.year()             // Gregorian year
+day.addDays(n)         // returns new PhysicalDay
+day.isBefore(other)
+day.isAfter(other)
+day.equals(other)
+day.daysSince(ref)     // signed days from ref to this
+day.toDate()           // convert to JS Date (public API boundary only)
+```
 
 ## Data Sources
 
 All source data lives in `data/`:
 
-| File | Key | Content |
-|------|-----|---------|
-| `data/PaschaDates.csv` | Year | Pascha date for years 2000-2050 |
-| `data/text/Immovables.csv` | MM-DD | Fixed calendar feasts, saints, notes |
-| `data/text/Movables.csv` | PaschaOffset | Pascha-relative feasts, saints, notes |
-| `data/text/Specials.csv` | Category | DRS (date-related Sundays) and Special rules |
+| File | Content |
+|------|---------|
+| `PaschaDates.csv` | Pascha dates by year (Gregorian + Julian columns) |
+| `TextImmovable.csv` | Fixed calendar feasts, saints, notes (by MM-DD) |
+| `TextMovable.csv` | Pascha-relative feasts, saints, notes (by offset) |
+| `TextSpecial.csv` | Royal Hours, DST, and other conditional entries |
+| `ReadingsMovable.csv` | Pascha-relative Bible readings |
+| `ReadingsImmovable.csv` | Fixed-date Bible readings |
 
 ## Project Structure
 
 ```
 src/
-  index.ts              Library entrypoint (exports all public APIs)
-  cli.ts                CLI commands
-  types.ts              UI types (CalendarData, DateBox, etc.)
+  index.ts                Public API exports
+  browser.ts              Browser entry point
+  cli.ts                  CLI commands
+  types.ts                UI types (CalendarData, DateBox, etc.)
   api/
-    range.ts            getDate(), getDateRange() — cross-year safe
-    month.ts            getMonthGrid() — EnrichedDate[] -> 5x7 grid
-    year.ts             getYearCalendar() — full year generation
+    calendar.ts           UI layer (generateCalendarYear/Range/Date)
   engine/
-    dateEngine.ts       EnrichedDate type, batch date generation
-    yearContext.ts      Precomputed per-year state
+    dataEngine.ts         Data layer (generateData/DataRange)
+    yearContext.ts        Precomputed per-year calendar context
+    calendarSystem.ts     CalendarSystem interface (GREGORIAN, JULIAN)
+    calendarDate.ts       CalendarDate type
+    physicalDay.ts        PhysicalDay opaque class
+    movableResolver.ts    Movable reference resolution
+    rules/
+      fastingRules.ts     Fasting basemap + overrides
+      toneRules.ts        Tone cycle
+      noteRules.ts        Lengthy note triggers
+      textRules.ts        Feast/saint/note text assembly
+      readingsRules.ts    Bible readings assignment
+      moonRules.ts        Moon phase computation
+      dateUtils.ts        Date arithmetic utilities
   data/
-    parser.ts           CSV parsing utilities
-    pascha.ts           Pascha date lookup and offset calculation
+    parser.ts             CSV parsing
 tests/
-  date.test.ts          Individual date assertions
-  month.test.ts         Grid structure tests
+  date.test.ts            Data layer tests
+  calendar.test.ts        UI layer + moon + integration tests
+  readingsFormatter.test.ts  Readings formatting tests
 rules/
-  CalendarRules.md      Full rule specification for EnrichedDate generation
+  CalendarRules.md        Full rule specification
 ```
