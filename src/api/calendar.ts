@@ -169,7 +169,8 @@ function buildMonths(compositeDays: CalendarDayData[], year: number, opts: Requi
     for (let m = 0; m < monthChunks.length; m++) {
         const chunk = monthChunks[m];
         const { dateBoxes, noteBoxes } = transformToUI(chunk, indicatorMap);
-        const grid = buildGrid(dateBoxes, noteBoxes, year, m);
+        const startDow = opts.calendar.toPhysicalDate(year, m + 1, 1).dayOfWeek();
+        const grid = buildGrid(dateBoxes, noteBoxes, startDow);
         months.push({
             name: [MONTH_NAMES[m][0], MONTH_NAMES[m][1]],
             grid,
@@ -268,10 +269,9 @@ function transformToUI(chunk: CalendarDayData[], indicatorMap: Map<string, strin
 
 /**
  * Build a 5x7 grid from DateBoxes and NoteBoxes.
+ * @param startDow - day-of-week (0=Sun) the first day of the month falls on.
  */
-function buildGrid(dateBoxes: DateBox[], noteBoxes: NoteBox[], year: number, month: number): GridData {
-    const firstDay = new Date(Date.UTC(year, month, 1));
-    const startDow = firstDay.getUTCDay();
+function buildGrid(dateBoxes: DateBox[], noteBoxes: NoteBox[], startDow: number): GridData {
     const daysInMonth = dateBoxes.length;
 
     const totalPositions = startDow + daysInMonth;
