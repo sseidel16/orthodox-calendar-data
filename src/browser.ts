@@ -20,5 +20,8 @@ export { PhysicalDay } from './engine/physicalDay.js';
 // Data types
 export type { EnrichedDateData, FastingLevel, MoonPhase } from './engine/enrichedTypes.js';
 
+// Readings formatter
+export { PROPORTIONAL, MONOSPACE } from './engine/rules/readingsFormatter.js';
+
 // UI types
 export type { CalendarData, MonthData, GridData, BoxData, EmptyBox, NoteBox, SplitBox, DateBox } from './types.js';
