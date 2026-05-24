@@ -75,9 +75,15 @@ export function buildMovableTextMap(year: number, refs: ResolvedReferences, prev
     const map = new Map<string, TextMovableEntry[]>();
     const prev = prevRefs ?? new Map<string, PhysicalDay>();
 
+    // PASCHA-offset movables are only valid before SUNbE (non-inclusive)
+    const sunbE = refs.get('SUNbE');
+
     for (const entry of getMovables()) {
         const dates = resolveDatesForYear(entry.reference, entry.offset, year, refs, prev);
         for (const date of dates) {
+            // Filter: PASCHA offsets must fall before SUNbE
+            if (entry.reference === 'PASCHA' && sunbE && !date.isBefore(sunbE)) continue;
+
             const mmdd = cal.getMMDD(date);
             const list = map.get(mmdd) ?? [];
             list.push(entry);
