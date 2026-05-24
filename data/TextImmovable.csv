@@ -32,14 +32,14 @@ Date,Type,English,Greek
 01-13,Saint,Maximos the Hut-Burner,Μαξίμου τοῦ Καυσοκαλύβου
 01-14,Saint,Holy Fathers slain at Sinai and Raitho,Τῶν ἐν Σινᾷ καί Ραϊθῷ ἀναιρεθέντων ὁσίων πατέρων
 01-14,Saint,Nina Equal-to-the-Apostles,Νίνας τῆς ἰσαποστόλου
-01-14,Saint,"Sabba, archbishop of Serbia","Σάββα, ἀρχιεπισκόπου Σερβίας"
+01-14,Saint,"Savva, archbishop of Serbia","Σάββα, ἀρχιεπισκόπου Σερβίας"
 01-15,Saint,Paul of Thebes,Παύλου τοῦ Θηβαίου
 01-15,Saint,John the Hut-Dweller,Ἰωάννου τοῦ Καλυβίτου
 01-16,Saint,Veneration of the Precious Chains of the Apostle Peter,Προσκύνησις Τιμίας Ἁλύσεως τοῦ ἀποστόλου Πέτρου
 01-17,Saint,Anthony the Great,Ἀντωνίου τοῦ Μεγάλου
 01-17,Saint,New-martyr George of Ioannina,Γεωργίου νεομάρτυρος τοῦ ἐν Ἰωαννίνοις
 01-18,Saint,Patriarchs Athanasios & Cyril of Alexandria,"Ἀθανασίου & Κυρίλλου, Πατρ. Ἀλεξανδρείας"
-01-18,Saint,Martyr Theodula,Θεοδούλης μάρτυρος
+01-18,Saint,Martyr Theodoula,Θεοδούλης μάρτυρος
 01-19,Saint,Macarios the Great of Egypt,Μακαρίου Μεγάλου τοῦ Αἰγυπτίου
 01-19,Saint,Mark of Ephesus,Μάρκου Ἐφέσου τοῦ Εὐγενικοῦ
 01-19,Saint,Macarios of Alexandria,Μακαρίου Ἀλεξανδρείας
@@ -163,7 +163,7 @@ Date,Type,English,Greek
 03-18,Saint,"Cyril, archbishop of Jerusalem","Κυρίλλου, ἀρχιεπισκόπου Ἱεροσολύμων"
 03-18,Saint,Martys Trophimos & Eucarpos,Τροφίμου & Εὐκαρπίωνος τῶν μαρτύρων
 03-19,Saint,Martyrs Chrysanthos & Daria,Χρυσάνθου & Δαρείας τῶν μαρτύρων
-03-20,Saint,Holy Fathers slain at St. Sabbas’ Monastery,Τῶν ἐν τῇ Μονῇ τοῦ ἁγ. Σάββα ἀναιρεθέντων ὁσίων πατέρων
+03-20,Saint,Holy Fathers slain at St. Savva's Monastery,Τῶν ἐν τῇ Μονῇ τοῦ ἁγ. Σάββα ἀναιρεθέντων ὁσίων πατέρων
 03-21,Saint,James the Confessor,Ἰακώβου τοῦ ὁμολογητοῦ
 03-21,Saint,Ven. Seraphim of Viritsa,Σεραφείμ ὁσ. τῆς Βίριτσα
 03-22,Saint,Hieromartyr Basil of Ancyra,"Βασιλείου, ἱερομάρ. Ἄγκυρας"
@@ -210,7 +210,7 @@ Date,Type,English,Greek
 04-16,Saint,"Martyrs Agape, Irene & Chionia","Ἀγάπης, Εἰρήνης & Χιονίας τῶν μαρτύρων"
 04-17,Saint,Hieromartyr Symeon of Persia & his companions,"Συμεὼν ἱερομ., ἐπισκόπου Περσίας & τῶν σὺν αὐτῷ"
 04-18,Saint,Ven. John the Hesychast,Ἰωάννου τοῦ Ἡσυχαστοῦ
-04-18,Saint,Martyr Sabbas the Goth,Σάββα στρατηλάτου τοῦ Γότθου
+04-18,Saint,Martyr Savva the Goth,Σάββα στρατηλάτου τοῦ Γότθου
 04-18,Saint,Ven. Athanasia of Aigina,Ἀθανασίας ὁσίας τῆς Αἰγίνης
 04-19,Saint,Hieromartyr Paphnutios,Παφνουτίου ἱερομάρτυρος
 04-19,Saint,Martyr Theodore and his companios,Θεοδώρου μάρτυρος & τῶν σὺν αὐτῷ
@@ -371,7 +371,7 @@ Date,Type,English,Greek
 07-12,Saint,"Veronica, woman with the issue of blood",Βερονίκης τῆς αἱμορροούσης
 07-12,Saint,Ven. Paisios of Mt. Athos,Παϊσίου ὁσίου τοῦ Ἀθωνίτου
 07-13,Saint,Synaxis of the Archangel Gabriel,Ἡ σύναξις Ἀρχαγγέλου Γαβριὴλ
-07-13,Saint,Ven. Stephen of St. Sabba’s Monastery,Στεφάνου ὁσίου τοῦ Σαββαΐτου
+07-13,Saint,Ven. Stephen of St. Savva’s Monastery,Στεφάνου ὁσίου τοῦ Σαββαΐτου
 07-14,Saint,Apostle Aquila of the 70,Ἀκύλα ἀποστόλου ἐκ τῶν 70
 07-14,Saint,Ven. Nikodemos of Mt. Athos,Νικοδήμου ὁσίου τοῦ Ἁγιορείτου
 07-15,Saint,Martyrs Kyricos & Julitta,Κηρύκου & Ἰουλίττης μαρτύρων
@@ -499,8 +499,9 @@ Date,Type,English,Greek
 09-16,Saint,Martyr Ludmilla,Λουδμίλλας μάρτυρος Τσεχίας
 09-17,Saint,"Martyrs Sophia, Faith, Hope & Love","Σοφίας, Πίστεως, Ἐλπίδος & Ἀγάπης τῶν μαρτύρων"
 09-17,Saint,Hieromartyrs Heraclidios & Myron of Cyprus,"Ἡρακλειδίου & Μύρωνος, ἱερομαρτύρων τῆς Κύπρου"
+09-18,Saint,"Eumenios, bishop of Gortynia","Εὐμενίου, ἐπισκόπου Γορτύνης"
 09-18,Saint,Martyr Ariadni,Ἀριάδνης μάρτυρος
-09-19,Saint,"Martyrs Trophimos, Sabbatios & Dorymedon","Τροφίμου, Σαββατίου & Δορυμέδοντος τῶν μαρτύρων"
+09-19,Saint,"Martyrs Trophimos, Savvatios & Dorymedon","Τροφίμου, Σαββατίου & Δορυμέδοντος τῶν μαρτύρων"
 09-20,Saint,Gr. martyr Eustathios & his family,Εὐσταθίου μεγαλομάρτυρος & τῶν σὺν αὐτῷ
 09-21,Saint,Apostle Codratos of the 70,Κοδράτου ἀποστόλου ἐκ τῶν 70
 09-21,Saint,Prophet Jonah,Ἰωνᾶ τοῦ προφήτου
@@ -658,10 +659,10 @@ Date,Type,English,Greek
 12-02,Saint,Martyr Meropi of Chios,Μυρόπης μάρτυρος τῆς ἐν Χίῳ
 12-02,Saint,Ven. Porphyrios of Kavsokalyvia,Πορφυρίου ὁσίου τοῦ Καυσοκαλυβίτου
 12-03,Saint,Prophet Zephaniah,Σοφονίου τοῦ προφήτου
-12-03,Saint,John the Hesychast of St. Sabbas Monastery,Ἰωάννου Ἡσυχαστοῦ τοῦ Σαββαΐτου
+12-03,Saint,John the Hesychast of St. Savva's Monastery,Ἰωάννου Ἡσυχαστοῦ τοῦ Σαββαΐτου
 12-04,Saint,Great-martyr Barbara,Βαρβάρας μεγαλομάρτυρος
 12-04,Saint,John of Damascus,Ἰωάννου τοῦ Δαμασκηνοῦ
-12-05,Saint,Ven. Sabbas the Sanctified,Σάββα ὁσίου τοῦ Ἡγιασμένου
+12-05,Saint,Ven. Savva the Sanctified,Σάββα ὁσίου τοῦ Ἡγιασμένου
 12-05,Saint,Monks of Karyes (Mt. Athos) martyred by the Latins,"Ὁσιομαρτύρων Καρεωτῶν, τῶν ὑπό λατινοφρόνων μαρτυρησάντων"
 12-06,Saint,"Nicholas the Wonder-worker, archbishop of Myra in Lycia","Νικολάου, ἐπισκόπου Μύρων τῆς Λυκίας, τοῦ θαυματουργοῦ"
 12-07,Saint,"Ambrose, bishop of Milan","Ἀμβροσίου, ἐπισκ. Μεδιολάνων"
