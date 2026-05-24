@@ -1,15 +1,10 @@
 # GeneralRules
 
-**General rules go here**
+**General rules**
 
-The general purpose of these rules is to convert a date range into a list of EnrichedDate types. See the structure below:
+These rules describe how to produce enriched calendar data for a given date range. The rules apply identically to both the Gregorian (new) and Julian (old) calendars — the only difference is that the Julian calendar is 13 days behind the Gregorian calendar. When a rule references a specific date like 01/05 or 12/24, that date means the same thing in whichever calendar is being computed. The entire process is run once per calendar.
 
-export type EnrichedDate \= {  
-    date: Date;  
-    moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';  
-    oldData: EnrichedDateData; // old calendar  
-    newData: EnrichedDateData; // new calendar  
-};
+The output for each date is:
 
 export type EnrichedDateData \= {  
     date: number;  
@@ -22,13 +17,11 @@ export type EnrichedDateData \= {
     readings: string\[\];  
 }
 
-Old calendar dates are always 13 days earlier than new calendar dates. The entire calculation process is essentially the same for old and new calendars, but with a different date, so the entire process should simply be repeated twice.
-
-Movable references are days in the year that are not on the same date (they move) every year. Movable references must be calculated first for a particular year. Each movable reference has a separate method to calculate. Movable references are calculated separately for old and new calendars.
+Movable references are days in the year that are not on the same date (they move) every year. Movable references must be calculated first for a particular year. Each movable reference has a separate method to calculate. Each calendar uses its own Pascha date from *data/PaschaDates.csv*.
 
 All movable references are found in *data/MovableReferences.csv*. The instructions to calculate each are listed below:
 
-* PASCHA \- The date for Pascha is found in the *data/PaschaDates.csv* table. The current year and previous year’s Pascha should be calculated. The old and new calendars use separate dates.  
+* PASCHA \- The date for Pascha is found in the *data/PaschaDates.csv* table (one column per calendar). The current year and previous year’s Pascha should be calculated.  
 * ECUM4 \- the Sunday between 07/13 and 07/19  
 * SATbT \- the Saturday between 12/30-01/05  
 * SUNbT \- the Sunday between 12/30-01/05  
