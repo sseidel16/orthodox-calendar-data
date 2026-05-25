@@ -13,7 +13,7 @@
  */
 
 import { parseReadingsMovable, parseReadingsImmovable, ReadingsMovableEntry, ReadingsImmovableEntry } from '../../data/parser.js';
-import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
+import { ReferencesContext, ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
 import { CalendarSystem } from '../calendarSystem.js';
 import { PhysicalDay } from '../physicalDay.js';
 
@@ -43,8 +43,7 @@ type DateReadings = Map<string, string[]>;
  */
 export function buildReadingsMap(
     year: number,
-    refs: ResolvedReferences,
-    prevRefs: ResolvedReferences,
+    refs: ReferencesContext,
     pascha: PhysicalDay,
     gapSundaySymbols: string[],
     cal: CalendarSystem,
@@ -53,11 +52,11 @@ export function buildReadingsMap(
     const toPhysical = (m: number, d: number) => cal.toPhysicalDate(year, m, d);
     const dateReadings = new Map<string, DateReadings>();
 
-    // Step 1: Apply movable readings, resolving from both current and previous year's refs.
-    applyMovableReadings(dateReadings, year, refs, prevRefs, toMMDD);
+    // Step 1: Apply movable readings, resolving from current, previous, and next year's refs.
+    applyMovableReadings(dateReadings, year, refs, toMMDD);
 
     // Step 2: Apply gap Sunday epistle bundles
-    applyGapSundayEpistles(dateReadings, year, refs, gapSundaySymbols, toMMDD);
+    applyGapSundayEpistles(dateReadings, year, refs.current, gapSundaySymbols, toMMDD);
 
     // Step 3: Apply immovable readings (LLR and HLR)
     applyImmovableReadings(dateReadings, year, pascha, toPhysical);
@@ -107,7 +106,7 @@ function getDateReadings(map: Map<string, DateReadings>, mmdd: string): DateRead
  * lands on both Jan 2 from prev cycle and Dec 25 from current cycle). All valid
  * placements are applied.
  */
-function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: number, refs: ResolvedReferences, prevRefs: ResolvedReferences, toMMDD: (d: PhysicalDay) => string): void {
+function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: number, refs: ReferencesContext, toMMDD: (d: PhysicalDay) => string): void {
     const entries = getMovableReadings();
     let i = 0;
 
@@ -128,7 +127,7 @@ function applyMovableReadings(dateReadings: Map<string, DateReadings>, year: num
         }
 
         // Resolve to all valid dates in the target year
-        const targets = resolveDatesForYear(bundleRef, bundleOffset, year, refs, prevRefs);
+        const targets = resolveDatesForYear(bundleRef, bundleOffset, year, refs);
 
         // Place the bundle on all valid target dates
         for (const date of targets) {

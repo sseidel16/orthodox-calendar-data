@@ -1,6 +1,6 @@
 import { parsePaschaDates } from '../data/parser.js';
 import { TextMovableEntry, TextSpecialEntry } from '../data/parser.js';
-import { ResolvedReferences, resolveMovableReferences } from './movableResolver.js';
+import { ReferencesContext, resolveMovableReferences } from './movableResolver.js';
 import { FastingLevel } from './enrichedTypes.js';
 import { CalendarSystem } from './calendarSystem.js';
 import { PhysicalDay } from './physicalDay.js';
@@ -17,8 +17,7 @@ import { buildReadingsMap } from './rules/readingsRules.js';
 export type CalendarContext = {
     calendar: CalendarSystem;
     pascha: PhysicalDay;                                  // calendar-specific Pascha (for movable reference resolution)
-    references: ResolvedReferences;                    // resolved movable reference dates
-    prevReferences: ResolvedReferences;                // previous year's references
+    refs: ReferencesContext;                              // current + prev + next year's resolved references
     fastingMap: Map<number, FastingLevel>;             // physical day-of-year -> fasting level
     toneMap: Map<number, string>;                      // physical day-of-year -> tone (Sundays only)
     noteMap: Map<number, [string, string]>;            // physical day-of-year -> [english, greek] lengthy note
@@ -74,11 +73,10 @@ function buildCalendarContext(
     physicalPascha: PhysicalDay,
     prevPhysicalPascha: PhysicalDay,
     calendarPascha: PhysicalDay,
-    prevCalRefs: ResolvedReferences,
+    refs: ReferencesContext,
     calSystem: CalendarSystem,
 ): CalendarContext {
-    const references = resolveMovableReferences(year, calendarPascha, calSystem);
-    const ecum4 = references.get('ECUM4');
+    const ecum4 = refs.current.get('ECUM4');
 
     // Determine which gap Sunday symbols were assigned (for readings epistle copying)
     const gapPatterns: Record<number, string[]> = {
@@ -87,21 +85,20 @@ function buildCalendarContext(
         6: ['L12', 'L14', 'M15', 'M16', 'L15', 'M17'],
     };
     const gapSymbols = ['L12', 'L14', 'L15', 'M15', 'M16', 'M17'];
-    const resolvedGaps = gapSymbols.filter(s => references.has(s));
+    const resolvedGaps = gapSymbols.filter(s => refs.current.has(s));
     const gapCount = resolvedGaps.length;
     const gapSundaySymbols = gapPatterns[gapCount] ?? [];
 
     return {
         calendar: calSystem,
         pascha: calendarPascha,
-        references,
-        prevReferences: prevCalRefs,
+        refs,
         fastingMap: buildFastingMap(year, physicalPascha, calSystem),
         toneMap: buildToneMap(year, physicalPascha, prevPhysicalPascha),
         noteMap: buildNoteMap(year, physicalPascha, calSystem),
-        movableTextMap: buildMovableTextMap(year, references, prevCalRefs, calSystem),
+        movableTextMap: buildMovableTextMap(year, refs, calSystem),
         specialTextMap: buildSpecialTextMap(year, calSystem),
-        readingsMap: buildReadingsMap(year, references, prevCalRefs, physicalPascha, gapSundaySymbols, calSystem),
+        readingsMap: buildReadingsMap(year, refs, physicalPascha, gapSundaySymbols, calSystem),
         ecum4Mmdd: ecum4 ? calSystem.getMMDD(ecum4) : null,
     };
 }
@@ -113,8 +110,14 @@ function buildCalendarContext(
 export function buildCalendarContextForYear(year: number, cal: CalendarSystem): CalendarContext {
     const pascha = getPaschaForYear(year, cal);
     const prevPascha = getPaschaForYear(year - 1, cal);
-    const prevRefs = resolveMovableReferences(year - 1, prevPascha, cal);
+    const nextPascha = getPaschaForYear(year + 1, cal);
 
-    return buildCalendarContext(year, pascha, prevPascha, pascha, prevRefs, cal);
+    const refs: ReferencesContext = {
+        current: resolveMovableReferences(year, pascha, cal),
+        prev: resolveMovableReferences(year - 1, prevPascha, cal),
+        next: resolveMovableReferences(year + 1, nextPascha, cal),
+    };
+
+    return buildCalendarContext(year, pascha, prevPascha, pascha, refs, cal);
 }
 

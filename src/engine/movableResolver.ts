@@ -19,6 +19,16 @@ import { CalendarSystem, GREGORIAN } from './calendarSystem.js';
 export type ResolvedReferences = Map<string, PhysicalDay>;
 
 /**
+ * References for the current year plus adjacent years, used when resolving
+ * symbol+offset to dates within the target year.
+ */
+export type ReferencesContext = {
+    current: ResolvedReferences;
+    prev: ResolvedReferences;
+    next: ResolvedReferences;
+};
+
+/**
  * Resolve all movable reference dates for a year given a Pascha date.
  * This is called once per calendar system per year during context building.
  * The calendar system determines how calendar date ranges map to physical dates.
@@ -118,19 +128,17 @@ export function resolveDatesForYear(
     reference: string,
     offset: number,
     year: number,
-    currentRefs: ResolvedReferences,
-    prevRefs: ResolvedReferences,
+    refs: ReferencesContext,
 ): PhysicalDay[] {
-    const applyBoundary = reference === 'PASCHA';
     const results: PhysicalDay[] = [];
 
-    if (applyBoundary) {
-        const sunaT = currentRefs.get('SUNaT');
-        const pascha = currentRefs.get('PASCHA');
+    if (reference === 'PASCHA') {
+        const sunaT = refs.current.get('SUNaT');
+        const pascha = refs.current.get('PASCHA');
         const pascha70 = pascha ? pascha.addDays(-70) : null;
 
         // Current year's PASCHA: valid if date is after SUNaT (non-inclusive)
-        const fromCurrent = resolveDate(currentRefs, reference, offset);
+        const fromCurrent = resolveDate(refs.current, reference, offset);
         if (fromCurrent && fromCurrent.year() === year) {
             if (!sunaT || fromCurrent.isAfter(sunaT)) {
                 results.push(fromCurrent);
@@ -138,24 +146,20 @@ export function resolveDatesForYear(
         }
 
         // Previous year's PASCHA: valid if date is before PASCHA-70 (non-inclusive)
-        const fromPrev = resolveDate(prevRefs, reference, offset);
+        const fromPrev = resolveDate(refs.prev, reference, offset);
         if (fromPrev && fromPrev.year() === year) {
             if (!pascha70 || fromPrev.isBefore(pascha70)) {
                 results.push(fromPrev);
             }
         }
     } else {
-        // Non-PASCHA references: resolve from whichever set has them in-year
-        const fromCurrent = resolveDate(currentRefs, reference, offset);
-        if (fromCurrent && fromCurrent.year() === year) {
-            results.push(fromCurrent);
-        }
-
-        const fromPrev = resolveDate(prevRefs, reference, offset);
-        if (fromPrev && fromPrev.year() === year) {
-            // Avoid duplicates if both resolve to the same date
-            if (!results.some(d => d.equals(fromPrev))) {
-                results.push(fromPrev);
+        // Non-PASCHA references: resolve from current, previous, and next year's sets
+        for (const refSet of [refs.current, refs.prev, refs.next]) {
+            const resolved = resolveDate(refSet, reference, offset);
+            if (resolved && resolved.year() === year) {
+                if (!results.some(d => d.equals(resolved))) {
+                    results.push(resolved);
+                }
             }
         }
     }

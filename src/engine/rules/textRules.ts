@@ -15,9 +15,8 @@
  */
 
 import { parseTextImmovable, parseTextMovable, parseTextSpecial, TextImmovableEntry, TextMovableEntry, TextSpecialEntry } from '../../data/parser.js';
-import { ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
+import { ReferencesContext, ResolvedReferences, resolveDate, resolveDatesForYear } from '../movableResolver.js';
 import { CalendarSystem } from '../calendarSystem.js';
-import { PhysicalDay } from '../physicalDay.js';
 import { getNthSundayOfMonth } from './dateUtils.js';
 
 /** Dates where only immovable text survives (movables/specials suppressed) */
@@ -71,15 +70,14 @@ function getSpecials(): TextSpecialEntry[] {
  * Also handles the St. George rule: if 04/23 falls before PASCHA+2 (Bright Tuesday),
  * the saint text from 04/23 is duplicated onto PASCHA+2.
  */
-export function buildMovableTextMap(year: number, refs: ResolvedReferences, prevRefs: ResolvedReferences | undefined, cal: CalendarSystem): Map<string, TextMovableEntry[]> {
+export function buildMovableTextMap(year: number, refs: ReferencesContext, cal: CalendarSystem): Map<string, TextMovableEntry[]> {
     const map = new Map<string, TextMovableEntry[]>();
-    const prev = prevRefs ?? new Map<string, PhysicalDay>();
 
     // PASCHA-offset movables are only valid before SUNbE (non-inclusive)
-    const sunbE = refs.get('SUNbE');
+    const sunbE = refs.current.get('SUNbE');
 
     for (const entry of getMovables()) {
-        const dates = resolveDatesForYear(entry.reference, entry.offset, year, refs, prev);
+        const dates = resolveDatesForYear(entry.reference, entry.offset, year, refs);
         for (const date of dates) {
             // Filter: PASCHA offsets must fall before SUNbE
             if (entry.reference === 'PASCHA' && sunbE && !date.isBefore(sunbE)) continue;
@@ -92,7 +90,7 @@ export function buildMovableTextMap(year: number, refs: ResolvedReferences, prev
     }
 
     // St. George rule: if 04/23 falls before PASCHA+2, duplicate its saint text onto PASCHA+2
-    applyStGeorgeRule(map, year, refs, cal);
+    applyStGeorgeRule(map, year, refs.current, cal);
 
     return map;
 }
