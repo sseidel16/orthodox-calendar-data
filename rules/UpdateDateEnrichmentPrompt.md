@@ -4,129 +4,70 @@ You are updating the Orthodox calendar data enrichment engine. The rules in `rul
 
 ## Step 1: Understand What Changed
 
-Start by reading the current rules:
-
-- Read `rules/CalendarRules.md` in full
-
-Then determine what changed. If git access is available:
+Read `rules/CalendarRules.md` in full, then determine what changed:
 
 ```bash
 git diff rules/CalendarRules.md
 ```
 
-If no diff is available, read the rules carefully and compare against the current test expectations and implementation to identify gaps.
+If no diff is available, compare the rules against test expectations and implementation to identify gaps.
 
 ## Step 2: Update Tests
 
-Tests live in `tests/date.test.ts`. Each test validates a single date by deep-equaling the entire `EnrichedDate` output (minus the `date` field). The pattern is:
+Tests live in `tests/date.test.ts`. They test the data layer directly:
 
 ```ts
-describe('Apr 12, 2026 (Sunday) — Pascha, PaschaOffset 0', () => {
-    it('generates correct data', () => {
-        expect(data('2026-04-12')).toEqual({
-            paschaOffset: 0,
-            newDate: 12,
-            oldDate: 30,
-            fasting: 'NONE',
-            moon: 'NONE',
-            notes: [],
-            mainText: {
-                feast: [
-                    'Holy Pascha - The Resurrection of Christ',
-                    'Τὸ Ἅγιον Πάσχα - Ἡ Ἀνάστασις τοῦ Κυρίου',
-                ],
-                saint: [
-                    'Basil the Confessor\nAnthousa of Constantinople',
-                    'Βασιλείου τοῦ ὁμολογητοῦ\nἈνθούσης ΚΠόλεως',
-                ],
-            },
-            lowerText: {
-                readings: [],
-            },
-        });
-    });
-});
+import { generateData, generateDataRange, GREGORIAN, JULIAN } from '../src/index.js';
+
+// Single date — returns EnrichedDateData
+const result = generateData(2026, 4, 12, GREGORIAN);
+expect(result.feast[0]).toContain('Pascha');
+
+// Old calendar date (Julian Mar 25 = physical Apr 7)
+const old = generateData(2026, 3, 25, JULIAN);
+expect(old.feast[0]).toContain('Annunciation');
+
+// Range
+const range = generateDataRange({year: 2026, month: 1, day: 1}, {year: 2026, month: 12, day: 31}, GREGORIAN);
 ```
 
 Key principles:
 
-- **One `toEqual` per test.** The entire `EnrichedDate` shape is validated in a single deep-equal assertion. This makes it impossible to miss a field.
-- **Hard-coded expected values.** Look up the actual data from the CSV files in `data/text/` to determine the correct strings. Do not guess — verify against the source data.
-- **Pick dates that exercise the changed rules.** If fasting rules changed, add/update tests for dates affected by those changes. If a DRS rule changed, test the Sunday that falls in that date window for 2026.
-- **Verify existing tests still hold.** Rule changes may affect dates already tested. Re-read each existing test and confirm the expected values are still correct under the new rules. Update any that are now wrong.
-- **Use 2026 as the test year.** Pascha 2026 = April 12. All test dates should be in 2026 unless testing cross-year Pascha offset behavior.
+- **Pick dates that exercise the changed rules.** If fasting rules changed, test affected dates. If a movable reference rule changed, test the dates that fall in that window for the test year.
+- **Use 2026 as the primary test year.** Pascha 2026 = April 12 (both calendars).
+- **Verify existing tests still hold.** Rule changes may affect dates already tested. Check that existing expectations are still correct under the new rules.
 - **Bilingual fields** are always `[english, greek]`. Look up both languages in the CSV files.
-- **The `notes` field** is `[]` when no lengthy note applies, or `[english, greek]` when one does. Check `CalendarRules.md` NoteRules section for trigger conditions.
-- **Optional fields** (`feast`, `saint`, `note` in mainText, `tone` in lowerText) must be omitted entirely when not applicable — never include them as `undefined`.
+- **Optional fields** (`feast`, `saint`, `note`, `tone`) must be omitted entirely when not applicable — never `undefined` in an assertion.
 
-To find immovable data for a date, search `data/text/Immovables.csv` for the MM-DD pattern. To find movable data, search `data/text/Movables.csv` for the PaschaOffset. To find DRS/Special text, check `data/text/Specials.csv`.
+To find immovable data for a date, search `data/TextImmovable.csv`. To find movable data, search `data/TextMovable.csv` by reference and offset. To find readings, check `data/ReadingsMovable.csv` and `data/ReadingsImmovable.csv`.
 
 ## Step 3: Update the Implementation
 
-The implementation files to modify:
+The implementation is organized as:
 
-| File | Purpose |
-|------|---------|
-| `src/engine/yearContext.ts` | Precomputed per-year state. Add rule data that benefits from batch computation (fasting basemap, tone cycle, DRS assignments, special assignments, note triggers). |
-| `src/engine/dateEngine.ts` | The `generateSingleDate` function applies precomputed rules to individual dates. This is where `EnrichedDate` fields get populated from the `YearContext`. |
-| `src/data/parser.ts` | CSV parsing. Only modify if new data fields are needed or parsing logic is wrong. |
-| `src/data/pascha.ts` | Pascha offset calculation. Should already be correct — only modify if GeneralRules changed. |
+| Layer | Entry point | Purpose |
+|-------|-------------|---------|
+| Data engine | `src/engine/dataEngine.ts` | `generateData` / `generateDataRange` — produces `EnrichedDateData` for a calendar date range |
+| Context | `src/engine/yearContext.ts` | `buildCalendarContextForYear` — precomputes all rule maps for one calendar system for one year |
+| Rules | `src/engine/rules/*.ts` | Individual rule modules (fasting, tones, notes, text, readings) |
+| Calendar | `src/engine/calendarSystem.ts` | `CalendarSystem` interface — polymorphic Gregorian/Julian conversion |
 
-### Implementation guidance
+Each rule module builds a precomputed map during context construction. The data engine does O(1) lookups per date against these maps.
 
-**YearContext** should precompute anything that:
-- Depends on Pascha date (fasting movable overrides, tone cycle start, DRS window scanning)
-- Requires iterating across the whole year (fasting basemap, tone sequence)
-- Is looked up per-date but expensive to recompute (note trigger conditions)
+When updating, identify which rule module is affected by the change in `CalendarRules.md` and modify accordingly. The rules in that file map directly to the modules:
 
-Suggested context fields:
-```ts
-type YearContext = {
-    year: number;
-    pascha: Date;
-    prevPascha: Date;
-    fastingMap: Map<string, Fasting>;       // "MM-DD" -> fasting level
-    toneMap: Map<string, string>;           // "MM-DD" -> tone string (Sundays only)
-    drsMap: Map<string, SpecialEntry[]>;    // "MM-DD" -> DRS entries
-    specialMap: Map<string, SpecialEntry[]>;// "MM-DD" -> Special entries
-    noteMap: Map<string, string[]>;         // "MM-DD" -> [english, greek] note text
-    eliminatorDates: Set<string>;           // "01-06", "08-06", "09-14", "12-25"
-};
-```
-
-**generateSingleDate** should:
-1. Format the date as "MM-DD" key
-2. Compute PaschaOffset from the context
-3. Look up `fasting` from `ctx.fastingMap`
-4. Look up `mainText` by merging: immovables (by MM-DD) + movables (by PaschaOffset) + DRS + specials — unless the date is an eliminator date (only immovables survive)
-5. Look up `tone` from `ctx.toneMap`
-6. Look up `notes` from `ctx.noteMap`
-7. Concatenate multi-entry fields with `\n` per language, omit empty fields entirely
-
-### Implementation order
-
-Follow the order presented in `rules/CalendarRules.md`. Each section in that file (GeneralRules, MainTextRules, LowerTextRules, FastingRules, NoteRules) describes a layered set of rules. Implement them in the order they appear, respecting the override hierarchy described within each section. When a section says "then apply" or "these override", the later rules overwrite earlier ones.
-
-For rules that produce per-date lookups (fasting, tones, notes, DRS assignments), precompute them into maps in `YearContext` keyed by `"MM-DD"`. For rules that are naturally per-date (immovable/movable lookups), resolve them in `generateSingleDate`.
+- GeneralRules → `movableResolver.ts`, `yearContext.ts`
+- FastingRules → `rules/fastingRules.ts`
+- LengthyNotesRules → `rules/noteRules.ts`
+- FeastSaintNoteRules → `rules/textRules.ts`
+- ToneRules → `rules/toneRules.ts`
+- ReadingsRules → `rules/readingsRules.ts`
 
 ## Step 4: Verify
 
-After implementation:
-
 ```bash
+npm run build
 npm test
 ```
 
-All tests should pass. If a test fails, diagnose whether:
-- The test expectation is wrong (go back to Step 2)
-- The implementation has a bug (fix in Step 3)
-
-Also run the CLI to spot-check output:
-
-```bash
-node dist/cli.js date 2026-01-01
-node dist/cli.js date 2026-04-12
-node dist/cli.js range 2026-04-05 2026-04-19
-```
-
-Visually confirm the output looks reasonable for those liturgical dates.
+All tests should pass. If a test fails, determine whether the test expectation is wrong (go back to Step 2) or the implementation has a bug (fix in Step 3).

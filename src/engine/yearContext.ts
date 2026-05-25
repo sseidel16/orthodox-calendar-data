@@ -1,13 +1,12 @@
 import { parsePaschaDates } from '../data/parser.js';
 import { TextMovableEntry, TextSpecialEntry } from '../data/parser.js';
 import { ResolvedReferences, resolveMovableReferences } from './movableResolver.js';
-import { FastingLevel, MoonPhase } from './enrichedTypes.js';
-import { CalendarSystem, GREGORIAN, JULIAN } from './calendarSystem.js';
+import { FastingLevel } from './enrichedTypes.js';
+import { CalendarSystem } from './calendarSystem.js';
 import { PhysicalDay } from './physicalDay.js';
 import { buildFastingMap } from './rules/fastingRules.js';
 import { buildToneMap } from './rules/toneRules.js';
 import { buildNoteMap } from './rules/noteRules.js';
-import { buildMoonMap } from './rules/moonRules.js';
 import { buildMovableTextMap, buildSpecialTextMap } from './rules/textRules.js';
 import { buildReadingsMap } from './rules/readingsRules.js';
 
@@ -27,17 +26,6 @@ export type CalendarContext = {
     specialTextMap: Map<string, TextSpecialEntry[]>;   // calendar "MM-DD" -> special text entries
     readingsMap: Map<string, string[]>;                // calendar "MM-DD" -> formatted reading strings
     ecum4Mmdd: string | null;                          // calendar MM-DD of ECUM4 (for feast override logic)
-};
-
-/**
- * Precomputed context for the full year (both calendars).
- * Moon phases are physical — shared across both calendar systems.
- */
-export type YearContext = {
-    year: number;
-    newCalendar: CalendarContext;
-    oldCalendar: CalendarContext;
-    moonMap: Map<number, MoonPhase>;
 };
 
 // Lazy-loaded Pascha date cache
@@ -108,7 +96,7 @@ function buildCalendarContext(
         pascha: calendarPascha,
         references,
         prevReferences: prevCalRefs,
-        fastingMap: buildFastingMap(year, physicalPascha, calSystem.fixedDateShift),
+        fastingMap: buildFastingMap(year, physicalPascha, calSystem),
         toneMap: buildToneMap(year, physicalPascha, prevPhysicalPascha),
         noteMap: buildNoteMap(year, physicalPascha, calSystem),
         movableTextMap: buildMovableTextMap(year, references, prevCalRefs, calSystem),
@@ -130,15 +118,3 @@ export function buildCalendarContextForYear(year: number, cal: CalendarSystem): 
     return buildCalendarContext(year, pascha, prevPascha, pascha, prevRefs, cal);
 }
 
-/**
- * Build a full YearContext for a given year.
- * Called once, then reused for all date generation within that year.
- */
-export function buildYearContext(year: number, timezone?: string): YearContext {
-    const newCalendar = buildCalendarContextForYear(year, GREGORIAN);
-    const oldCalendar = buildCalendarContextForYear(year, JULIAN);
-
-    const moonMap = buildMoonMap(year, timezone);
-
-    return { year, newCalendar, oldCalendar, moonMap };
-}

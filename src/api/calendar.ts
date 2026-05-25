@@ -232,36 +232,35 @@ function transformToUI(chunk: CalendarDayData[], indicatorMap: Map<string, strin
     }
 
     const dateBoxes: DateBox[] = chunk.map((cd) => {
-        const nd = cd.primaryData;
-        const od = cd.secondaryData;
+        const primary = cd.primaryData;
+        const secondary = cd.secondaryData;
 
-        const hasNewFeast = nd.feast !== undefined;
-        const hasOldFeast = od.feast !== undefined;
-        const showOldFeast = hasNewFeast && hasOldFeast;
+        const isFeast = primary.feast !== undefined;
+        const isSecondaryFeast = isFeast && secondary.feast !== undefined;
 
         const mainText: DateBox['mainText'] = {};
-        if (nd.feast) mainText.feast = nd.feast;
-        if (nd.saint) mainText.saint = nd.saint;
-        if (nd.note) mainText.note = nd.note;
+        if (primary.feast) mainText.feast = primary.feast;
+        if (primary.saint) mainText.saint = primary.saint;
+        if (primary.note) mainText.note = primary.note;
 
         const box: DateBox = {
             type: 'DATE',
-            newDate: nd.date,
-            oldDate: od.date,
-            background: nd.fasting === 'NONE' ? 'STANDARD' : 'FASTING',
+            date: primary.date,
+            secondaryDate: secondary.date,
+            background: primary.fasting === 'NONE' ? 'STANDARD' : 'FASTING',
             moon: cd.moon,
-            fasting: nd.fasting,
-            newFeast: hasNewFeast,
-            oldFeast: showOldFeast,
+            fasting: primary.fasting,
+            isFeast,
+            isSecondaryFeast,
             mainText,
             lowerText: {
-                readings: readingsLayout ? formatReadings(nd.readings, readingsLayout) : nd.readings,
-                ...(nd.tone ? { tone: nd.tone } : {}),
+                readings: readingsLayout ? formatReadings(primary.readings, readingsLayout) : primary.readings,
+                ...(primary.tone ? { tone: primary.tone } : {}),
             },
         };
 
-        if (nd.lengthyNotes.length >= 2) {
-            const indicator = indicatorMap.get(nd.lengthyNotes[0]);
+        if (primary.lengthyNotes.length >= 2) {
+            const indicator = indicatorMap.get(primary.lengthyNotes[0]);
             if (indicator) box.note = indicator;
         }
 

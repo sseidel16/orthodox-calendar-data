@@ -47,14 +47,14 @@ export type SplitBox = {
 
 export type DateBox = {
     type: 'DATE';
-    newDate: number; // new calendar date
-    oldDate: number; // old calendar date
+    date: number; // primary calendar date number
+    secondaryDate: number; // secondary calendar date number
     background: 'STANDARD' | 'FASTING'; // any fasting rule beyond no meat
     moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST'; // the moon phase
     fasting: 'NONE' | 'DAIRY' | 'FISH' | 'OIL' | 'STRICT';
     note?: string; // note indicator like *, links to a NoteBox in the same month
-    newFeast: boolean; // indicates if it's a new calendar feast and newDate should be in red
-    oldFeast: boolean; // indicates if it's a new calendar feast and oldDate should be in red
+    isFeast: boolean; // primary calendar has a feast — date should be highlighted
+    isSecondaryFeast: boolean; // both calendars have a feast — secondaryDate should be highlighted
     mainText: {
         feast?: string[]; // [english, greek]
         saint?: string[]; // [english, greek]

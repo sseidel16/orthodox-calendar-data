@@ -178,13 +178,13 @@ One per calendar date:
 ```ts
 type DateBox = {
     type: 'DATE';
-    newDate: number;            // primary calendar date number
-    oldDate: number;            // secondary calendar date number
+    date: number;               // primary calendar date number
+    secondaryDate: number;      // secondary calendar date number
     background: 'STANDARD' | 'FASTING';
     moon: 'NONE' | 'NEW' | 'FIRST' | 'FULL' | 'LAST';
     fasting: 'NONE' | 'DAIRY' | 'FISH' | 'OIL' | 'STRICT';
-    newFeast: boolean;          // primary calendar has a feast
-    oldFeast: boolean;          // both calendars have feasts
+    isFeast: boolean;           // primary calendar has a feast — date should be highlighted
+    isSecondaryFeast: boolean;  // both calendars have feasts — secondaryDate should be highlighted
     note?: string;              // indicator symbol linking to a NoteBox
     mainText: {
         feast?: string[];       // [english, greek]
