@@ -99,15 +99,15 @@ function applyDateSpecificOverrides(map: Map<number, FastingLevel>, year: number
     strictWeekdayOilWeekend(9, 14);  // Elevation of the Cross
     strictWeekdayOilWeekend(12, 24); // Eve of Nativity
 
-    // --- STRICT MWF, OIL Tu/Th/Sat/Sun ---
-    // (Nativity Fast: Nov 15-20, Dec 18-23)
-    const strictMWFoilOthers = (month: number, day: number) => {
+    // --- Christmas Fast: STRICT Wed/Fri, OIL all other days ---
+    // (Nov 15-20, Dec 18-23)
+    const strictWFoilOthers = (month: number, day: number) => {
         const { doy, dow } = getInfo(month, day);
-        map.set(doy, (dow === 1 || dow === 3 || dow === 5) ? 'STRICT' : 'OIL');
+        map.set(doy, (dow === 3 || dow === 5) ? 'STRICT' : 'OIL');
     };
 
-    for (let d = 15; d <= 20; d++) strictMWFoilOthers(11, d);  // Nov 15-20
-    for (let d = 18; d <= 23; d++) strictMWFoilOthers(12, d);  // Dec 18-23
+    for (let d = 15; d <= 20; d++) strictWFoilOthers(11, d);  // Nov 15-20
+    for (let d = 18; d <= 23; d++) strictWFoilOthers(12, d);  // Dec 18-23
 
     // --- Always FISH ---
     const setFish = (m: number, d: number) => { const { doy } = getInfo(m, d); map.set(doy, 'FISH'); };
@@ -115,19 +115,19 @@ function applyDateSpecificOverrides(map: Map<number, FastingLevel>, year: number
     setFish(8, 6);   // Transfiguration
     setFish(11, 21); // Entry of the Theotokos
 
-    // --- STRICT MWF, OIL Tu/Th, FISH Sat/Sun ---
-    // (Nativity Fast: Nov 22-29, Dec 1-5, Dec 7-11, Dec 13-17)
-    const strictMWFoilTuThFishWeekend = (month: number, day: number) => {
+    // --- Christmas Fast: STRICT Wed/Fri, OIL Mon/Tue/Thu, FISH Sat/Sun ---
+    // (Nov 22-29, Dec 1-5, Dec 7-11, Dec 13-17)
+    const strictWFoilWeekdayFishWeekend = (month: number, day: number) => {
         const { doy, dow } = getInfo(month, day);
-        if (dow === 1 || dow === 3 || dow === 5) map.set(doy, 'STRICT');
-        else if (dow === 2 || dow === 4) map.set(doy, 'OIL');
-        else map.set(doy, 'FISH');  // Sat/Sun
+        if (dow === 3 || dow === 5) map.set(doy, 'STRICT');
+        else if (dow === 0 || dow === 6) map.set(doy, 'FISH');  // Sat/Sun
+        else map.set(doy, 'OIL');  // Mon/Tue/Thu
     };
 
-    for (let d = 22; d <= 29; d++) strictMWFoilTuThFishWeekend(11, d);
-    for (let d = 1; d <= 5; d++) strictMWFoilTuThFishWeekend(12, d);
-    for (let d = 7; d <= 11; d++) strictMWFoilTuThFishWeekend(12, d);
-    for (let d = 13; d <= 17; d++) strictMWFoilTuThFishWeekend(12, d);
+    for (let d = 22; d <= 29; d++) strictWFoilWeekdayFishWeekend(11, d);
+    for (let d = 1; d <= 5; d++) strictWFoilWeekdayFishWeekend(12, d);
+    for (let d = 7; d <= 11; d++) strictWFoilWeekdayFishWeekend(12, d);
+    for (let d = 13; d <= 17; d++) strictWFoilWeekdayFishWeekend(12, d);
 
     // --- Always NONE (major feasts that override all fasting) ---
     const setNone = (m: number, d: number) => { const { doy } = getInfo(m, d); map.set(doy, 'NONE'); };
@@ -230,11 +230,13 @@ function apply0624(map: Map<number, FastingLevel>, year: number, pascha: Physica
     const offset = date.daysSince(pascha);
 
     if (offset < 57) {
-        // Before Apostles' Fast: normal feast day (NONE or OIL on Wed/Fri)
+        // Before Apostles' Fast: NONE on non-Wed/Fri, OIL on Wed/Fri
         map.set(doy, (dow === 3 || dow === 5) ? 'OIL' : 'NONE');
     } else {
-        // During Apostles' Fast: oil (relaxed from the fast's normal strict/oil/fish)
-        map.set(doy, 'OIL');
+        // During Apostles' Fast: OIL on Wed/Fri, FISH on Mon/Tue/Thu
+        // Sat/Sun keeps the general Apostles Fast rule (FISH) — don't override
+        if (dow === 3 || dow === 5) map.set(doy, 'OIL');
+        else if (dow === 1 || dow === 2 || dow === 4) map.set(doy, 'FISH');
     }
 }
 
@@ -254,9 +256,9 @@ function applyApostlesFast(map: Map<number, FastingLevel>, year: number, pascha:
         const doy = dayOfYear(current);
         if (doy !== jun24Doy) {  // 06/24 has its own rule applied separately
             const dow = current.dayOfWeek();
-            if (dow === 1 || dow === 3 || dow === 5) map.set(doy, 'STRICT');
-            else if (dow === 2 || dow === 4) map.set(doy, 'OIL');
-            else map.set(doy, 'FISH');  // Sat/Sun
+            if (dow === 3 || dow === 5) map.set(doy, 'STRICT');       // Wed/Fri
+            else if (dow === 0 || dow === 6) map.set(doy, 'FISH');  // Sat/Sun
+            else map.set(doy, 'OIL');                                // Mon/Tue/Thu
         }
         current = current.addDays(1);
     }

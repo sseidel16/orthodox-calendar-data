@@ -106,7 +106,7 @@ The following dates are STRICT fasting if they fall on Monday through Friday, an
 * 09/14  
 * 12/24
 
-The following dates are STRICT fasting if they fall on Monday, Wednesday or Friday, and they are OIL if they fall on Tuesday, Thursday, Saturday or Sunday:
+Christmas Fast: The following dates are STRICT fasting if they fall on Wednesday or Friday, and they are OIL if they fall on Monday, Tuesday, Thursday, Saturday or Sunday:
 
 * 11/15 through 11/20 inclusive  
 * 12/18 through 12/23 inclusive
@@ -117,7 +117,7 @@ The following dates are always FISH:
 * 08/06  
 * 11/21
 
-The following dates are STRICT fasting if they fall on Monday, Wednesday or Friday, OIL if they fall on Tuesday or Thursday, and FISH if they fall on Saturday or Sunday:
+Christmas Fast: The following dates are STRICT fasting if they fall on Wednesday or Friday, OIL if they fall on Monday, Tuesday, or Thursday, and FISH if they fall on Saturday or Sunday:
 
 * 11/22 through 11/29 inclusive  
 * 12/1 through 12/5 inclusive  
@@ -140,30 +140,32 @@ The following dates are OIL if they fall on Monday, Tuesday, Wednesday, Thursday
 
 * 11/25, 11/30, 12/06, 12/12
 
-03/09 is:
+03/09 /\*40 Martyrs\*/ is:
 
 * NONE fasting if before PASCHA-55 and also on a Monday, Tuesday, Thursday, Saturday or Sunday  
 * OIL if before PASCHA-48 /\*clean Monday\*/ and also on a Wednesday or Friday  
 * STRICT fast if from PASCHA-48 through PASCHA-44 inclusive /\*Mon-Fri first week of Great Lent\*/  
 * OIL if after PASCHA-44 /\*the first Friday of great lent\*/, regardless of the day of the week.
 
-04/23 is:
+04/23 /\*St George\*/ is:
 
 * STRICT fasting if before PASCHA+0 and on a Monday, Tuesday, Wednesday, Thursday, Friday or PASCHA-1 /\*Holy Saturday\*/  
 * OIL if before PASCHA+0 and on a Saturday or Sunday that is not PASCHA-1 /\*Holy Saturday\*/  
 * OIL if after PASCHA+7 /\*Thomas Sunday\*/ and on Wednesday or Friday  
 * NONE fasting if it is after PASCHA+0 and on a Monday, Tuesday, Thursday, Saturday or Sunday, or if it is on PASCHA+3 OR PASCHA+5
 
-06/24 is:
+06/24 /\*Nativity of John the Baptist\*/ is:
 
-* NONE fasting if it falls before the Monday after PASCHA+56 /\*All Saints\*/ and it is on a Monday, Tuesday, Thursday, Saturday or Sunday  
-* OIL if it falls before PASCHA+56 /\*All Saints\*/ and is on a Wednesday or Friday, or if it falls after PASCHA+56 /\*All Saints\*/.
+* NONE fasting if it falls before the Monday after PASCHA+56 /\*All Saints\*/ and is on Monday, Tuesday, Thursday, Saturday or Sunday  
+* OIL if it falls before PASCHA+56 /\*All Saints\*/ and is on Wednesday or Friday  
+* OIL if it falls after PASCHA+56 /\*All Saints\*/ /\*during the Apostles Fast\*/ and is on Wednesday or Friday.  
+* FISH if it falls after PASCHA+56 /\*All Saints\*/ /\*during the Apostles Fast\*/ and is on Monday, Tuesday, or Thursday.
 
-The dates after PASCHA+56 /\*All Saints\*/ and before 6/29 (if any) receive special rules:
+Apostles Fast: The dates after PASCHA+56 /\*All Saints\*/ and before 6/29 (if any) receive special rules:
 
-* Mondays, Wednesdays, and Fridays are STRICT days  
-* Tuesdays and Thursdays are OIL  
-* Saturdays and Sundays are FISH  
+* Wednesday, Friday are STRICT  
+* Monday, Tuesday, Thursday are OIL  
+* Saturday, Sunday are FISH  
 * EXCEPTION: 06/24 (if it falls during this period), see rule above
 
 # LengthyNotesRules

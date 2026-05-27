@@ -88,10 +88,10 @@ describe('New calendar fasting', () => {
         expect(getData(2026, 11, 21).fasting).toBe('FISH');
     });
 
-    it('Apostles Fast: MWF=STRICT, TuTh=OIL, SatSun=FISH', () => {
+    it('Apostles Fast: WF=STRICT, MonTuTh=OIL, SatSun=FISH', () => {
         // Starts PASCHA+57 = Jun 8 (Mon). Jun 9=Tue, Jun 10=Wed, Jun 14=Sun
-        expect(getData(2026, 6, 8).fasting).toBe('STRICT'); // Mon
-        expect(getData(2026, 6, 9).fasting).toBe('OIL');    // Tue
+        expect(getData(2026, 6, 8).fasting).toBe('OIL');     // Mon
+        expect(getData(2026, 6, 9).fasting).toBe('OIL');     // Tue
         expect(getData(2026, 6, 10).fasting).toBe('STRICT'); // Wed
         expect(getData(2026, 6, 14).fasting).toBe('FISH');   // Sun
     });
@@ -590,12 +590,12 @@ describe('Cross-year and multi-year edge cases', () => {
 
     // 2025: shorter Apostles Fast (PASCHA+57 = Jun 16)
     it('2025: Apostles Fast starts Jun 16 when Pascha is Apr 20', () => {
-        expect(getData(2025, 6, 16).fasting).toBe('STRICT'); // Mon
+        expect(getData(2025, 6, 16).fasting).toBe('OIL');    // Mon
         expect(getData(2025, 6, 20).fasting).toBe('STRICT'); // Fri
     });
 
-    it('2025: 06/24 exception during Apostles Fast (Tue = OIL)', () => {
-        expect(getData(2025, 6, 24).fasting).toBe('OIL');
+    it('2025: 06/24 exception during Apostles Fast (Tue = FISH)', () => {
+        expect(getData(2025, 6, 24).fasting).toBe('FISH');
     });
 
     // 03/09 varies by year depending on Pascha proximity
@@ -1045,8 +1045,8 @@ describe('Fasting — Apostles Fast edge cases', () => {
         expect(getData(2026, 6, 29).fasting).toBe('NONE');
     });
 
-    it('2025: Apostles Fast Mon (Jun 16) = STRICT', () => {
-        expect(getData(2025, 6, 16).fasting).toBe('STRICT');
+    it('2025: Apostles Fast Mon (Jun 16) = OIL', () => {
+        expect(getData(2025, 6, 16).fasting).toBe('OIL');
     });
 
     it('2025: Apostles Fast Sat (Jun 21) = FISH', () => {
