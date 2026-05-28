@@ -5,10 +5,15 @@
   "main": "dist/index.js",
   "browser": "dist/orthodox-calendar-data.esm.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "data/"
+  ],
   "scripts": {
     "build": "tsc",
     "build:browser": "node build-browser.mjs",
     "build:all": "tsc && node build-browser.mjs",
+    "prepublishOnly": "npm run build:all",
     "test": "vitest run",
     "test:watch": "vitest",
     "cli": "tsc && node dist/cli.js",
@@ -17,6 +22,7 @@
     "cli:month": "tsc && node dist/cli.js month",
     "cli:year": "tsc && node dist/cli.js year",
     "generate": "tsc && node dist/cli.js year",
+    "pack": "npm pack --pack-destination out/",
     "clean": "rm -rf dist"
   },
   "keywords": [
@@ -26,14 +32,10 @@
     "feasts"
   ],
   "license": "UNLICENSED",
-  "private": true,
   "devDependencies": {
     "@types/node": "^25.6.0",
     "esbuild": "^0.28.0",
     "typescript": "5.7.3",
     "vitest": "^4.1.5"
-  },
-  "dependencies": {
-    "csv-parse": "5.6.0"
   }
 }
