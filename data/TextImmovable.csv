@@ -9,7 +9,7 @@ Date,Type,English,Greek
 01-03,Saint,Martyr Gordios,Γορδίου μάρτυρος
 01-03,Saint,Martyr Thomais,Θωμαΐδος μάρτυρος
 01-04,Saint,Synaxis of the 70 Apostles,Ἡ σύναξις τῶν 70 ἀποστόλων
-01-04,Saint,Ven. Theoctistos,Θεοκτίστου ὁσίου
+01-04,Saint,Ven. Theoktistos,Θεοκτίστου ὁσίου
 01-04,Saint,Ven. Nikiphoros the Leper,Νικηφόρου ὁσίου τοῦ Λεπροῦ
 01-05,Saint,Martyrs Theopemptos & Theonas,Θεοπέμπτου & Θεωνᾶ μαρτύρων
 01-05,Saint,Ven. Synclitiki,Συγκλητικῆς ὁσίας
@@ -20,7 +20,7 @@ Date,Type,English,Greek
 01-08,Saint,George the Chozebite,Γεωργίου τοῦ Χοζεβίτου
 01-08,Saint,Domnica of Constantinople,Δομνίκης ΚΠόλεως
 01-08,Saint,Ven. Agathon,Ἀγάθωνος ὁσίου
-01-09,Saint,Martyr Polyeuctos,Πολυεύκτου μάρτυρος
+01-09,Saint,Martyr Polyeuktos,Πολυεύκτου μάρτυρος
 01-09,Saint,Metropolitan Philip of Moscow,"Φιλίππου, μητροπολίτου Μόσχας"
 01-10,Saint,Gregory of Nyssa,Γρηγορίου Νύσσης
 01-10,Saint,"Dometian, bishop of Melitene","Δομετιανοῦ, ἐπ. Μελιτινῆς"
@@ -193,7 +193,7 @@ Date,Type,English,Greek
 04-05,Saint,Ven. Theodora of Thessalonica,"Θεοδώρας, ὁσίας τῆς Θεσσαλονίκης"
 04-06,Saint,"Eutychios, patriarch of Constantinople","Εὐτυχίου, Πατριάρχου ΚΠόλεως"
 04-06,Saint,Gregory of Sinai,Γρηγορίου τοῦ Σιναΐτου
-04-07,Saint,Martyr Calliopios,Καλλιοπίου μάρτυρος
+04-07,Saint,Martyr Kalliopios,Καλλιοπίου μάρτυρος
 04-07,Saint,Patriarch Tikhon of Moscow,Τύχωνος Πατριάρχου Μόσχας
 04-08,Saint,"Apostles Herodion, Agabos, Rufos, Asyncritos, Phlegon & Hermes of the 70","Ἡρωδίωνος, Ἀγάβου, Ρούφου, Ἀσυγκρίτου, Φλέγοντος & Ἑρμοῦ ἐκ τῶν 70 ἀπ."
 04-09,Saint,Martyr Eupsychios of Caesarea,Εὐψυχίου μάρτυρος
@@ -277,7 +277,7 @@ Date,Type,English,Greek
 05-22,Saint,Martyr Basiliscos,Βασιλίσκου μάρτυρος
 05-22,Saint,Commemoration of the Fathers of the 2nd Ecumenical Council,Μνήμη τῶν Πατέρων τῆς Β΄ Οἰκουμενικῆς Συνόδου
 05-23,Saint,"Michael the Confessor, bishop of Synnada","Μιχαὴλ ὁμολογητοῦ, ἐπ. Συννάδων"
-05-23,Saint,Myrrh-bearer Mary of Kleopas,Μαρίας μυροφόρου τοῦ Κλωπᾶ
+05-23,Saint,Myrrh-bearer Mary of Cleopas,Μαρίας μυροφόρου τοῦ Κλωπᾶ
 05-24,Saint,Ven. Symeon Stylite of the Wondrous Mountain,Συμεὼν ὁσ. τοῦ Θαυμαστορείτου
 05-24,Saint,Ven. Vincent of Lerins,"Βικεντίου ὁσ., τῆς Λερένης"
 05-25,Saint,3rd Finding of the Precious Head of St. John the Baptist,Γ΄ εὕρεσις τῆς τιμίας κεφαλῆς Ἰωάννου τοῦ Προδρόμου
@@ -306,7 +306,7 @@ Date,Type,English,Greek
 06-07,Saint,Hieromartyr Theodotos of Ancyra,Θεοδότου ἱερομάρτυρος Ἀγκύρας
 06-07,Saint,Martyr Zenaida,Ζηναΐδος μάρτυρος
 06-08,Saint,Translation of the relics of Great-martyr Theodore the General,Ἀνακομιδὴ τῶν λειψάνων Θεοδώρου τοῦ Στρατηλάτου
-06-08,Saint,Martyr Calliopi,Καλλιόπης μάρτυρος
+06-08,Saint,Martyr Kalliopi,Καλλιόπης μάρτυρος
 06-09,Saint,"Cyril, archbishop of Alexandria","Κυρίλλου, ἀρχιεπ. Ἀλεξανδρείας"
 06-09,Saint,Virgin-martyrs Thekla & 4 companions,Θέκλης & 4 παρθενομαρτύρων
 06-10,Saint,Martyrs Alexander & Antonina,Ἀλεξάνδρου & Ἀντωνίνης τῶν μαρτύρων
@@ -579,8 +579,8 @@ Date,Type,English,Greek
 10-23,Saint,"Apostle James, brother of the Lord, first bishop of Jerusalem","Ἰακώβου τοῦ Ἀδελφοθέου, πρώτου ἐπισκόπου Ἱεροσολύμων"
 10-24,Saint,Great-martyr Arethas & his companions,Ἀρέθα μεγαλομάρτυρος καὶ τῶν σὺν αὐτῷ
 10-24,Saint,Martyr Sebastiani,Σεβαστιανῆς μάρτυρος
-10-25,Saint,Martyrs Marcian & Martyrios,Ταβιθᾶς τῆς ἐλεήμονος
-10-25,Saint,Tabitha the Almsgiver,
+10-25,Saint,Martyrs Marcian & Martyrios,Μαρκιανού και Μαρτυρίου τῶν νοταρίων 
+10-25,Saint,Tabitha the Almsgiver,Ταβιθᾶς τῆς ἐλεήμονος
 10-26,Saint,Great-martyr Demetrios the Myrrhgusher,"Δημητρίου μεγαλομάρτυρος, τοῦ μυροβλύτου"
 10-27,Saint,Martyr Nestor,Νέστορος μάρτυρος
 10-27,Saint,Martyr Lupos,Λούππου μάρτυρος

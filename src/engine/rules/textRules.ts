@@ -68,7 +68,7 @@ function getSpecials(): TextSpecialEntry[] {
  * (same entry may land on multiple dates from different liturgical cycles).
  *
  * Also handles the St. George rule: if 04/23 falls before PASCHA+2 (Bright Tuesday),
- * the saint text from 04/23 is duplicated onto PASCHA+2.
+ * the first saint entry from 04/23 (St. George) is duplicated onto PASCHA+2.
  */
 export function buildMovableTextMap(year: number, refs: ReferencesContext, cal: CalendarSystem): Map<string, TextMovableEntry[]> {
     const map = new Map<string, TextMovableEntry[]>();
@@ -96,8 +96,8 @@ export function buildMovableTextMap(year: number, refs: ReferencesContext, cal: 
 }
 
 /**
- * If April 23 falls before Bright Tuesday (PASCHA+2), the saint text from 04/23
- * is shown again on PASCHA+2, prepended to any existing saint data for that date.
+ * If April 23 falls before Bright Tuesday (PASCHA+2), the first saint entry from
+ * 04/23 (St. George) is shown again on PASCHA+2, prepended to any existing saint data.
  */
 function applyStGeorgeRule(map: Map<string, TextMovableEntry[]>, year: number, refs: ResolvedReferences, cal: CalendarSystem): void {
     const pascha = refs.get('PASCHA');
@@ -114,23 +114,24 @@ function applyStGeorgeRule(map: Map<string, TextMovableEntry[]>, year: number, r
     const apr23Immovables = getImmovablesIndex().get('04-23');
     if (!apr23Immovables) return;
 
-    const saintEntries = apr23Immovables.filter(e => e.type === 'Saint');
-    if (saintEntries.length === 0) return;
+    // Only the first Type=Saint entry (St. George) is duplicated
+    const stGeorge = apr23Immovables.find(e => e.type === 'Saint');
+    if (!stGeorge) return;
 
-    // Add them to PASCHA+2's movable text map (as synthetic movable entries at the beginning)
+    // Add it to PASCHA+2's movable text map (as a synthetic movable entry at the beginning)
     const brightTuesMmdd = cal.getMMDD(brightTuesday);
     const existing = map.get(brightTuesMmdd) ?? [];
 
-    // Prepend saint entries (they go "at the beginning of" saint data)
-    const syntheticEntries: TextMovableEntry[] = saintEntries.map(e => ({
+    // Prepend the saint entry (it goes "at the beginning of" saint data)
+    const syntheticEntry: TextMovableEntry = {
         reference: 'PASCHA',
         offset: 2,
         type: 'Saint' as const,
-        english: e.english,
-        greek: e.greek,
-    }));
+        english: stGeorge.english,
+        greek: stGeorge.greek,
+    };
 
-    map.set(brightTuesMmdd, [...syntheticEntries, ...existing]);
+    map.set(brightTuesMmdd, [syntheticEntry, ...existing]);
 }
 
 /**

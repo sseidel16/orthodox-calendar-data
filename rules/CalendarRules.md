@@ -224,7 +224,7 @@ Entries in *data/TextSpecial.csv*, termed “specials”, are added based on uni
 * The “Daylight Savings Time ends. Turn clocks back 1 hour” mainText.note is on the first Sunday in November  
 * The “Daylight Savings Time begins. Turn clocks forward 1 hour” mainText.note is on the second Sunday in March
 
-If 4/23 falls before PASCHA+2 /\* Bright Tuesday \*/, the main text Type=Saint from 04/23 is shown again on PASCHA+2, at the beginning of, and in addition to, any main text saint data for that date.
+If 4/23 falls before PASCHA+2 /\* Bright Tuesday \*/, the first entry from immovable text on 04/23 that is Type=Saint /\*St George\*/ is shown again on PASCHA+2, at the beginning of, and in addition to, any main text saint data for that date.
 
 When immovables coincide with movables or specials, both are celebrated together (combined), with limited exceptions. The immovables on 01/06, 08/06, 09/14 and 12/25 eliminate all other movables or specials that may coincide with them. Ordering within lists should be in the order they appear in the data sheet, with overall ordering of movables, immovables, specials.
 

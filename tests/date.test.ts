@@ -254,10 +254,12 @@ describe('New calendar text rules', () => {
         expect(result.note?.[0]).toContain('Daylight Savings Time begins');
     });
 
-    it('St. George rule: 2024 Apr 23 saint duplicated to Bright Tuesday', () => {
+    it('St. George rule: 2024 only first 04/23 saint (St George) duplicated to Bright Tuesday', () => {
         // 2024: Pascha=May 5, Apr 23 is before PASCHA+2 (May 7)
+        // Only the first Type=Saint entry (St George) is duplicated, not Anatolios & Protoleon
         const brightTues = getData(2024, 5, 7);
         expect(brightTues.saint?.[0]).toContain('Great-martyr George');
+        expect(brightTues.saint?.some(s => s.includes('Anatolios'))).toBe(false);
     });
 
     it('St. George rule: 2026 Apr 23 NOT duplicated (after PASCHA+2)', () => {
