@@ -1,6 +1,6 @@
 {
   "name": "@orthodox-tools/calendar-data",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates Orthodox calendar JSON data from CSV source files",
   "main": "dist/index.js",
   "browser": "dist/orthodox-calendar-data.esm.js",
